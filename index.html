@@ -2,6 +2,303 @@
   <head>
   <title>Khojio</title>
 </head>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voice Assistant</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background:
+            radial-gradient(circle at top, #243b75 0%, #10172e 35%, #070b16 75%);
+        color: white;
+        padding: 20px;
+    }
+
+    .assistant {
+        width: 100%;
+        max-width: 700px;
+        min-height: 620px;
+        padding: 35px;
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 30px;
+        background: rgba(255,255,255,.07);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 30px 80px rgba(0,0,0,.45);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .logo {
+        width: 65px;
+        height: 65px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        margin-bottom: 18px;
+        background: linear-gradient(135deg, #6c63ff, #00c6ff);
+        box-shadow: 0 10px 30px rgba(0,198,255,.25);
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        color: #aeb7d0;
+        font-size: 16px;
+        margin-bottom: 45px;
+    }
+
+    .mic-area {
+        position: relative;
+        width: 220px;
+        height: 220px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 35px;
+    }
+
+    .ring {
+        position: absolute;
+        width: 190px;
+        height: 190px;
+        border: 2px solid rgba(0,198,255,.3);
+        border-radius: 50%;
+    }
+
+    .ring:nth-child(2) {
+        width: 220px;
+        height: 220px;
+        border-color: rgba(108,99,255,.2);
+    }
+
+    .mic-btn {
+        position: relative;
+        z-index: 5;
+        width: 120px;
+        height: 120px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        color: white;
+        font-size: 42px;
+        background: linear-gradient(145deg, #6c63ff, #00aeea);
+        box-shadow:
+            0 15px 40px rgba(0,174,234,.3),
+            inset 0 2px 5px rgba(255,255,255,.3);
+        transition: .25s;
+    }
+
+    .mic-btn:hover {
+        transform: scale(1.06);
+    }
+
+    .mic-btn.listening {
+        animation: pulse 1.2s infinite;
+        background: linear-gradient(145deg, #ff416c, #ff4b2b);
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255,65,108,.5);
+        }
+        70% {
+            box-shadow: 0 0 0 35px rgba(255,65,108,0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(255,65,108,0);
+        }
+    }
+
+    .status {
+        color: #8fdfff;
+        font-size: 15px;
+        min-height: 22px;
+        margin-bottom: 20px;
+    }
+
+    .result-box {
+        width: 100%;
+        min-height: 130px;
+        padding: 22px;
+        border-radius: 18px;
+        text-align: left;
+        background: rgba(0,0,0,.22);
+        border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .result-title {
+        color: #8994b0;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
+    }
+
+    #result {
+        color: #f5f7ff;
+        font-size: 18px;
+        line-height: 1.6;
+        word-wrap: break-word;
+    }
+
+    .bottom {
+        margin-top: auto;
+        padding-top: 30px;
+        color: #727c98;
+        font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+        .assistant {
+            min-height: 580px;
+            padding: 25px 18px;
+            border-radius: 24px;
+        }
+
+        h1 {
+            font-size: 29px;
+        }
+
+        .subtitle {
+            margin-bottom: 30px;
+        }
+
+        .mic-area {
+            transform: scale(.85);
+            margin: 0 0 20px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="assistant">
+
+    <div class="logo">🎙️</div>
+
+    <h1>Voice Assistant</h1>
+    <p class="subtitle">
+        Press the microphone and start speaking
+    </p>
+
+    <div class="mic-area">
+        <div class="ring"></div>
+        <div class="ring"></div>
+
+        <button class="mic-btn" id="micBtn" title="Start microphone">
+            🎤
+        </button>
+    </div>
+
+    <div class="status" id="status">
+        Click the microphone to start
+    </div>
+
+    <div class="result-box">
+        <div class="result-title">Your Voice</div>
+        <div id="result">
+            Your speech will appear here...
+        </div>
+    </div>
+
+    <div class="bottom">
+        Voice Assistant • HTML / CSS / JavaScript
+    </div>
+
+</div>
+
+<script>
+    const micBtn = document.getElementById("micBtn");
+    const status = document.getElementById("status");
+    const result = document.getElementById("result");
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+        status.textContent =
+            "Speech recognition is not supported in this browser.";
+        micBtn.disabled = true;
+    } else {
+
+        const recognition = new SpeechRecognition();
+
+        recognition.continuous = false;
+        recognition.interimResults = true;
+        recognition.lang = "en-US";
+
+        micBtn.addEventListener("click", () => {
+            try {
+                recognition.start();
+            } catch (error) {
+                console.log(error);
+            }
+        });
+
+        recognition.onstart = () => {
+            micBtn.classList.add("listening");
+            micBtn.innerHTML = "⏹️";
+            status.textContent = "Listening... Speak now";
+        };
+
+        recognition.onresult = (event) => {
+
+            let transcript = "";
+
+            for (
+                let i = event.resultIndex;
+                i < event.results.length;
+                i++
+            ) {
+                transcript += event.results[i][0].transcript;
+            }
+
+            result.textContent = transcript;
+        };
+
+        recognition.onend = () => {
+            micBtn.classList.remove("listening");
+            micBtn.innerHTML = "🎤";
+            status.textContent = "Click the microphone to speak again";
+        };
+
+        recognition.onerror = (event) => {
+            micBtn.classList.remove("listening");
+            micBtn.innerHTML = "🎤";
+
+            if (event.error === "not-allowed") {
+                status.textContent =
+                    "Microphone permission was denied.";
+            } else {
+                status.textContent =
+                    "Something went wrong. Try again.";
+            }
+        };
+    }
+</script>
   <body>
 <img src="logo.png" alt="Khojio Logo" width="150">
     <script async src="https://cse.google.com/cse.js?cx=93d75dd86436c4d96">
