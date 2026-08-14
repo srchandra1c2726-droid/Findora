@@ -160,43 +160,7 @@
     const micBtn = document.getElementById('mic-btn');
     const customInput = document.getElementById('custom-search-input');
 
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-
-      recognition.lang = 'hi-IN'; // Default Hindi (Engish ke liye 'en-US' kar sakte hain)
-      recognition.continuous = false;
-
-      micBtn.addEventListener('click', () => {
-        recognition.start();
-        micBtn.classList.add('listening');
-      });
-
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        customInput.value = transcript;
-        micBtn.classList.remove('listening');
-
-        // Google CSE input field me text set karke search trigger karna
-        const cseInput = document.querySelector('input.gsc-input');
-        const cseButton = document.querySelector('button.gsc-search-button');
-        if (cseInput && cseButton) {
-          cseInput.value = transcript;
-          cseButton.click();
-        }
-      };
-
-      recognition.onerror = () => {
-        micBtn.classList.remove('listening');
-      };
-
-      recognition.onend = () => {
-        micBtn.classList.remove('listening');
-      };
-    } else {
-      micBtn.style.display = 'none'; // Browser support na hone par hide kar dega
-    }
-  </script>
+    
   <!DOCTYPE html>
 <html lang="hi">
 <head>
