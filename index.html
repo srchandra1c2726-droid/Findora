@@ -1,611 +1,2063 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+<title>Khojio.in - Search Engine</title>
 
-  <title>Khojio.in - Search Everything</title>
+<meta name="description" content="Khojio.in - Fast, simple and private search.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#ffffff">
 
-  <meta name="description"
-        content="Khojio.in - Fast, simple and smart search engine. Search the web quickly with voice search.">
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-  <meta name="keywords"
-        content="Khojio, Khojio.in, search engine, web search, voice search">
+:root{
+  --bg:#fff;
+  --card:#fff;
+  --text:#202124;
+  --muted:#70757a;
+  --border:#dadce0;
+  --hover:#f1f3f4;
+  --blue:#2563eb;
+  --danger:#dc2626;
+  --shadow:0 8px 30px rgba(0,0,0,.10);
+}
 
-  <meta name="robots" content="index, follow">
+body.dark{
+  --bg:#0f172a;
+  --card:#172033;
+  --text:#f8fafc;
+  --muted:#aab3c2;
+  --border:#334155;
+  --hover:#253247;
+  --shadow:0 8px 30px rgba(0,0,0,.35);
+}
 
-  <link rel="canonical" href="https://khojio.in/">
+body{
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  transition:.2s;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+/* HEADER */
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #ffffff;
-      color: #202124;
-      min-height: 100vh;
-    }
+header{
+  height:70px;
+  padding:0 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+}
 
-    /* ---------- TOP BAR ---------- */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--text);
+  text-decoration:none;
+  font-size:20px;
+  font-weight:700;
+}
 
-    header {
-      width: 100%;
-      padding: 18px 25px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+.logo{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-weight:800;
+  background:linear-gradient(135deg,#2563eb,#7c3aed);
+}
 
-    /* ---------- UNIQUE LOGO ---------- */
+.header-buttons{
+  display:flex;
+  gap:8px;
+}
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      text-decoration: none;
-      user-select: none;
-    }
+.icon-btn{
+  width:40px;
+  height:40px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+  border-radius:50%;
+  cursor:pointer;
+  font-size:17px;
+}
 
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 13px;
-      background: linear-gradient(135deg, #16a085, #00b894);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      box-shadow: 0 5px 15px rgba(0, 184, 148, 0.20);
-    }
+.icon-btn:hover{
+  background:var(--hover);
+}
 
-    /* Search glass inside logo */
-    .logo-icon::before {
-      content: "";
-      width: 14px;
-      height: 14px;
-      border: 3px solid white;
-      border-radius: 50%;
-      position: absolute;
-      top: 9px;
-      left: 9px;
-    }
+/* MAIN */
 
-    .logo-icon::after {
-      content: "";
-      width: 10px;
-      height: 3px;
-      background: white;
-      border-radius: 3px;
-      transform: rotate(45deg);
-      position: absolute;
-      top: 25px;
-      left: 23px;
-    }
+main{
+  max-width:900px;
+  margin:auto;
+  padding:65px 20px;
+}
 
-    .logo-text {
-      font-size: 23px;
-      font-weight: 800;
-      letter-spacing: -0.7px;
-      color: #202124;
-    }
+.hero{
+  text-align:center;
+  margin-bottom:30px;
+}
 
-    .logo-text span {
-      color: #00a884;
-    }
+.hero-logo{
+  width:76px;
+  height:76px;
+  margin:auto;
+  margin-bottom:15px;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:32px;
+  font-weight:800;
+  background:linear-gradient(135deg,#2563eb,#7c3aed);
+  box-shadow:0 12px 35px rgba(37,99,235,.22);
+}
 
-    /* ---------- MAIN ---------- */
+.hero h1{
+  font-size:35px;
+}
 
-    main {
-      min-height: calc(100vh - 145px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      margin-top: -45px;
-    }
+.hero p{
+  margin-top:8px;
+  color:var(--muted);
+}
 
-    .brand-title {
-      font-size: clamp(42px, 8vw, 78px);
-      font-weight: 800;
-      letter-spacing: -4px;
-      margin-bottom: 10px;
-      color: #202124;
-    }
+/* SEARCH */
 
-    .brand-title span {
-      color: #00a884;
-    }
+.search-wrapper{
+  position:relative;
+  max-width:700px;
+  margin:auto;
+}
 
-    .tagline {
-      font-size: 15px;
-      color: #70757a;
-      margin-bottom: 28px;
-      text-align: center;
-    }
+.search-box{
+  height:58px;
+  border:1px solid var(--border);
+  border-radius:30px;
+  display:flex;
+  align-items:center;
+  padding:5px 8px 5px 18px;
+  background:var(--bg);
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
 
-    /* ---------- SEARCH ---------- */
+.search-box:focus-within{
+  border-color:var(--blue);
+}
 
-    .search-area {
-      width: 100%;
-      max-width: 650px;
-    }
+.search-icon{
+  font-size:19px;
+  margin-right:10px;
+}
 
-    .search-box {
-      width: 100%;
-      height: 54px;
-      border: 1px solid #dfe1e5;
-      border-radius: 28px;
-      display: flex;
-      align-items: center;
-      padding: 0 14px 0 18px;
-      box-shadow: 0 2px 8px rgba(60, 64, 67, 0.08);
-      transition: 0.2s ease;
-      background: white;
-    }
+#searchInput{
+  flex:1;
+  min-width:0;
+  border:none;
+  outline:none;
+  background:transparent;
+  color:var(--text);
+  font-size:16px;
+}
 
-    .search-box:hover,
-    .search-box:focus-within {
-      box-shadow: 0 3px 14px rgba(60, 64, 67, 0.15);
-      border-color: transparent;
-    }
+.search-btn{
+  width:44px;
+  height:44px;
+  border:none;
+  border-radius:50%;
+  background:var(--blue);
+  color:#fff;
+  cursor:pointer;
+  font-size:17px;
+}
 
-    .search-icon {
-      font-size: 20px;
-      color: #777;
-      margin-right: 10px;
-    }
+.small-btn{
+  width:38px;
+  height:38px;
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  border-radius:50%;
+  cursor:pointer;
+}
 
-    #searchInput {
-      flex: 1;
-      height: 100%;
-      border: none;
-      outline: none;
-      font-size: 16px;
-      color: #202124;
-      background: transparent;
-      min-width: 0;
-    }
+.small-btn:hover{
+  background:var(--hover);
+}
 
-    #searchInput::placeholder {
-      color: #8a8a8a;
-    }
+#clearSearch{
+  display:none;
+}
 
-    /* ---------- MIC ---------- */
+/* SUGGESTIONS */
 
-    .mic-btn {
-      border: none;
-      background: transparent;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 21px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.2s;
-      margin-right: 3px;
-    }
+.suggestions{
+  display:none;
+  position:absolute;
+  top:66px;
+  left:0;
+  right:0;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:15px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  z-index:30;
+}
 
-    .mic-btn:hover {
-      background: #f1f3f4;
-    }
+.suggestion{
+  padding:13px 18px;
+  cursor:pointer;
+  display:flex;
+  gap:10px;
+}
 
-    .mic-btn.listening {
-      background: #e8f5f1;
-      animation: pulse 1.2s infinite;
-    }
+.suggestion:hover{
+  background:var(--hover);
+}
 
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(0, 168, 132, 0.35);
-      }
+/* QUICK */
 
-      70% {
-        box-shadow: 0 0 0 10px rgba(0, 168, 132, 0);
-      }
+.quick{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
 
-      100% {
-        box-shadow: 0 0 0 0 rgba(0, 168, 132, 0);
-      }
-    }
+.quick button{
+  padding:9px 15px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:var(--bg);
+  color:var(--text);
+  cursor:pointer;
+}
 
-    /* ---------- SEARCH BUTTON ---------- */
+/* CARDS */
 
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 22px;
-    }
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:65px;
+}
 
-    .search-btn,
-    .lucky-btn {
-      border: 1px solid #f1f1f1;
-      background: #f8f9fa;
-      color: #3c4043;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+.card{
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:var(--card);
+  padding:22px;
+  text-align:center;
+}
 
-    .search-btn:hover,
-    .lucky-btn:hover {
-      border-color: #dadce0;
-      box-shadow: 0 1px 2px rgba(60, 64, 67, 0.15);
-    }
+.card-icon{
+  font-size:28px;
+  margin-bottom:10px;
+}
 
-    .search-btn {
-      background: #00a884;
-      color: white;
-      border-color: #00a884;
-    }
+.card h3{
+  font-size:16px;
+  margin-bottom:7px;
+}
 
-    .search-btn:hover {
-      background: #008f70;
-      border-color: #008f70;
-    }
+.card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
 
-    /* ---------- INFO ---------- */
+/* PANELS */
 
-    .quick-info {
-      margin-top: 30px;
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-      justify-content: center;
-      color: #777;
-      font-size: 13px;
-    }
+.panel{
+  display:none;
+  position:fixed;
+  top:70px;
+  right:20px;
+  width:390px;
+  max-width:calc(100% - 30px);
+  max-height:calc(100vh - 90px);
+  overflow:auto;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  z-index:100;
+}
 
-    .quick-info span {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+.panel.show{
+  display:block;
+}
 
-    /* ---------- FOOTER ---------- */
+.panel-header{
+  padding:18px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
 
-    footer {
-      width: 100%;
-      min-height: 55px;
-      background: #f8f9fa;
-      border-top: 1px solid #eeeeee;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 25px;
-      color: #70757a;
-      font-size: 13px;
-    }
+.panel-header h2{
+  font-size:18px;
+}
 
-    footer a {
-      color: #70757a;
-      text-decoration: none;
-      margin-left: 18px;
-    }
+.close{
+  border:none;
+  background:transparent;
+  color:var(--text);
+  cursor:pointer;
+  font-size:19px;
+}
 
-    footer a:hover {
-      color: #00a884;
-    }
+/* TABS */
 
-    /* ---------- MOBILE ---------- */
+.tabs{
+  display:flex;
+  border-bottom:1px solid var(--border);
+}
 
-    @media (max-width: 600px) {
+.tab{
+  flex:1;
+  padding:12px 5px;
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+}
 
-      header {
-        padding: 14px 16px;
-      }
+.tab.active{
+  color:var(--blue);
+  border-bottom:2px solid var(--blue);
+}
 
-      .logo-icon {
-        width: 35px;
-        height: 35px;
-        border-radius: 11px;
-      }
+/* HISTORY */
 
-      .logo-text {
-        font-size: 20px;
-      }
+.history-list{
+  padding:8px;
+}
 
-      main {
-        min-height: calc(100vh - 125px);
-        margin-top: -30px;
-        padding: 15px;
-      }
+.history-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px;
+  border-radius:10px;
+}
 
-      .brand-title {
-        font-size: 52px;
-        letter-spacing: -3px;
-      }
+.history-item:hover{
+  background:var(--hover);
+}
 
-      .tagline {
-        font-size: 14px;
-        margin-bottom: 22px;
-      }
+.history-text{
+  flex:1;
+  min-width:0;
+}
 
-      .search-box {
-        height: 52px;
-      }
+.history-text strong{
+  display:block;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-size:14px;
+}
 
-      .buttons {
-        margin-top: 18px;
-      }
+.history-text small{
+  color:var(--muted);
+  font-size:11px;
+}
 
-      .quick-info {
-        gap: 12px;
-        margin-top: 24px;
-      }
+.delete-one{
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:16px;
+}
 
-      footer {
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
-      }
+.delete-one:hover{
+  color:var(--danger);
+}
 
-      footer a {
-        margin: 0 7px;
-      }
-    }
-  </style>
+.empty{
+  padding:30px 15px;
+  text-align:center;
+  color:var(--muted);
+}
+
+/* PANEL ACTIONS */
+
+.actions{
+  padding:12px;
+  display:flex;
+  gap:8px;
+  border-top:1px solid var(--border);
+}
+
+.action-btn{
+  flex:1;
+  padding:10px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--bg);
+  color:var(--text);
+  cursor:pointer;
+}
+
+.action-btn.danger{
+  color:var(--danger);
+  border-color:#ef4444;
+}
+
+.action-btn:hover{
+  background:var(--hover);
+}
+
+/* SECURITY */
+
+.security{
+  padding:17px;
+}
+
+.security-row{
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.security-row:last-child{
+  border-bottom:none;
+}
+
+.security-title{
+  font-weight:bold;
+  font-size:14px;
+}
+
+.security-desc{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+  line-height:1.4;
+}
+
+.status{
+  font-size:12px;
+  color:#16a34a;
+  white-space:nowrap;
+}
+
+/* TOGGLE */
+
+.toggle{
+  width:43px;
+  height:24px;
+  background:#94a3b8;
+  border-radius:20px;
+  cursor:pointer;
+  position:relative;
+}
+
+.toggle:after{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  top:3px;
+  left:3px;
+  background:white;
+  border-radius:50%;
+  transition:.2s;
+}
+
+.toggle.active{
+  background:var(--blue);
+}
+
+.toggle.active:after{
+  left:22px;
+}
+
+/* VOICE */
+
+.voice-status{
+  position:fixed;
+  left:50%;
+  bottom:30px;
+  transform:translate(-50%,20px);
+  opacity:0;
+  background:var(--card);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  padding:12px 18px;
+  border-radius:25px;
+  z-index:200;
+  transition:.2s;
+}
+
+.voice-status.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid var(--border);
+  padding:20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  header{
+    padding:0 14px;
+  }
+
+  .brand span{
+    display:none;
+  }
+
+  main{
+    padding:45px 14px;
+  }
+
+  .hero h1{
+    font-size:29px;
+  }
+
+  .hero-logo{
+    width:65px;
+    height:65px;
+    font-size:28px;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+    margin-top:45px;
+  }
+
+  .panel{
+    left:10px;
+    right:10px;
+    width:auto;
+    max-width:none;
+  }
+
+  #searchInput{
+    font-size:14px;
+  }
+
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
+<!-- HEADER -->
 
-    <a href="/" class="logo" aria-label="Khojio.in Home">
+<header>
 
-      <div class="logo-icon"></div>
+  <a href="#" class="brand">
+    <div class="logo">K</div>
+    <span>Khojio.in</span>
+  </a>
 
-      <div class="logo-text">
-        khojio<span>.in</span>
+  <div class="header-buttons">
+
+    <button
+      class="icon-btn"
+      id="historyBtn"
+      title="History">
+      🕘
+    </button>
+
+    <button
+      class="icon-btn"
+      id="securityBtn"
+      title="Security">
+      🛡️
+    </button>
+
+    <button
+      class="icon-btn"
+      id="settingsBtn"
+      title="Settings">
+      ⚙️
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- SETTINGS -->
+
+<div class="panel" id="settingsPanel">
+
+  <div class="panel-header">
+    <h2>Settings</h2>
+
+    <button class="close"
+      onclick="closePanels()">✕</button>
+  </div>
+
+  <div class="security">
+
+    <div class="security-row">
+
+      <div>
+        <div class="security-title">
+          Dark Mode
+        </div>
+
+        <div class="security-desc">
+          Website ka dark appearance.
+        </div>
       </div>
 
-    </a>
+      <div
+        class="toggle"
+        id="darkToggle">
+      </div>
 
-  </header>
+    </div>
+
+    <div class="security-row">
+
+      <div>
+        <div class="security-title">
+          Save Search History
+        </div>
+
+        <div class="security-desc">
+          Searches ko browser mein save kare.
+        </div>
+      </div>
+
+      <div
+        class="toggle active"
+        id="historyToggle">
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
 
-  <!-- MAIN SEARCH -->
-  <main>
+<!-- SECURITY -->
 
-    <h1 class="brand-title">
-      khojio<span>.in</span>
-    </h1>
+<div class="panel" id="securityPanel">
 
-    <p class="tagline">
-      Search the web. Find what matters.
+  <div class="panel-header">
+
+    <h2>🛡️ Security & Privacy</h2>
+
+    <button
+      class="close"
+      onclick="closePanels()">
+      ✕
+    </button>
+
+  </div>
+
+  <div class="security">
+
+    <div class="security-row">
+
+      <div>
+        <div class="security-title">
+          Local History
+        </div>
+
+        <div class="security-desc">
+          History isi browser ke local storage mein
+          save hoti hai.
+        </div>
+      </div>
+
+      <div class="status">
+        Protected
+      </div>
+
+    </div>
+
+    <div class="security-row">
+
+      <div>
+        <div class="security-title">
+          Search Data
+        </div>
+
+        <div class="security-desc">
+          Search history ko kabhi bhi delete kar sakte hain.
+        </div>
+      </div>
+
+      <div class="status">
+        Private
+      </div>
+
+    </div>
+
+    <div class="security-row">
+
+      <div>
+        <div class="security-title">
+          Downloads
+        </div>
+
+        <div class="security-desc">
+          Khojio ke dwara record ki gayi download list.
+        </div>
+      </div>
+
+      <div class="status">
+        Local
+      </div>
+
+    </div>
+
+    <div class="security-row">
+
+      <div>
+        <div class="security-title">
+          Clear Everything
+        </div>
+
+        <div class="security-desc">
+          Search aur download records delete kare.
+        </div>
+      </div>
+
+      <button
+        class="action-btn danger"
+        onclick="clearEverything()">
+        Clear
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- HISTORY -->
+
+<div class="panel" id="historyPanel">
+
+  <div class="panel-header">
+
+    <h2>🕘 History</h2>
+
+    <button
+      class="close"
+      onclick="closePanels()">
+      ✕
+    </button>
+
+  </div>
+
+
+  <div class="tabs">
+
+    <button
+      class="tab active"
+      id="searchHistoryTab"
+      onclick="showHistoryType('search')">
+      🔎 Search
+    </button>
+
+    <button
+      class="tab"
+      id="downloadHistoryTab"
+      onclick="showHistoryType('download')">
+      📥 Downloads
+    </button>
+
+  </div>
+
+
+  <div
+    class="history-list"
+    id="historyList">
+  </div>
+
+
+  <div class="actions">
+
+    <button
+      class="action-btn"
+      onclick="clearCurrentHistory()">
+      🧹 Clear
+    </button>
+
+    <button
+      class="action-btn danger"
+      onclick="clearEverything()">
+      🗑️ Clear Everything
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<main>
+
+  <section class="hero">
+
+    <div class="hero-logo">
+      K
+    </div>
+
+    <h1>Khojio.in</h1>
+
+    <p>
+      Khojo. Jaano. Aage Badho.
     </p>
 
+  </section>
 
-    <div class="search-area">
 
-      <div class="search-box">
+  <!-- SEARCH -->
 
-        <span class="search-icon">⌕</span>
+  <div class="search-wrapper">
 
-        <input
-          type="search"
-          id="searchInput"
-          placeholder="Search Khojio..."
-          autocomplete="off"
-          aria-label="Search Khojio"
-        >
+    <form
+      class="search-box"
+      id="searchForm">
 
-        <button
-          class="mic-btn"
-          id="micBtn"
-          title="Voice Search"
-          aria-label="Voice Search">
-          🎙️
-        </button>
+      <span class="search-icon">
+        🔍
+      </span>
 
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Kuch bhi khojiye..."
+        autocomplete="off"
+        spellcheck="false">
+
+      <button
+        type="button"
+        class="small-btn"
+        id="clearSearch">
+        ✕
+      </button>
+
+      <button
+        type="button"
+        class="small-btn"
+        id="micBtn"
+        title="Voice Search">
+        🎤
+      </button>
+
+      <button
+        type="submit"
+        class="search-btn">
+        ➜
+      </button>
+
+    </form>
+
+
+    <div
+      class="suggestions"
+      id="suggestions">
+    </div>
+
+  </div>
+
+
+  <!-- QUICK -->
+
+  <div class="quick">
+
+    <button data-search="latest news">
+      📰 News
+    </button>
+
+    <button data-search="weather today">
+      ☀️ Weather
+    </button>
+
+    <button data-search="India">
+      🇮🇳 India
+    </button>
+
+    <button data-search="technology">
+      💻 Technology
+    </button>
+
+  </div>
+
+
+  <!-- FEATURES -->
+
+  <section class="cards">
+
+    <div class="card">
+
+      <div class="card-icon">
+        ⚡
       </div>
 
+      <h3>Fast Search</h3>
 
-      <div class="buttons">
+      <p>
+        Simple aur fast search experience.
+      </p>
 
-        <button
-          class="search-btn"
-          onclick="performSearch()">
-          Search
-        </button>
+    </div>
 
-        <button
-          class="lucky-btn"
-          onclick="performSearch()">
-          Khojio Search
-        </button>
 
+    <div class="card">
+
+      <div class="card-icon">
+        🎤
       </div>
 
-    </div>
+      <h3>Voice Search</h3>
 
-
-    <div class="quick-info">
-
-      <span>⚡ Fast Search</span>
-      <span>🎙️ Voice Search</span>
-      <span>📱 Mobile Friendly</span>
+      <p>
+        Bolkar search karne ki facility.
+      </p>
 
     </div>
 
-  </main>
 
+    <div class="card">
 
-  <!-- FOOTER -->
-  <footer>
+      <div class="card-icon">
+        🛡️
+      </div>
 
-    <div>
-      © 2026 khojio.in
+      <h3>Privacy</h3>
+
+      <p>
+        History aur privacy controls aapke paas.
+      </p>
+
     </div>
 
-    <div>
-      <a href="#">About</a>
-      <a href="#">Privacy</a>
-      <a href="#">Contact</a>
-    </div>
+  </section>
 
-  </footer>
+</main>
 
 
-  <script>
+<!-- VOICE STATUS -->
 
-    const searchInput =
-      document.getElementById("searchInput");
+<div
+  class="voice-status"
+  id="voiceStatus">
+  🎤 Sun raha hoon...
+</div>
 
-    const micBtn =
-      document.getElementById("micBtn");
+
+<!-- FOOTER -->
+
+<footer>
+
+  © 2026 Khojio.in
+
+  <br><br>
+
+  Search • History • Downloads • Security • Privacy
+
+</footer>
 
 
-    /* SEARCH */
+<script>
 
-    function performSearch() {
+/* ================================
+   STORAGE
+================================ */
 
-      const query =
-        searchInput.value.trim();
+const SEARCH_KEY =
+  "khojio_search_history";
 
-      if (!query) {
+const DOWNLOAD_KEY =
+  "khojio_download_history";
 
-        searchInput.focus();
+const DARK_KEY =
+  "khojio_dark_mode";
 
-        return;
+const SAVE_HISTORY_KEY =
+  "khojio_save_history";
 
-      }
 
-      /*
-       * Yahan apna actual search URL
-       * baad mein connect kar sakte ho.
-       *
-       * Abhi Google search open hoga.
-       */
+function getData(key){
 
-      const url =
-        "https://www.google.com/search?q="
-        + encodeURIComponent(query);
+  try{
 
-      window.location.href = url;
+    return JSON.parse(
+      localStorage.getItem(key)
+    ) || [];
+
+  }catch(e){
+
+    return [];
+
+  }
+
+}
+
+
+function saveData(key,data){
+
+  localStorage.setItem(
+    key,
+    JSON.stringify(data)
+  );
+
+}
+
+
+/* ================================
+   ELEMENTS
+================================ */
+
+const searchForm =
+  document.getElementById("searchForm");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+const clearSearch =
+  document.getElementById("clearSearch");
+
+const micBtn =
+  document.getElementById("micBtn");
+
+const suggestions =
+  document.getElementById("suggestions");
+
+const historyPanel =
+  document.getElementById("historyPanel");
+
+const securityPanel =
+  document.getElementById("securityPanel");
+
+const settingsPanel =
+  document.getElementById("settingsPanel");
+
+const historyList =
+  document.getElementById("historyList");
+
+const voiceStatus =
+  document.getElementById("voiceStatus");
+
+const darkToggle =
+  document.getElementById("darkToggle");
+
+const historyToggle =
+  document.getElementById("historyToggle");
+
+
+let currentHistoryType = "search";
+
+
+/* ================================
+   PANELS
+================================ */
+
+function closePanels(){
+
+  historyPanel.classList.remove("show");
+
+  securityPanel.classList.remove("show");
+
+  settingsPanel.classList.remove("show");
+
+}
+
+
+function openPanel(panel){
+
+  closePanels();
+
+  panel.classList.add("show");
+
+}
+
+
+/* HISTORY BUTTON */
+
+document
+  .getElementById("historyBtn")
+  .addEventListener("click",function(){
+
+    openPanel(historyPanel);
+
+    renderHistory();
+
+  });
+
+
+/* SECURITY BUTTON */
+
+document
+  .getElementById("securityBtn")
+  .addEventListener("click",function(){
+
+    openPanel(securityPanel);
+
+  });
+
+
+/* SETTINGS BUTTON */
+
+document
+  .getElementById("settingsBtn")
+  .addEventListener("click",function(){
+
+    openPanel(settingsPanel);
+
+  });
+
+
+/* ================================
+   SEARCH
+================================ */
+
+function performSearch(query){
+
+  query = query.trim();
+
+  if(!query){
+
+    searchInput.focus();
+
+    return;
+
+  }
+
+
+  const saveHistory =
+    localStorage.getItem(
+      SAVE_HISTORY_KEY
+    ) !== "false";
+
+
+  if(saveHistory){
+
+    let history =
+      getData(SEARCH_KEY);
+
+
+    history.unshift({
+
+      text:query,
+
+      time:new Date().toLocaleString(
+        "hi-IN"
+      )
+
+    });
+
+
+    /* duplicate remove */
+
+    const seen = new Set();
+
+    history =
+      history.filter(item => {
+
+        if(seen.has(item.text)){
+          return false;
+        }
+
+        seen.add(item.text);
+
+        return true;
+
+      });
+
+
+    /* last 100 */
+
+    history =
+      history.slice(0,100);
+
+
+    saveData(
+      SEARCH_KEY,
+      history
+    );
+
+  }
+
+
+  /*
+    Abhi Google search.
+    Baad mein Khojio API yahan connect
+    ki ja sakti hai.
+  */
+
+  window.location.href =
+    "https://www.google.com/search?q=" +
+    encodeURIComponent(query);
+
+}
+
+
+searchForm.addEventListener(
+  "submit",
+  function(e){
+
+    e.preventDefault();
+
+    performSearch(
+      searchInput.value
+    );
+
+  }
+);
+
+
+/* ================================
+   CLEAR SEARCH INPUT
+================================ */
+
+searchInput.addEventListener(
+  "input",
+  function(){
+
+    if(searchInput.value.trim()){
+
+      clearSearch.style.display =
+        "block";
+
+      showSuggestions(
+        searchInput.value
+      );
+
+    }else{
+
+      clearSearch.style.display =
+        "none";
+
+      hideSuggestions();
 
     }
 
+  }
+);
 
-    /* ENTER KEY */
 
-    searchInput.addEventListener(
-      "keydown",
-      function(event) {
+clearSearch.addEventListener(
+  "click",
+  function(){
 
-        if (event.key === "Enter") {
+    searchInput.value = "";
 
-          performSearch();
+    clearSearch.style.display =
+      "none";
 
-        }
+    hideSuggestions();
+
+    searchInput.focus();
+
+  }
+);
+
+
+/* ================================
+   SUGGESTIONS
+================================ */
+
+const suggestionsData = [
+
+  "Khojio",
+  "Khojio India",
+  "latest news",
+  "weather today",
+  "India news",
+  "technology news",
+  "online search",
+  "Hindi news"
+
+];
+
+
+function showSuggestions(value){
+
+  const text =
+    value.toLowerCase().trim();
+
+  if(!text){
+
+    hideSuggestions();
+
+    return;
+
+  }
+
+
+  const results =
+    suggestionsData
+    .filter(item =>
+      item.toLowerCase()
+      .includes(text)
+    )
+    .slice(0,6);
+
+
+  if(!results.length){
+
+    hideSuggestions();
+
+    return;
+
+  }
+
+
+  suggestions.innerHTML = "";
+
+
+  results.forEach(item => {
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "suggestion";
+
+    div.innerHTML =
+      "🔍 " + item;
+
+
+    div.onclick =
+      function(){
+
+        searchInput.value =
+          item;
+
+        performSearch(item);
+
+      };
+
+
+    suggestions.appendChild(div);
+
+  });
+
+
+  suggestions.style.display =
+    "block";
+
+}
+
+
+function hideSuggestions(){
+
+  suggestions.style.display =
+    "none";
+
+}
+
+
+/* ================================
+   QUICK SEARCH
+================================ */
+
+document
+  .querySelectorAll(".quick button")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      function(){
+
+        performSearch(
+          button.dataset.search
+        );
 
       }
     );
 
-
-    /* VOICE SEARCH */
-
-    const SpeechRecognition =
-      window.SpeechRecognition ||
-      window.webkitSpeechRecognition;
+  });
 
 
-    if (SpeechRecognition) {
+/* ================================
+   HISTORY DISPLAY
+================================ */
 
-      const recognition =
-        new SpeechRecognition();
+function showHistoryType(type){
 
-      recognition.lang = "hi-IN";
-
-      recognition.continuous = false;
-
-      recognition.interimResults = false;
+  currentHistoryType =
+    type;
 
 
-      micBtn.addEventListener(
-        "click",
-        function() {
+  document
+    .getElementById(
+      "searchHistoryTab"
+    )
+    .classList.toggle(
+      "active",
+      type === "search"
+    );
 
-          recognition.start();
 
-          micBtn.classList.add("listening");
+  document
+    .getElementById(
+      "downloadHistoryTab"
+    )
+    .classList.toggle(
+      "active",
+      type === "download"
+    );
 
-          micBtn.innerHTML = "🔴";
 
-        }
+  renderHistory();
+
+}
+
+
+function renderHistory(){
+
+  let data;
+
+
+  if(currentHistoryType === "search"){
+
+    data =
+      getData(SEARCH_KEY);
+
+  }else{
+
+    data =
+      getData(DOWNLOAD_KEY);
+
+  }
+
+
+  historyList.innerHTML = "";
+
+
+  if(!data.length){
+
+    historyList.innerHTML =
+      '<div class="empty">' +
+      (
+        currentHistoryType === "search"
+        ?
+        "🔎 Search history empty hai."
+        :
+        "📥 Download history empty hai."
+      ) +
+      "</div>";
+
+    return;
+
+  }
+
+
+  data.forEach(
+    (item,index) => {
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "history-item";
+
+
+      const icon =
+        currentHistoryType === "search"
+        ? "🔎"
+        : "📥";
+
+
+      div.innerHTML =
+
+        "<span>" +
+        icon +
+        "</span>" +
+
+        '<div class="history-text">' +
+
+        "<strong>" +
+        escapeHTML(
+          item.text ||
+          item.name ||
+          "Unknown"
+        ) +
+        "</strong>" +
+
+        "<small>" +
+        escapeHTML(
+          item.time || ""
+        ) +
+        "</small>" +
+
+        "</div>" +
+
+        '<button class="delete-one" ' +
+        'title="Delete">✕</button>';
+
+
+      div
+        .querySelector(".delete-one")
+        .onclick =
+        function(){
+
+          deleteHistoryItem(
+            currentHistoryType,
+            index
+          );
+
+        };
+
+
+      historyList.appendChild(div);
+
+    }
+  );
+
+}
+
+
+function escapeHTML(text){
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+
+}
+
+
+/* ================================
+   DELETE ONE
+================================ */
+
+function deleteHistoryItem(
+  type,
+  index
+){
+
+  const key =
+    type === "search"
+    ? SEARCH_KEY
+    : DOWNLOAD_KEY;
+
+
+  const data =
+    getData(key);
+
+
+  data.splice(
+    index,
+    1
+  );
+
+
+  saveData(
+    key,
+    data
+  );
+
+
+  renderHistory();
+
+}
+
+
+/* ================================
+   CLEAR CURRENT
+================================ */
+
+function clearCurrentHistory(){
+
+  const name =
+    currentHistoryType === "search"
+    ? "Search History"
+    : "Download History";
+
+
+  if(
+    !confirm(
+      name +
+      " clear karni hai?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const key =
+    currentHistoryType === "search"
+    ? SEARCH_KEY
+    : DOWNLOAD_KEY;
+
+
+  localStorage.removeItem(key);
+
+  renderHistory();
+
+}
+
+
+/* ================================
+   CLEAR EVERYTHING
+================================ */
+
+function clearEverything(){
+
+  const answer =
+    confirm(
+      "Search History, Download History aur Khojio ki saved settings ko clear karna hai?"
+    );
+
+
+  if(!answer){
+
+    return;
+
+  }
+
+
+  localStorage.removeItem(
+    SEARCH_KEY
+  );
+
+  localStorage.removeItem(
+    DOWNLOAD_KEY
+  );
+
+
+  alert(
+    "Khojio history data clear ho gaya."
+  );
+
+
+  renderHistory();
+
+}
+
+
+/* ================================
+   DOWNLOAD HISTORY API
+================================ */
+
+/*
+  Jab Khojio mein actual download feature
+  banega, kisi download ke baad ye function call karein:
+
+  addDownloadHistory("file.pdf");
+
+*/
+
+function addDownloadHistory(fileName){
+
+  let data =
+    getData(DOWNLOAD_KEY);
+
+
+  data.unshift({
+
+    text:fileName,
+
+    time:new Date().toLocaleString(
+      "hi-IN"
+    )
+
+  });
+
+
+  data =
+    data.slice(0,100);
+
+
+  saveData(
+    DOWNLOAD_KEY,
+    data
+  );
+
+}
+
+
+/* ================================
+   DARK MODE
+================================ */
+
+function setDarkMode(enabled){
+
+  document.body
+    .classList
+    .toggle(
+      "dark",
+      enabled
+    );
+
+
+  darkToggle
+    .classList
+    .toggle(
+      "active",
+      enabled
+    );
+
+
+  if(enabled){
+
+    localStorage.setItem(
+      DARK_KEY,
+      "true"
+    );
+
+  }else{
+
+    localStorage.removeItem(
+      DARK_KEY
+    );
+
+  }
+
+}
+
+
+darkToggle.addEventListener(
+  "click",
+  function(){
+
+    setDarkMode(
+      !document.body
+        .classList
+        .contains("dark")
+    );
+
+  }
+);
+
+
+if(
+  localStorage.getItem(
+    DARK_KEY
+  ) === "true"
+){
+
+  setDarkMode(true);
+
+}
+
+
+/* ================================
+   SAVE HISTORY TOGGLE
+================================ */
+
+historyToggle.addEventListener(
+  "click",
+  function(){
+
+    const currentlyOn =
+      localStorage.getItem(
+        SAVE_HISTORY_KEY
+      ) !== "false";
+
+
+    if(currentlyOn){
+
+      localStorage.setItem(
+        SAVE_HISTORY_KEY,
+        "false"
       );
 
+      historyToggle
+        .classList
+        .remove("active");
 
-      recognition.onresult =
-        function(event) {
+    }else{
 
-          const text =
-            event.results[0][0].transcript;
-
-          searchInput.value = text;
-
-          micBtn.classList.remove(
-            "listening"
-          );
-
-          micBtn.innerHTML = "🎙️";
-
-          performSearch();
-
-        };
-
-
-      recognition.onend =
-        function() {
-
-          micBtn.classList.remove(
-            "listening"
-          );
-
-          micBtn.innerHTML = "🎙️";
-
-        };
-
-
-      recognition.onerror =
-        function() {
-
-          micBtn.classList.remove(
-            "listening"
-          );
-
-          micBtn.innerHTML = "🎙️";
-
-        };
-
-    } else {
-
-      micBtn.addEventListener(
-        "click",
-        function() {
-
-          alert(
-            "Voice search is not supported in this browser."
-          );
-
-        }
+      localStorage.setItem(
+        SAVE_HISTORY_KEY,
+        "true"
       );
+
+      historyToggle
+        .classList
+        .add("active");
 
     }
 
-  </script>
+  }
+);
+
+
+if(
+  localStorage.getItem(
+    SAVE_HISTORY_KEY
+  ) === "false"
+){
+
+  historyToggle
+    .classList
+    .remove("active");
+
+}
+
+
+/* ================================
+   VOICE SEARCH
+================================ */
+
+const SpeechRecognition =
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
+
+
+if(SpeechRecognition){
+
+  const recognition =
+    new SpeechRecognition();
+
+
+  recognition.lang =
+    "hi-IN";
+
+
+  recognition.continuous =
+    false;
+
+
+  recognition.interimResults =
+    false;
+
+
+  micBtn.addEventListener(
+    "click",
+    function(){
+
+      voiceStatus
+        .classList
+        .add("show");
+
+
+      voiceStatus.textContent =
+        "🎤 Sun raha hoon...";
+
+
+      try{
+
+        recognition.start();
+
+      }catch(e){
+
+        console.log(e);
+
+      }
+
+    }
+  );
+
+
+  recognition.onresult =
+    function(event){
+
+      const text =
+        event.results[0][0]
+        .transcript;
+
+
+      searchInput.value =
+        text;
+
+
+      clearSearch.style.display =
+        "block";
+
+
+      voiceStatus.textContent =
+        "✅ " + text;
+
+
+      setTimeout(
+        function(){
+
+          voiceStatus
+            .classList
+            .remove("show");
+
+          performSearch(text);
+
+        },
+        500
+      );
+
+    };
+
+
+  recognition.onerror =
+    function(){
+
+      voiceStatus.textContent =
+        "❌ Voice Search error";
+
+
+      setTimeout(
+        function(){
+
+          voiceStatus
+            .classList
+            .remove("show");
+
+        },
+        1500
+      );
+
+    };
+
+
+  recognition.onend =
+    function(){
+
+      setTimeout(
+        function(){
+
+          voiceStatus
+            .classList
+            .remove("show");
+
+        },
+        1000
+      );
+
+    };
+
+}else{
+
+  micBtn.addEventListener(
+    "click",
+    function(){
+
+      alert(
+        "Voice Search ke liye Chrome browser use karein."
+      );
+
+    }
+  );
+
+}
+
+
+/* ================================
+   OUTSIDE CLICK
+================================ */
+
+document.addEventListener(
+  "click",
+  function(e){
+
+    if(
+      !e.target.closest(
+        ".search-wrapper"
+      )
+    ){
+
+      hideSuggestions();
+
+    }
+
+
+    if(
+      !e.target.closest(
+        ".panel"
+      ) &&
+      !e.target.closest(
+        ".header-buttons"
+      )
+    ){
+
+      closePanels();
+
+    }
+
+  }
+);
+
+
+/* ================================
+   KEYBOARD
+================================ */
+
+document.addEventListener(
+  "keydown",
+  function(e){
+
+    if(
+      e.key === "/" &&
+      document.activeElement !==
+      searchInput
+    ){
+
+      e.preventDefault();
+
+      searchInput.focus();
+
+    }
+
+
+    if(e.key === "Escape"){
+
+      hideSuggestions();
+
+      closePanels();
+
+    }
+
+  }
+);
+
+
+/* ================================
+   INITIAL
+================================ */
+
+window.addEventListener(
+  "load",
+  function(){
+
+    searchInput.focus();
+
+  }
+);
+
+</script>
 
 </body>
 </html>
