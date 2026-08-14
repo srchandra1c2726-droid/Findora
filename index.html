@@ -1,669 +1,1845 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Khojoi.in - Search</title>
+<meta name="description" content="Khojoi.in fast and simple search engine">
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <title>Khojoi.in - Fast Search Engine</title>
-  <meta name="description" content="Khojoi.in - Fast, simple and smart search engine with voice, image and AI search.">
-  <meta name="robots" content="index, follow">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+:root{
+ --bg:#fff;
+ --card:#fff;
+ --text:#202124;
+ --muted:#70757a;
+ --border:#dfe1e5;
+ --soft:#f1f3f4;
+ --blue:#1769e8;
+ --danger:#d93025;
+}
 
-    :root {
-      --blue: #1769e8;
-      --text: #202124;
-      --gray: #70757a;
-      --border: #dfe1e5;
-      --light: #f1f3f4;
-    }
+body.dark{
+ --bg:#202124;
+ --card:#292a2d;
+ --text:#f1f3f4;
+ --muted:#aeb4bb;
+ --border:#3c4043;
+ --soft:#303134;
+}
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #fff;
-      color: var(--text);
-      min-height: 100vh;
-    }
+body{
+ font-family:Arial,Helvetica,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ min-height:100vh;
+ transition:.2s;
+}
 
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+button,input,select{font:inherit}
+button{cursor:pointer}
 
-    /* LOGO */
+.page{
+ min-height:100vh;
+ display:flex;
+ flex-direction:column;
+}
 
-    .logo-area {
-      text-align: center;
-      padding-top: 28px;
-      padding-bottom: 38px;
-    }
+/* TOP */
 
-    .logo {
-      font-size: 52px;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -3px;
-    }
+.top{
+ height:58px;
+ display:flex;
+ justify-content:flex-end;
+ align-items:center;
+ padding:0 18px;
+}
 
-    .logo .k {
-      color: var(--blue);
-    }
+.menu-btn{
+ width:40px;
+ height:40px;
+ border:0;
+ border-radius:50%;
+ background:transparent;
+ color:var(--text);
+ font-size:24px;
+}
 
-    .logo .rest {
-      color: #202124;
-    }
+.menu-btn:hover{background:var(--soft)}
 
-    /* SEARCH */
+/* LOGO */
 
-    .search-container {
-      width: min(820px, 92%);
-      margin: auto;
-    }
+.logo-area{
+ text-align:center;
+ padding:24px 10px 36px;
+}
 
-    .search-box {
-      width: 100%;
-      height: 56px;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      display: flex;
-      align-items: center;
-      padding: 0 12px 0 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
-      background: #fff;
-      transition: .2s;
-    }
+.logo{
+ font-size:50px;
+ font-weight:800;
+ letter-spacing:-3px;
+}
 
-    .search-box:focus-within {
-      box-shadow: 0 3px 12px rgba(0,0,0,.14);
-    }
+.logo-k{color:var(--blue)}
 
-    .search-icon {
-      font-size: 23px;
-      color: #777;
-      margin-right: 9px;
-    }
+/* SEARCH */
 
-    #searchInput {
-      flex: 1;
-      min-width: 0;
-      height: 100%;
-      border: 0;
-      outline: 0;
-      font-size: 16px;
-      color: var(--text);
-    }
+.search-wrap{
+ width:min(820px,92%);
+ margin:auto;
+}
 
-    #searchInput::placeholder {
-      color: #777;
-    }
+.search{
+ height:55px;
+ border:1px solid var(--border);
+ border-radius:30px;
+ background:var(--card);
+ box-shadow:0 3px 14px rgba(0,0,0,.09);
+ display:flex;
+ align-items:center;
+ padding:0 10px 0 16px;
+}
 
-    .search-tools {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-    }
+.search-icon{
+ color:var(--muted);
+ font-size:23px;
+ margin-right:8px;
+}
 
-    .tool-btn {
-      width: 38px;
-      height: 38px;
-      border: 0;
-      background: transparent;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+#query{
+ flex:1;
+ min-width:0;
+ height:50px;
+ border:0;
+ outline:0;
+ background:transparent;
+ color:var(--text);
+ font-size:16px;
+}
 
-    .tool-btn:hover {
-      background: var(--light);
-    }
+.tools{
+ display:flex;
+ align-items:center;
+ gap:2px;
+}
 
-    .ai-btn {
-      border: 0;
-      background: transparent;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 7px;
-      border-radius: 8px;
-    }
+.icon-btn{
+ width:37px;
+ height:37px;
+ border:0;
+ border-radius:50%;
+ background:transparent;
+ color:var(--text);
+ font-size:19px;
+}
 
-    .ai-btn:hover {
-      background: var(--light);
-    }
+.icon-btn:hover{background:var(--soft)}
 
-    .spark {
-      color: #7546ed;
-      font-size: 19px;
-    }
+.ai-btn{
+ border:0;
+ background:transparent;
+ color:var(--text);
+ padding:7px;
+ border-radius:8px;
+ font-weight:600;
+}
 
-    /* TABS */
+.ai-btn:hover{background:var(--soft)}
 
-    .tabs {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      margin-top: 25px;
-    }
+.spark{color:#7546ed;font-size:18px}
 
-    .tab {
-      border: 0;
-      background: transparent;
-      color: var(--gray);
-      font-size: 15px;
-      padding: 7px 3px 12px;
-      cursor: pointer;
-      position: relative;
-    }
+/* TABS */
 
-    .tab.active {
-      color: var(--blue);
-    }
+.tabs{
+ display:flex;
+ justify-content:center;
+ gap:28px;
+ margin-top:24px;
+}
 
-    .tab.active::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 2px;
-      background: var(--blue);
-      border-radius: 2px;
-    }
+.tab{
+ border:0;
+ background:transparent;
+ color:var(--muted);
+ padding:7px 3px 11px;
+ position:relative;
+}
 
-    /* SHORTCUTS */
+.tab.active{color:var(--blue)}
 
-    .shortcuts {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 42px;
-      margin-top: 42px;
-    }
+.tab.active:after{
+ content:"";
+ position:absolute;
+ left:0;
+ right:0;
+ bottom:0;
+ height:2px;
+ background:var(--blue);
+}
 
-    .shortcut {
-      width: 78px;
-      text-align: center;
-      cursor: pointer;
-    }
+/* SHORTCUTS */
 
-    .shortcut-icon {
-      width: 62px;
-      height: 62px;
-      margin: auto;
-      border-radius: 50%;
-      background: #f1f3f4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      transition: .2s;
-    }
+.shortcuts{
+ display:flex;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:40px;
+ margin-top:40px;
+}
 
-    .shortcut:hover .shortcut-icon {
-      transform: translateY(-2px);
-      box-shadow: 0 3px 8px rgba(0,0,0,.12);
-    }
+.shortcut{
+ width:76px;
+ text-align:center;
+ cursor:pointer;
+}
 
-    .shortcut-name {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #303134;
-      white-space: nowrap;
-    }
+.short-icon{
+ width:60px;
+ height:60px;
+ margin:auto;
+ border-radius:50%;
+ background:var(--soft);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:27px;
+ transition:.2s;
+}
 
-    /* FOOTER */
+.shortcut:hover .short-icon{
+ transform:translateY(-2px);
+ box-shadow:0 3px 10px rgba(0,0,0,.12);
+}
 
-    footer {
-      text-align: center;
-      padding: 22px;
-      margin-top: auto;
-      color: #777;
-      font-size: 12px;
-    }
+.short-name{
+ margin-top:9px;
+ font-size:13px;
+ white-space:nowrap;
+}
 
-    footer a {
-      color: #777;
-      text-decoration: none;
-      margin: 0 8px;
-    }
+/* FOOTER */
 
-    footer a:hover {
-      text-decoration: underline;
-    }
+footer{
+ margin-top:auto;
+ padding:20px;
+ text-align:center;
+ color:var(--muted);
+ font-size:12px;
+}
 
-    #imageInput {
-      display: none;
-    }
+footer button{
+ border:0;
+ background:none;
+ color:var(--muted);
+ margin:0 8px;
+}
 
-    /* MOBILE */
+/* OVERLAY */
 
-    @media (max-width: 600px) {
+.overlay{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.35);
+ display:none;
+ z-index:50;
+}
 
-      .logo-area {
-        padding-top: 25px;
-        padding-bottom: 32px;
-      }
+.overlay.show{display:block}
 
-      .logo {
-        font-size: 43px;
-        letter-spacing: -2px;
-      }
+/* MENU */
 
-      .search-container {
-        width: 94%;
-      }
+.side{
+ position:fixed;
+ top:0;
+ right:0;
+ width:min(390px,92vw);
+ height:100vh;
+ background:var(--card);
+ color:var(--text);
+ z-index:60;
+ transform:translateX(100%);
+ transition:.25s;
+ overflow-y:auto;
+ box-shadow:-5px 0 20px rgba(0,0,0,.2);
+}
 
-      .search-box {
-        height: 50px;
-        padding: 0 8px 0 12px;
-      }
+.side.show{transform:translateX(0)}
 
-      .search-icon {
-        font-size: 21px;
-        margin-right: 5px;
-      }
+.side-head{
+ height:64px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 18px;
+ border-bottom:1px solid var(--border);
+}
 
-      #searchInput {
-        font-size: 15px;
-      }
+.side-head h2{font-size:20px}
 
-      .tool-btn {
-        width: 33px;
-        height: 33px;
-        font-size: 18px;
-      }
+.close{
+ width:38px;
+ height:38px;
+ border:0;
+ border-radius:50%;
+ background:transparent;
+ color:var(--text);
+ font-size:23px;
+}
 
-      .ai-btn {
-        font-size: 12px;
-        padding: 5px;
-      }
+.close:hover{background:var(--soft)}
 
-      .spark {
-        font-size: 16px;
-      }
+.section{
+ padding:16px 18px;
+ border-bottom:1px solid var(--border);
+}
 
-      .tabs {
-        gap: 19px;
-        margin-top: 22px;
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding: 0 12px;
-      }
+.section-title{
+ font-size:12px;
+ color:var(--muted);
+ margin-bottom:8px;
+ font-weight:bold;
+}
 
-      .tab {
-        font-size: 14px;
-        white-space: nowrap;
-      }
+.menu-item{
+ width:100%;
+ min-height:45px;
+ border:0;
+ border-radius:8px;
+ background:transparent;
+ color:var(--text);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:7px 5px;
+ text-align:left;
+}
 
-      .shortcuts {
-        gap: 25px;
-        margin-top: 35px;
-      }
+.menu-item:hover{background:var(--soft)}
 
-      .shortcut {
-        width: 68px;
-      }
+.menu-left{
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
 
-      .shortcut-icon {
-        width: 55px;
-        height: 55px;
-        font-size: 24px;
-      }
+.menu-icon{
+ width:25px;
+ text-align:center;
+ font-size:18px;
+}
 
-      .shortcut-name {
-        font-size: 13px;
-      }
-    }
-  </style>
+/* MODAL */
+
+.modal{
+ position:fixed;
+ inset:0;
+ z-index:80;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ background:rgba(0,0,0,.45);
+ padding:15px;
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+ width:min(520px,100%);
+ max-height:85vh;
+ overflow:auto;
+ background:var(--card);
+ color:var(--text);
+ border-radius:15px;
+ box-shadow:0 10px 35px rgba(0,0,0,.25);
+}
+
+.modal-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:17px;
+ border-bottom:1px solid var(--border);
+}
+
+.modal-body{padding:17px}
+
+/* SETTINGS */
+
+.setting{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:15px;
+ padding:13px 0;
+ border-bottom:1px solid var(--border);
+}
+
+.setting:last-child{border:0}
+
+.setting small{
+ display:block;
+ color:var(--muted);
+ margin-top:4px;
+}
+
+select{
+ background:var(--card);
+ color:var(--text);
+ border:1px solid var(--border);
+ border-radius:7px;
+ padding:7px;
+}
+
+/* SWITCH */
+
+.switch{
+ position:relative;
+ width:42px;
+ height:23px;
+}
+
+.switch input{
+ opacity:0;
+ width:0;
+ height:0;
+}
+
+.slider{
+ position:absolute;
+ inset:0;
+ background:#aaa;
+ border-radius:20px;
+}
+
+.slider:before{
+ content:"";
+ position:absolute;
+ width:17px;
+ height:17px;
+ left:3px;
+ top:3px;
+ background:white;
+ border-radius:50%;
+ transition:.2s;
+}
+
+.switch input:checked+.slider{background:var(--blue)}
+
+.switch input:checked+.slider:before{
+ transform:translateX(19px);
+}
+
+/* LIST */
+
+.list{
+ list-style:none;
+}
+
+.list-item{
+ display:flex;
+ align-items:center;
+ gap:8px;
+ padding:10px 0;
+ border-bottom:1px solid var(--border);
+}
+
+.list-text{
+ flex:1;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ white-space:nowrap;
+}
+
+.small-btn{
+ border:0;
+ background:transparent;
+ color:var(--muted);
+ padding:6px;
+}
+
+.small-btn:hover{color:var(--danger)}
+
+.empty{
+ text-align:center;
+ color:var(--muted);
+ padding:25px 5px;
+}
+
+.clear{
+ width:100%;
+ margin-top:14px;
+ padding:10px;
+ border:1px solid var(--border);
+ border-radius:8px;
+ background:transparent;
+ color:var(--danger);
+}
+
+/* IMAGE */
+
+#imageInput{display:none}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+ .logo{
+  font-size:42px;
+ }
+
+ .logo-area{
+  padding-top:22px;
+  padding-bottom:30px;
+ }
+
+ .search-wrap{width:94%}
+
+ .search{
+  height:50px;
+  padding-left:11px;
+ }
+
+ #query{
+  height:47px;
+  font-size:14px;
+ }
+
+ .icon-btn{
+  width:32px;
+  height:32px;
+  font-size:17px;
+ }
+
+ .ai-btn{
+  font-size:11px;
+  padding:5px;
+ }
+
+ .tabs{
+  justify-content:flex-start;
+  overflow-x:auto;
+  gap:18px;
+  padding:0 8px;
+ }
+
+ .tab{white-space:nowrap}
+
+ .shortcuts{
+  gap:24px;
+  margin-top:34px;
+ }
+
+ .short-icon{
+  width:53px;
+  height:53px;
+  font-size:23px;
+ }
+
+ .shortcut{width:66px}
+
+ .short-name{font-size:12px}
+
+}
+</style>
 </head>
 
 <body>
 
 <div class="page">
 
-  <div class="logo-area">
-    <div class="logo">
-      <span class="k">K</span><span class="rest">HOJOI</span>
-    </div>
-  </div>
+<!-- TOP -->
+<div class="top">
+ <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+</div>
 
-  <div class="search-container">
+<!-- LOGO -->
+<div class="logo-area">
+ <div class="logo">
+  <span class="logo-k">K</span>HOJOI
+ </div>
+</div>
 
-    <form class="search-box" id="searchForm">
+<!-- SEARCH -->
+<main class="search-wrap">
 
-      <span class="search-icon">⌕</span>
+<form class="search" id="searchForm" autocomplete="off">
 
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search Khojoi or type a URL"
-        autocomplete="off"
-        aria-label="Search Khojoi"
-      >
+ <span class="search-icon">⌕</span>
 
-      <div class="search-tools">
+ <input
+  id="query"
+  type="search"
+  maxlength="300"
+  placeholder="Search Khojoi or type a URL"
+  aria-label="Search"
+ >
 
-        <button
-          class="tool-btn"
-          type="button"
-          id="voiceButton"
-          title="Voice Search"
-          aria-label="Voice Search">
-          🎙️
-        </button>
+ <div class="tools">
 
-        <button
-          class="tool-btn"
-          type="button"
-          id="imageButton"
-          title="Image Search"
-          aria-label="Image Search">
-          📷
-        </button>
+  <button class="icon-btn" id="voiceBtn" type="button" title="Voice Search">
+   🎙️
+  </button>
 
-        <input
-          type="file"
-          id="imageInput"
-          accept="image/*"
-        >
+  <button class="icon-btn" id="imageBtn" type="button" title="Image Search">
+   📷
+  </button>
 
-        <button
-          class="ai-btn"
-          type="button"
-          id="aiButton">
-          <span class="spark">✦</span>
-          <span>AI Mode</span>
-        </button>
+  <input id="imageInput" type="file" accept="image/*">
 
-      </div>
-    </form>
+  <button class="ai-btn" id="aiBtn" type="button">
+   <span class="spark">✦</span> AI
+  </button>
 
-    <div class="tabs">
+ </div>
 
-      <button class="tab active" data-type="web">
-        All
-      </button>
+</form>
 
-      <button class="tab" data-type="images">
-        Images
-      </button>
+<!-- TABS -->
+<div class="tabs">
 
-      <button class="tab" data-type="videos">
-        Videos
-      </button>
-
-      <button class="tab" data-type="news">
-        News
-      </button>
-
-      <button class="tab" data-type="ai">
-        AI
-      </button>
-
-    </div>
-
-    <div class="shortcuts">
-
-      <div class="shortcut" data-url="https://khojoi.in">
-        <div class="shortcut-icon">🔎</div>
-        <div class="shortcut-name">KHOJOI</div>
-      </div>
-
-      <div class="shortcut" data-url="https://www.youtube.com">
-        <div class="shortcut-icon">▶️</div>
-        <div class="shortcut-name">YouTube</div>
-      </div>
-
-      <div class="shortcut" data-url="https://github.com">
-        <div class="shortcut-icon">◉</div>
-        <div class="shortcut-name">GitHub</div>
-      </div>
-
-      <div class="shortcut" data-url="https://news.google.com">
-        <div class="shortcut-icon">📰</div>
-        <div class="shortcut-name">News</div>
-      </div>
-
-      <div class="shortcut" id="addShortcut">
-        <div class="shortcut-icon">+</div>
-        <div class="shortcut-name">Add shortcut</div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <footer>
-    <a href="https://khojoi.in">Khojoi.in</a>
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-  </footer>
+ <button class="tab active" data-type="web" type="button">All</button>
+ <button class="tab" data-type="images" type="button">Images</button>
+ <button class="tab" data-type="videos" type="button">Videos</button>
+ <button class="tab" data-type="news" type="button">News</button>
+ <button class="tab" data-type="ai" type="button">AI</button>
 
 </div>
 
+<!-- SHORTCUTS -->
+<div class="shortcuts">
+
+ <div class="shortcut" data-url="https://khojoi.in">
+  <div class="short-icon">🔎</div>
+  <div class="short-name">KHOJOI</div>
+ </div>
+
+ <div class="shortcut" data-url="https://www.youtube.com">
+  <div class="short-icon">▶️</div>
+  <div class="short-name">YouTube</div>
+ </div>
+
+ <div class="shortcut" data-url="https://github.com">
+  <div class="short-icon">◉</div>
+  <div class="short-name">GitHub</div>
+ </div>
+
+ <div class="shortcut" data-url="https://news.google.com">
+  <div class="short-icon">📰</div>
+  <div class="short-name">News</div>
+ </div>
+
+ <div class="shortcut" id="addShortcut">
+  <div class="short-icon">+</div>
+  <div class="short-name">Add</div>
+ </div>
+
+</div>
+
+</main>
+
+<footer>
+ <button id="footerSettings">Settings</button>
+ <button id="footerPrivacy">Privacy</button>
+ <button id="footerAbout">About</button>
+ © 2026 Khojoi.in
+</footer>
+
+</div>
+
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+
+<!-- SIDE MENU -->
+
+<aside class="side" id="side">
+
+ <div class="side-head">
+  <h2>Khojoi</h2>
+  <button class="close" id="closeBtn">×</button>
+ </div>
+
+
+ <!-- SEARCH FEATURES -->
+
+ <div class="section">
+
+  <div class="section-title">SEARCH</div>
+
+  <button class="menu-item" id="menuSearch">
+   <span class="menu-left">
+    <span class="menu-icon">🔍</span>
+    Search
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuAI">
+   <span class="menu-left">
+    <span class="menu-icon">🤖</span>
+    AI Search
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuVoice">
+   <span class="menu-left">
+    <span class="menu-icon">🎙️</span>
+    Voice Search
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuImage">
+   <span class="menu-left">
+    <span class="menu-icon">📷</span>
+    Image Search
+   </span>
+   ›
+  </button>
+
+ </div>
+
+
+ <!-- USER DATA -->
+
+ <div class="section">
+
+  <div class="section-title">YOUR DATA</div>
+
+  <button class="menu-item" id="menuHistory">
+   <span class="menu-left">
+    <span class="menu-icon">🕘</span>
+    History
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuSaved">
+   <span class="menu-left">
+    <span class="menu-icon">🔖</span>
+    Saved / Bookmarks
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuDownloads">
+   <span class="menu-left">
+    <span class="menu-icon">⬇️</span>
+    Downloads
+   </span>
+   ›
+  </button>
+
+ </div>
+
+
+ <!-- PERSONAL -->
+
+ <div class="section">
+
+  <div class="section-title">PERSONALIZATION</div>
+
+  <button class="menu-item" id="menuSettings">
+   <span class="menu-left">
+    <span class="menu-icon">⚙️</span>
+    Settings
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuAppearance">
+   <span class="menu-left">
+    <span class="menu-icon">🌙</span>
+    Appearance
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuLanguage">
+   <span class="menu-left">
+    <span class="menu-icon">🌐</span>
+    Language
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuPrivacy">
+   <span class="menu-left">
+    <span class="menu-icon">🛡️</span>
+    Privacy & SafeSearch
+   </span>
+   ›
+  </button>
+
+ </div>
+
+
+ <!-- TOOLS -->
+
+ <div class="section">
+
+  <div class="section-title">TOOLS</div>
+
+  <button class="menu-item" id="menuShare">
+   <span class="menu-left">
+    <span class="menu-icon">🔗</span>
+    Share Search
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuCopy">
+   <span class="menu-left">
+    <span class="menu-icon">📋</span>
+    Copy Search Link
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuNewTab">
+   <span class="menu-left">
+    <span class="menu-icon">↗️</span>
+    Open in New Tab
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuKeys">
+   <span class="menu-left">
+    <span class="menu-icon">⌨️</span>
+    Keyboard Shortcuts
+   </span>
+   ›
+  </button>
+
+ </div>
+
+
+ <!-- MORE -->
+
+ <div class="section">
+
+  <div class="section-title">MORE</div>
+
+  <button class="menu-item" id="menuHelp">
+   <span class="menu-left">
+    <span class="menu-icon">❓</span>
+    Help & Feedback
+   </span>
+   ›
+  </button>
+
+  <button class="menu-item" id="menuAbout">
+   <span class="menu-left">
+    <span class="menu-icon">ℹ️</span>
+    About Khojoi
+   </span>
+   ›
+  </button>
+
+ </div>
+
+</aside>
+
+
+<!-- SETTINGS -->
+
+<div class="modal" id="settingsModal">
+
+ <div class="modal-box">
+
+  <div class="modal-head">
+   <b>⚙️ Settings</b>
+   <button class="close" data-close="settingsModal">×</button>
+  </div>
+
+  <div class="modal-body">
+
+   <div class="setting">
+    <div>
+     Dark Mode
+     <small>Dark appearance</small>
+    </div>
+
+    <label class="switch">
+     <input type="checkbox" id="darkToggle">
+     <span class="slider"></span>
+    </label>
+   </div>
+
+
+   <div class="setting">
+    <div>
+     Save History
+     <small>Save searches on this device</small>
+    </div>
+
+    <label class="switch">
+     <input type="checkbox" id="historyToggle" checked>
+     <span class="slider"></span>
+    </label>
+   </div>
+
+
+   <div class="setting">
+    <div>
+     SafeSearch
+     <small>Safer search results</small>
+    </div>
+
+    <label class="switch">
+     <input type="checkbox" id="safeToggle" checked>
+     <span class="slider"></span>
+    </label>
+   </div>
+
+
+   <div class="setting">
+    <div>
+     Search Suggestions
+     <small>Show search suggestions</small>
+    </div>
+
+    <label class="switch">
+     <input type="checkbox" id="suggestToggle" checked>
+     <span class="slider"></span>
+    </label>
+   </div>
+
+
+   <div class="setting">
+    <div>
+     Results per page
+     <small>Preferred result count</small>
+    </div>
+
+    <select id="resultsSelect">
+     <option value="10">10</option>
+     <option value="20">20</option>
+     <option value="30">30</option>
+    </select>
+   </div>
+
+
+   <div class="setting">
+    <div>
+     Language
+     <small>Khojoi interface language</small>
+    </div>
+
+    <select id="languageSelect">
+     <option value="en">English</option>
+     <option value="hi">हिन्दी</option>
+     <option value="hinglish">Hinglish</option>
+    </select>
+   </div>
+
+
+   <button class="clear" id="clearData">
+    🧹 Clear All Khojoi Data
+   </button>
+
+  </div>
+
+ </div>
+
+</div>
+
+
+<!-- HISTORY -->
+
+<div class="modal" id="historyModal">
+
+ <div class="modal-box">
+
+  <div class="modal-head">
+   <b>🕘 Search History</b>
+   <button class="close" data-close="historyModal">×</button>
+  </div>
+
+  <div class="modal-body">
+
+   <ul class="list" id="historyList"></ul>
+
+   <button class="clear" id="clearHistory">
+    Clear History
+   </button>
+
+  </div>
+
+ </div>
+
+</div>
+
+
+<!-- SAVED -->
+
+<div class="modal" id="savedModal">
+
+ <div class="modal-box">
+
+  <div class="modal-head">
+   <b>🔖 Saved / Bookmarks</b>
+   <button class="close" data-close="savedModal">×</button>
+  </div>
+
+  <div class="modal-body">
+   <ul class="list" id="savedList"></ul>
+  </div>
+
+ </div>
+
+</div>
+
+
+<!-- DOWNLOADS -->
+
+<div class="modal" id="downloadsModal">
+
+ <div class="modal-box">
+
+  <div class="modal-head">
+   <b>⬇️ Downloads</b>
+   <button class="close" data-close="downloadsModal">×</button>
+  </div>
+
+  <div class="modal-body">
+
+   <div class="empty">
+    Khojoi downloads will appear here when download functionality is connected.
+   </div>
+
+  </div>
+
+ </div>
+
+</div>
+
+
 <script>
+"use strict";
 
-  const searchForm = document.getElementById("searchForm");
-  const searchInput = document.getElementById("searchInput");
-  const voiceButton = document.getElementById("voiceButton");
-  const imageButton = document.getElementById("imageButton");
-  const imageInput = document.getElementById("imageInput");
-  const aiButton = document.getElementById("aiButton");
-  const tabs = document.querySelectorAll(".tab");
-  const shortcuts = document.querySelectorAll(".shortcut[data-url]");
-  const addShortcut = document.getElementById("addShortcut");
+/* ---------- STORAGE ---------- */
 
-  function doSearch(type = "web") {
+const KEY={
+ history:"khojoi_history_v2",
+ saved:"khojoi_saved_v2",
+ settings:"khojoi_settings_v2"
+};
 
-    const query = searchInput.value.trim();
+function get(key,fallback){
+ try{
+  const value=localStorage.getItem(key);
+  return value===null?fallback:JSON.parse(value);
+ }catch{
+  return fallback;
+ }
+}
 
-    if (!query) {
-      searchInput.focus();
-      return;
-    }
+function set(key,value){
+ try{
+  localStorage.setItem(key,JSON.stringify(value));
+ }catch{}
+}
 
-    let url;
+function remove(key){
+ try{localStorage.removeItem(key)}catch{}
+}
 
-    if (type === "images") {
-      url =
-        "https://www.google.com/search?tbm=isch&q=" +
-        encodeURIComponent(query);
 
-    } else if (type === "videos") {
-      url =
-        "https://www.google.com/search?tbm=vid&q=" +
-        encodeURIComponent(query);
+/* ---------- SETTINGS ---------- */
 
-    } else if (type === "news") {
-      url =
-        "https://www.google.com/search?tbm=nws&q=" +
-        encodeURIComponent(query);
+const defaults={
+ dark:false,
+ history:true,
+ safe:true,
+ suggestions:true,
+ results:"10",
+ language:"en"
+};
 
-    } else {
-      url =
-        "https://www.google.com/search?q=" +
-        encodeURIComponent(query);
-    }
+let settings={
+ ...defaults,
+ ...get(KEY.settings,{})
+};
 
-    window.location.href = url;
+function saveSettings(){
+ set(KEY.settings,settings);
+ applySettings();
+}
+
+function applySettings(){
+
+ document.body.classList.toggle(
+  "dark",
+  settings.dark
+ );
+
+ document.getElementById("darkToggle").checked=settings.dark;
+ document.getElementById("historyToggle").checked=settings.history;
+ document.getElementById("safeToggle").checked=settings.safe;
+ document.getElementById("suggestToggle").checked=settings.suggestions;
+ document.getElementById("resultsSelect").value=settings.results;
+ document.getElementById("languageSelect").value=settings.language;
+}
+
+
+/* ---------- MENU ---------- */
+
+const side=document.getElementById("side");
+const overlay=document.getElementById("overlay");
+
+function openMenu(){
+ side.classList.add("show");
+ overlay.classList.add("show");
+}
+
+function closeMenu(){
+ side.classList.remove("show");
+ overlay.classList.remove("show");
+}
+
+document.getElementById("menuBtn").onclick=openMenu;
+document.getElementById("closeBtn").onclick=closeMenu;
+overlay.onclick=closeMenu;
+
+
+/* ---------- MODAL ---------- */
+
+function openModal(id){
+ document.getElementById(id).classList.add("show");
+}
+
+function closeModal(id){
+ document.getElementById(id).classList.remove("show");
+}
+
+document.querySelectorAll("[data-close]").forEach(btn=>{
+ btn.onclick=()=>{
+  closeModal(btn.dataset.close);
+ };
+});
+
+document.querySelectorAll(".modal").forEach(modal=>{
+ modal.addEventListener("click",e=>{
+  if(e.target===modal){
+   modal.classList.remove("show");
   }
+ });
+});
 
-  searchForm.addEventListener("submit", function(e) {
-    e.preventDefault();
 
-    const activeTab =
-      document.querySelector(".tab.active");
+/* ---------- SEARCH ---------- */
 
-    doSearch(
-      activeTab
-        ? activeTab.dataset.type
-        : "web"
-    );
-  });
+const query=document.getElementById("query");
 
-  tabs.forEach(tab => {
+function search(type="web"){
 
-    tab.addEventListener("click", function() {
+ let q=query.value.trim();
 
-      tabs.forEach(t =>
-        t.classList.remove("active")
-      );
+ if(!q){
+  query.focus();
+  return;
+ }
 
-      this.classList.add("active");
+ q=q.slice(0,300);
 
-      if (this.dataset.type === "ai") {
-        aiMode();
-      } else {
-        searchInput.focus();
-      }
+ if(settings.history){
+  let history=get(KEY.history,[]);
 
-    });
+  history=history.filter(x=>x!==q);
+  history.unshift(q);
+  history=history.slice(0,50);
 
-  });
+  set(KEY.history,history);
+ }
 
-  voiceButton.addEventListener("click", function() {
+ let url;
 
-    const SpeechRecognition =
-      window.SpeechRecognition ||
-      window.webkitSpeechRecognition;
+ if(type==="images"){
+  url="https://www.google.com/search?tbm=isch&q="+encodeURIComponent(q);
+ }
 
-    if (!SpeechRecognition) {
-      alert(
-        "Voice search is not supported in this browser."
-      );
-      return;
-    }
+ else if(type==="videos"){
+  url="https://www.google.com/search?tbm=vid&q="+encodeURIComponent(q);
+ }
 
-    const recognition =
-      new SpeechRecognition();
+ else if(type==="news"){
+  url="https://www.google.com/search?tbm=nws&q="+encodeURIComponent(q);
+ }
 
-    recognition.lang = "hi-IN";
-    recognition.interimResults = false;
+ else{
+  url="https://www.google.com/search?q="+encodeURIComponent(q);
+ }
 
-    voiceButton.textContent = "🔴";
+ location.href=url;
+}
 
-    recognition.start();
 
-    recognition.onresult = function(event) {
+document.getElementById("searchForm").onsubmit=e=>{
+ e.preventDefault();
 
-      searchInput.value =
-        event.results[0][0].transcript;
+ const active=document.querySelector(".tab.active");
 
-      doSearch();
+ search(active?active.dataset.type:"web");
+};
 
-    };
 
-    recognition.onerror = function() {
-      voiceButton.textContent = "🎙️";
-    };
+/* ---------- TABS ---------- */
 
-    recognition.onend = function() {
-      voiceButton.textContent = "🎙️";
-    };
+document.querySelectorAll(".tab").forEach(tab=>{
 
-  });
+ tab.onclick=()=>{
 
-  imageButton.addEventListener("click", function() {
-    imageInput.click();
-  });
+  document.querySelectorAll(".tab")
+   .forEach(x=>x.classList.remove("active"));
 
-  imageInput.addEventListener("change", function() {
+  tab.classList.add("active");
 
-    if (this.files.length > 0) {
-
-      alert(
-        "Image selected: " +
-        this.files[0].name +
-        "\n\nImage search backend next step mein connect karenge."
-      );
-
-    }
-
-  });
-
-  function aiMode() {
-
-    const query =
-      searchInput.value.trim();
-
-    if (!query) {
-      alert(
-        "AI Mode ke liye pehle question type karein."
-      );
-      searchInput.focus();
-      return;
-    }
-
-    alert(
-      "Khojoi AI Mode\n\n" +
-      "AI backend next step mein connect karenge."
-    );
+  if(tab.dataset.type==="ai"){
+   aiMode();
+  }else{
+   query.focus();
   }
+ };
 
-  aiButton.addEventListener(
-    "click",
-    aiMode
+});
+
+
+/* ---------- VOICE ---------- */
+
+document.getElementById("voiceBtn").onclick=()=>{
+
+ const Speech=
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
+
+ if(!Speech){
+  alert("Voice search is not supported in this browser.");
+  return;
+ }
+
+ const recognition=new Speech();
+
+ recognition.lang=
+  settings.language==="hi"
+  ?"hi-IN"
+  :"en-IN";
+
+ recognition.interimResults=false;
+
+ const btn=document.getElementById("voiceBtn");
+
+ btn.textContent="🔴";
+
+ try{
+  recognition.start();
+ }catch{
+  btn.textContent="🎙️";
+  return;
+ }
+
+ recognition.onresult=e=>{
+  query.value=
+   e.results[0][0].transcript.slice(0,300);
+
+  search();
+ };
+
+ recognition.onerror=()=>{
+  btn.textContent="🎙️";
+ };
+
+ recognition.onend=()=>{
+  btn.textContent="🎙️";
+ };
+};
+
+
+/* ---------- IMAGE ---------- */
+
+document.getElementById("imageBtn").onclick=()=>{
+ document.getElementById("imageInput").click();
+};
+
+document.getElementById("imageInput").onchange=e=>{
+
+ const file=e.target.files[0];
+
+ if(!file)return;
+
+ if(!file.type.startsWith("image/")){
+  alert("Please select a valid image.");
+  e.target.value="";
+  return;
+ }
+
+ if(file.size>10*1024*1024){
+  alert("Image must be smaller than 10 MB.");
+  e.target.value="";
+  return;
+ }
+
+ alert(
+  "Image selected successfully.\n\n" +
+  "Real image-search backend can be connected next."
+ );
+};
+
+
+/* ---------- AI ---------- */
+
+function aiMode(){
+
+ const q=query.value.trim();
+
+ if(!q){
+  alert("AI Search ke liye question type karein.");
+  query.focus();
+  return;
+ }
+
+ alert(
+  "Khojoi AI Search\n\n" +
+  "AI backend ko next stage mein securely connect kiya jayega."
+ );
+}
+
+document.getElementById("aiBtn").onclick=aiMode;
+
+
+/* ---------- HISTORY ---------- */
+
+function renderHistory(){
+
+ const list=document.getElementById("historyList");
+ list.replaceChildren();
+
+ const history=get(KEY.history,[]);
+
+ if(!history.length){
+
+  const empty=document.createElement("li");
+  empty.className="empty";
+  empty.textContent="No search history.";
+  list.appendChild(empty);
+
+  return;
+ }
+
+ history.forEach((text,index)=>{
+
+  const li=document.createElement("li");
+  li.className="list-item";
+
+  const span=document.createElement("span");
+  span.className="list-text";
+  span.textContent=text;
+
+  span.onclick=()=>{
+   query.value=text;
+   closeModal("historyModal");
+   query.focus();
+  };
+
+  const saveBtn=document.createElement("button");
+  saveBtn.className="small-btn";
+  saveBtn.textContent="🔖";
+  saveBtn.title="Save";
+
+  saveBtn.onclick=()=>{
+   saveSearch(text);
+  };
+
+  const del=document.createElement("button");
+  del.className="small-btn";
+  del.textContent="×";
+
+  del.onclick=()=>{
+
+   history.splice(index,1);
+   set(KEY.history,history);
+   renderHistory();
+
+  };
+
+  li.appendChild(span);
+  li.appendChild(saveBtn);
+  li.appendChild(del);
+
+  list.appendChild(li);
+
+ });
+}
+
+
+document.getElementById("clearHistory").onclick=()=>{
+
+ if(!confirm("Clear all search history?"))return;
+
+ remove(KEY.history);
+ renderHistory();
+
+};
+
+
+/* ---------- SAVED ---------- */
+
+function saveSearch(text){
+
+ let saved=get(KEY.saved,[]);
+
+ if(saved.includes(text)){
+  alert("Already saved.");
+  return;
+ }
+
+ saved.unshift(text);
+ saved=saved.slice(0,50);
+
+ set(KEY.saved,saved);
+
+ renderSaved();
+}
+
+
+function renderSaved(){
+
+ const list=document.getElementById("savedList");
+ list.replaceChildren();
+
+ const saved=get(KEY.saved,[]);
+
+ if(!saved.length){
+
+  const empty=document.createElement("li");
+  empty.className="empty";
+  empty.textContent="No saved searches.";
+  list.appendChild(empty);
+
+  return;
+ }
+
+ saved.forEach((text,index)=>{
+
+  const li=document.createElement("li");
+  li.className="list-item";
+
+  const span=document.createElement("span");
+  span.className="list-text";
+  span.textContent=text;
+
+  span.onclick=()=>{
+   query.value=text;
+   closeModal("savedModal");
+   query.focus();
+  };
+
+  const del=document.createElement("button");
+  del.className="small-btn";
+  del.textContent="×";
+
+  del.onclick=()=>{
+   saved.splice(index,1);
+   set(KEY.saved,saved);
+   renderSaved();
+  };
+
+  li.appendChild(span);
+  li.appendChild(del);
+
+  list.appendChild(li);
+
+ });
+}
+
+
+/* ---------- SHORTCUTS ---------- */
+
+document.querySelectorAll(".shortcut[data-url]")
+.forEach(item=>{
+
+ item.onclick=()=>{
+
+  const url=item.dataset.url;
+
+  if(!url.startsWith("https://"))return;
+
+  window.open(
+   url,
+   "_blank",
+   "noopener,noreferrer"
   );
 
-  shortcuts.forEach(shortcut => {
+ };
 
-    shortcut.addEventListener("click", function() {
+});
 
-      window.open(
-        this.dataset.url,
-        "_blank"
-      );
 
-    });
+/* ---------- ADD SHORTCUT ---------- */
 
-  });
+document.getElementById("addShortcut").onclick=()=>{
 
-  addShortcut.addEventListener("click", function() {
+ const name=prompt("Shortcut name:");
 
-    const name =
-      prompt("Shortcut ka naam likhiye:");
+ if(!name)return;
 
-    if (!name) return;
+ const raw=prompt("Website URL:");
 
-    const url =
-      prompt("Website URL likhiye:");
+ if(!raw)return;
 
-    if (!url) return;
+ try{
 
-    window.open(
-      url.startsWith("http")
-        ? url
-        : "https://" + url,
-      "_blank"
-    );
+  const url=new URL(
+   raw.startsWith("http")
+   ?raw
+   :"https://"+raw
+  );
 
-  });
+  if(url.protocol!=="https:"){
+   alert("Only HTTPS websites are allowed.");
+   return;
+  }
 
-  document.addEventListener("keydown", function(e) {
+  window.open(
+   url.href,
+   "_blank",
+   "noopener,noreferrer"
+  );
 
-    if (
-      e.key === "/" &&
-      document.activeElement !== searchInput
-    ) {
+ }catch{
+  alert("Invalid website URL.");
+ }
 
-      e.preventDefault();
-      searchInput.focus();
+};
 
-    }
 
-  });
+/* ---------- MENU ACTIONS ---------- */
+
+document.getElementById("menuSearch").onclick=()=>{
+ closeMenu();
+ query.focus();
+};
+
+document.getElementById("menuAI").onclick=()=>{
+ closeMenu();
+ aiMode();
+};
+
+document.getElementById("menuVoice").onclick=()=>{
+ closeMenu();
+ document.getElementById("voiceBtn").click();
+};
+
+document.getElementById("menuImage").onclick=()=>{
+ closeMenu();
+ document.getElementById("imageBtn").click();
+};
+
+document.getElementById("menuHistory").onclick=()=>{
+ closeMenu();
+ renderHistory();
+ openModal("historyModal");
+};
+
+document.getElementById("menuSaved").onclick=()=>{
+ closeMenu();
+ renderSaved();
+ openModal("savedModal");
+};
+
+document.getElementById("menuDownloads").onclick=()=>{
+ closeMenu();
+ openModal("downloadsModal");
+};
+
+document.getElementById("menuSettings").onclick=()=>{
+ closeMenu();
+ openModal("settingsModal");
+};
+
+document.getElementById("menuAppearance").onclick=()=>{
+ settings.dark=!settings.dark;
+ saveSettings();
+};
+
+document.getElementById("menuLanguage").onclick=()=>{
+ closeMenu();
+ openModal("settingsModal");
+ document.getElementById("languageSelect").focus();
+};
+
+document.getElementById("menuPrivacy").onclick=()=>{
+ closeMenu();
+ openModal("settingsModal");
+};
+
+
+/* ---------- SHARE ---------- */
+
+function currentSearchLink(){
+
+ const q=query.value.trim();
+
+ if(!q){
+  return location.href;
+ }
+
+ return location.origin+
+  location.pathname+
+  "?q="+encodeURIComponent(q);
+}
+
+
+document.getElementById("menuShare").onclick=async()=>{
+
+ closeMenu();
+
+ const link=currentSearchLink();
+
+ if(navigator.share){
+
+  try{
+   await navigator.share({
+    title:"Khojoi Search",
+    text:query.value.trim(),
+    url:link
+   });
+  }catch{}
+
+ }else{
+
+  try{
+   await navigator.clipboard.writeText(link);
+   alert("Search link copied.");
+  }catch{
+   prompt("Copy this link:",link);
+  }
+
+ }
+};
+
+
+/* ---------- COPY LINK ---------- */
+
+document.getElementById("menuCopy").onclick=async()=>{
+
+ closeMenu();
+
+ const link=currentSearchLink();
+
+ try{
+
+  await navigator.clipboard.writeText(link);
+
+  alert("Search link copied.");
+
+ }catch{
+
+  prompt("Copy this link:",link);
+
+ }
+
+};
+
+
+/* ---------- NEW TAB ---------- */
+
+document.getElementById("menuNewTab").onclick=()=>{
+
+ const q=query.value.trim();
+
+ if(!q){
+  query.focus();
+  closeMenu();
+  return;
+ }
+
+ const url=
+  "https://www.google.com/search?q="+
+  encodeURIComponent(q);
+
+ window.open(
+  url,
+  "_blank",
+  "noopener,noreferrer"
+ );
+
+ closeMenu();
+};
+
+
+/* ---------- KEYBOARD ---------- */
+
+document.getElementById("menuKeys").onclick=()=>{
+
+ closeMenu();
+
+ alert(
+  "Keyboard Shortcuts\n\n"+
+  "/  → Search box\n"+
+  "Enter → Search\n"+
+  "Esc → Close menu/window"
+ );
+
+};
+
+
+/* ---------- HELP ---------- */
+
+document.getElementById("menuHelp").onclick=()=>{
+
+ closeMenu();
+
+ alert(
+  "Khojoi Help\n\n"+
+  "Search: type your query and press Enter.\n"+
+  "Voice: click 🎙️.\n"+
+  "Image: click 📷.\n"+
+  "Menu: click ☰.\n"+
+  "History and saved searches are stored locally."
+ );
+
+};
+
+
+/* ---------- ABOUT ---------- */
+
+document.getElementById("menuAbout").onclick=()=>{
+
+ closeMenu();
+
+ alert(
+  "Khojoi.in\n\n"+
+  "Fast, simple and privacy-focused search."
+ );
+
+};
+
+
+/* ---------- SETTINGS EVENTS ---------- */
+
+document.getElementById("darkToggle").onchange=e=>{
+ settings.dark=e.target.checked;
+ saveSettings();
+};
+
+document.getElementById("historyToggle").onchange=e=>{
+ settings.history=e.target.checked;
+ saveSettings();
+};
+
+document.getElementById("safeToggle").onchange=e=>{
+ settings.safe=e.target.checked;
+ saveSettings();
+};
+
+document.getElementById("suggestToggle").onchange=e=>{
+ settings.suggestions=e.target.checked;
+ saveSettings();
+};
+
+document.getElementById("resultsSelect").onchange=e=>{
+ settings.results=e.target.value;
+ saveSettings();
+};
+
+document.getElementById("languageSelect").onchange=e=>{
+ settings.language=e.target.value;
+ saveSettings();
+};
+
+
+/* ---------- CLEAR DATA ---------- */
+
+document.getElementById("clearData").onclick=()=>{
+
+ if(!confirm(
+  "Clear all Khojoi data from this browser?"
+ ))return;
+
+ remove(KEY.history);
+ remove(KEY.saved);
+
+ settings={...defaults};
+
+ set(KEY.settings,settings);
+
+ applySettings();
+
+ renderHistory();
+ renderSaved();
+
+ alert("Khojoi data cleared.");
+
+};
+
+
+/* ---------- FOOTER ---------- */
+
+document.getElementById("footerSettings").onclick=()=>{
+ openModal("settingsModal");
+};
+
+document.getElementById("footerPrivacy").onclick=()=>{
+ openModal("settingsModal");
+};
+
+document.getElementById("footerAbout").onclick=()=>{
+ alert("Khojoi.in - Fast & Private Search");
+};
+
+
+/* ---------- KEYBOARD ---------- */
+
+document.addEventListener("keydown",e=>{
+
+ if(
+  e.key==="/" &&
+  document.activeElement!==query
+ ){
+
+  e.preventDefault();
+  query.focus();
+
+ }
+
+ if(e.key==="Escape"){
+
+  closeMenu();
+
+  document.querySelectorAll(".modal.show")
+   .forEach(x=>x.classList.remove("show"));
+
+ }
+
+});
+
+
+/* ---------- LOAD URL SEARCH ---------- */
+
+try{
+
+ const params=new URLSearchParams(location.search);
+ const q=params.get("q");
+
+ if(q){
+  query.value=q.slice(0,300);
+ }
+
+}catch{}
+
+
+/* ---------- INIT ---------- */
+
+applySettings();
+renderHistory();
+renderSaved();
 
 </script>
 
