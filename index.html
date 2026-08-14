@@ -2,10 +2,7 @@
   <head>
   <title>Khojio</title>
 </head>
-  <!DOCTYPE html>
-<html lang="hi">
-<head>
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
@@ -34,7 +31,7 @@
       padding: 20px;
     }
 
-    /* Search Card Box */
+    /* Card Box (Page Set & Centering) */
     .search-card {
       background: #ffffff;
       padding: 40px 30px;
@@ -56,7 +53,7 @@
       object-fit: contain;
     }
 
-    /* Search Bar Layout */
+    /* Custom Search Bar Layout */
     .search-bar-wrapper {
       display: flex;
       align-items: center;
@@ -112,9 +109,9 @@
       100% { transform: scale(1); }
     }
 
-    /* Default CSE Clean Up */
+    /* CSE Results Wrapper */
     .gcse-search-wrapper {
-      margin-top: 10px;
+      margin-top: 15px;
     }
 
     footer {
@@ -135,7 +132,7 @@
       <img src="logo.png" alt="Khojio Logo">
     </div>
 
-    <!-- Custom Search Input with Microphone -->
+    <!-- Custom Search Bar with Mic -->
     <div class="search-bar-wrapper">
       <input type="text" id="custom-search-input" placeholder="Yahan bolen ya type karein...">
       
@@ -145,7 +142,7 @@
       </button>
     </div>
 
-    <!-- Google Custom Search Results Placeholder -->
+    <!-- Google Custom Search Results -->
     <div class="gcse-search-wrapper">
       <div class="gcse-search"></div>
     </div>
@@ -155,7 +152,7 @@
     <p>© Khojio Search</p>
   </footer>
 
-  <!-- Microphone Functionality (Web Speech API) -->
+  <!-- Microphone / Voice Search Functionality -->
   <script>
     const micBtn = document.getElementById('mic-btn');
     const customInput = document.getElementById('custom-search-input');
@@ -164,7 +161,7 @@
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       const recognition = new SpeechRecognition();
 
-      recognition.lang = 'hi-IN'; // Default Hindi (Engish ke liye 'en-US' kar sakte hain)
+      recognition.lang = 'hi-IN'; // Default Hindi (English ke liye 'en-US' set kar sakte hain)
       recognition.continuous = false;
 
       micBtn.addEventListener('click', () => {
@@ -177,7 +174,7 @@
         customInput.value = transcript;
         micBtn.classList.remove('listening');
 
-        // Google CSE input field me text set karke search trigger karna
+        // CSE input field me query set karke search trigger karna
         const cseInput = document.querySelector('input.gsc-input');
         const cseButton = document.querySelector('button.gsc-search-button');
         if (cseInput && cseButton) {
@@ -194,7 +191,7 @@
         micBtn.classList.remove('listening');
       };
     } else {
-      micBtn.style.display = 'none'; // Browser support na hone par hide kar dega
+      micBtn.style.display = 'none'; // Mic hide ho jayega agar browser support na kare
     }
   </script>
   <body>
