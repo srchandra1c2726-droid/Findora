@@ -11,6 +11,198 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Khojio - Search Engine</title>
+
+  <!-- Google Icons (Microphone Icon Ke Liye) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  <style>
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Search Card Box */
+    .search-card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 650px;
+      text-align: center;
+    }
+
+    /* Logo Styling */
+    .logo-container {
+      margin-bottom: 25px;
+    }
+
+    .logo-container img {
+      max-width: 160px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* Search Bar Layout */
+    .search-bar-wrapper {
+      display: flex;
+      align-items: center;
+      border: 2px solid #e0e0e0;
+      border-radius: 30px;
+      padding: 5px 15px;
+      background: #fff;
+      transition: all 0.3s ease;
+      margin-bottom: 15px;
+    }
+
+    .search-bar-wrapper:focus-within {
+      border-color: #4a90e2;
+      box-shadow: 0 0 8px rgba(74, 144, 226, 0.25);
+    }
+
+    .search-bar-wrapper input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    /* Mic Button Styling */
+    .mic-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #5f6368;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .mic-btn:hover {
+      background: #f1f3f4;
+      color: #1a73e8;
+    }
+
+    /* Listening Animation */
+    .listening {
+      color: #ea4335 !important;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    /* Default CSE Clean Up */
+    .gcse-search-wrapper {
+      margin-top: 10px;
+    }
+
+    footer {
+      margin-top: 30px;
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
+
+  <!-- Google Custom Search Script -->
+  <script async src="https://cse.google.com/cse.js?cx=93d75dd86436c4d96"></script>
+</head>
+<body>
+
+  <div class="search-card">
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="logo.png" alt="Khojio Logo">
+    </div>
+
+    <!-- Custom Search Input with Microphone -->
+    <div class="search-bar-wrapper">
+      <input type="text" id="custom-search-input" placeholder="Yahan bolen ya type karein...">
+      
+      <!-- Microphone Icon -->
+      <button class="mic-btn" id="mic-btn" title="Voice Search">
+        <span class="material-symbols-outlined">mic</span>
+      </button>
+    </div>
+
+    <!-- Google Custom Search Results Placeholder -->
+    <div class="gcse-search-wrapper">
+      <div class="gcse-search"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© Khojio Search</p>
+  </footer>
+
+  <!-- Microphone Functionality (Web Speech API) -->
+  <script>
+    const micBtn = document.getElementById('mic-btn');
+    const customInput = document.getElementById('custom-search-input');
+
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+
+      recognition.lang = 'hi-IN'; // Default Hindi (Engish ke liye 'en-US' kar sakte hain)
+      recognition.continuous = false;
+
+      micBtn.addEventListener('click', () => {
+        recognition.start();
+        micBtn.classList.add('listening');
+      });
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        customInput.value = transcript;
+        micBtn.classList.remove('listening');
+
+        // Google CSE input field me text set karke search trigger karna
+        const cseInput = document.querySelector('input.gsc-input');
+        const cseButton = document.querySelector('button.gsc-search-button');
+        if (cseInput && cseButton) {
+          cseInput.value = transcript;
+          cseButton.click();
+        }
+      };
+
+      recognition.onerror = () => {
+        micBtn.classList.remove('listening');
+      };
+
+      recognition.onend = () => {
+        micBtn.classList.remove('listening');
+      };
+    } else {
+      micBtn.style.display = 'none'; // Browser support na hone par hide kar dega
+    }
+  </script>
+  <!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khojio - Search Engine</title>
   
   <style>
     /* Global Styles */
