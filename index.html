@@ -6,68 +6,6 @@
 <html lang="hi">
 <head>
   
-
-    
-
-  
-      <!-- Microphone Icon -->
-      <button class="mic-btn" id="mic-btn" title="Voice Search">
-        <span class="material-symbols-outlined">mic</span>
-      </button>
-    </div>
-
-    <!-- Google Custom Search Results -->
-    <div class="gcse-search-wrapper">
-      <div class="gcse-search"></div>
-    </div>
-  </div>
-
-  <footer>
-    <p>© Khojio Search</p>
-  </footer>
-
-  <!-- Microphone / Voice Search Functionality -->
-  <script>
-    const micBtn = document.getElementById('mic-btn');
-    const customInput = document.getElementById('custom-search-input');
-
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-
-      recognition.lang = 'hi-IN'; // Default Hindi (English ke liye 'en-US' set kar sakte hain)
-      recognition.continuous = false;
-
-      micBtn.addEventListener('click', () => {
-        recognition.start();
-        micBtn.classList.add('listening');
-      });
-
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        customInput.value = transcript;
-        micBtn.classList.remove('listening');
-
-        // CSE input field me query set karke search trigger karna
-        const cseInput = document.querySelector('input.gsc-input');
-        const cseButton = document.querySelector('button.gsc-search-button');
-        if (cseInput && cseButton) {
-          cseInput.value = transcript;
-          cseButton.click();
-        }
-      };
-
-      recognition.onerror = () => {
-        micBtn.classList.remove('listening');
-      };
-
-      recognition.onend = () => {
-        micBtn.classList.remove('listening');
-      };
-    } else {
-      micBtn.style.display = 'none'; // Mic hide ho jayega agar browser support na kare
-    }
-  </script>
   <body>
 <img src="logo.png" alt="Khojio Logo" width="150">
     <script async src="https://cse.google.com/cse.js?cx=93d75dd86436c4d96">
