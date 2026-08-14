@@ -1,1849 +1,611 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Khojoi.in - Search</title>
-<meta name="description" content="Khojoi.in fast and simple search engine">
-<meta name="robots" content="index,follow">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-:root{
- --bg:#fff;
- --card:#fff;
- --text:#202124;
- --muted:#70757a;
- --border:#dfe1e5;
- --soft:#f1f3f4;
- --blue:#1769e8;
- --danger:#d93025;
-}
-
-body.dark{
- --bg:#202124;
- --card:#292a2d;
- --text:#f1f3f4;
- --muted:#aeb4bb;
- --border:#3c4043;
- --soft:#303134;
-}
-
-body{
- font-family:Arial,Helvetica,sans-serif;
- background:var(--bg);
- color:var(--text);
- min-height:100vh;
- transition:.2s;
-}
-
-button,input,select{font:inherit}
-button{cursor:pointer}
-
-.page{
- min-height:100vh;
- display:flex;
- flex-direction:column;
-}
-
-/* TOP */
-
-.top{
- height:58px;
- display:flex;
- justify-content:flex-end;
- align-items:center;
- padding:0 18px;
-}
-
-.menu-btn{
- width:40px;
- height:40px;
- border:0;
- border-radius:50%;
- background:transparent;
- color:var(--text);
- font-size:24px;
-}
-
-.menu-btn:hover{background:var(--soft)}
-
-/* LOGO */
-
-.logo-area{
- text-align:center;
- padding:24px 10px 36px;
-}
-
-.logo{
- font-size:50px;
- font-weight:800;
- letter-spacing:-3px;
-}
-
-.logo-k{color:var(--blue)}
-
-/* SEARCH */
-
-.search-wrap{
- width:min(820px,92%);
- margin:auto;
-}
-
-.search{
- height:55px;
- border:1px solid var(--border);
- border-radius:30px;
- background:var(--card);
- box-shadow:0 3px 14px rgba(0,0,0,.09);
- display:flex;
- align-items:center;
- padding:0 10px 0 16px;
-}
-
-.search-icon{
- color:var(--muted);
- font-size:23px;
- margin-right:8px;
-}
-
-#query{
- flex:1;
- min-width:0;
- height:50px;
- border:0;
- outline:0;
- background:transparent;
- color:var(--text);
- font-size:16px;
-}
-
-.tools{
- display:flex;
- align-items:center;
- gap:2px;
-}
-
-.icon-btn{
- width:37px;
- height:37px;
- border:0;
- border-radius:50%;
- background:transparent;
- color:var(--text);
- font-size:19px;
-}
-
-.icon-btn:hover{background:var(--soft)}
-
-.ai-btn{
- border:0;
- background:transparent;
- color:var(--text);
- padding:7px;
- border-radius:8px;
- font-weight:600;
-}
-
-.ai-btn:hover{background:var(--soft)}
-
-.spark{color:#7546ed;font-size:18px}
-
-/* TABS */
-
-.tabs{
- display:flex;
- justify-content:center;
- gap:28px;
- margin-top:24px;
-}
-
-.tab{
- border:0;
- background:transparent;
- color:var(--muted);
- padding:7px 3px 11px;
- position:relative;
-}<!-- LOGO --><img src="khojio-logo.png" alt="khojio.in" class="logo-img">
-
-.tab.active{color:var(--blue)}
-
-.tab.active:after{
- content:"";
- position:absolute;
- left:0;
- right:0;
- bottom:0;
- height:2px;
- background:var(--blue);
-}
-
-/* SHORTCUTS */
-
-.shortcuts{
- display:flex;
- justify-content:center;
- flex-wrap:wrap;
- gap:40px;
- margin-top:40px;
-}
-
-.shortcut{
- width:76px;
- text-align:center;
- cursor:pointer;
-}
-
-.short-icon{
- width:60px;
- height:60px;
- margin:auto;
- border-radius:50%;
- background:var(--soft);
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:27px;
- transition:.2s;
-}
-
-.shortcut:hover .short-icon{
- transform:translateY(-2px);
- box-shadow:0 3px 10px rgba(0,0,0,.12);
-}
-
-.short-name{
- margin-top:9px;
- font-size:13px;
- white-space:nowrap;
-}
-
-/* FOOTER */
-
-footer{
- margin-top:auto;
- padding:20px;
- text-align:center;
- color:var(--muted);
- font-size:12px;
-}
-
-footer button{
- border:0;
- background:none;
- color:var(--muted);
- margin:0 8px;
-}
-
-/* OVERLAY */
-
-.overlay{
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.35);
- display:none;
- z-index:50;
-}
-
-.overlay.show{display:block}
-
-/* MENU */
-
-.side{
- position:fixed;
- top:0;
- right:0;
- width:min(390px,92vw);
- height:100vh;
- background:var(--card);
- color:var(--text);
- z-index:60;
- transform:translateX(100%);
- transition:.25s;
- overflow-y:auto;
- box-shadow:-5px 0 20px rgba(0,0,0,.2);
-}
-
-.side.show{transform:translateX(0)}
-
-.side-head{
- height:64px;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:0 18px;
- border-bottom:1px solid var(--border);
-}
-
-.side-head h2{font-size:20px}
-
-.close{
- width:38px;
- height:38px;
- border:0;
- border-radius:50%;
- background:transparent;
- color:var(--text);
- font-size:23px;
-}
-
-.close:hover{background:var(--soft)}
-
-.section{
- padding:16px 18px;
- border-bottom:1px solid var(--border);
-}
-
-.section-title{
- font-size:12px;
- color:var(--muted);
- margin-bottom:8px;
- font-weight:bold;
-}
-
-.menu-item{
- width:100%;
- min-height:45px;
- border:0;
- border-radius:8px;
- background:transparent;
- color:var(--text);
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:7px 5px;
- text-align:left;
-}
-
-.menu-item:hover{background:var(--soft)}
-
-.menu-left{
- display:flex;
- align-items:center;
- gap:12px;
-}
-
-.menu-icon{
- width:25px;
- text-align:center;
- font-size:18px;
-}
-
-/* MODAL */
-
-.modal{
- position:fixed;
- inset:0;
- z-index:80;
- display:none;
- align-items:center;
- justify-content:center;
- background:rgba(0,0,0,.45);
- padding:15px;
-}
-
-.modal.show{display:flex}
-
-.modal-box{
- width:min(520px,100%);
- max-height:85vh;
- overflow:auto;
- background:var(--card);
- color:var(--text);
- border-radius:15px;
- box-shadow:0 10px 35px rgba(0,0,0,.25);
-}
-
-.modal-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding:17px;
- border-bottom:1px solid var(--border);
-}
-
-.modal-body{padding:17px}
-
-/* SETTINGS */
-
-.setting{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:15px;
- padding:13px 0;
- border-bottom:1px solid var(--border);
-}
-
-.setting:last-child{border:0}
-
-.setting small{
- display:block;
- color:var(--muted);
- margin-top:4px;
-}
-
-select{
- background:var(--card);
- color:var(--text);
- border:1px solid var(--border);
- border-radius:7px;
- padding:7px;
-}
-
-/* SWITCH */
-
-.switch{
- position:relative;
- width:42px;
- height:23px;
-}
-
-.switch input{
- opacity:0;
- width:0;
- height:0;
-}
-
-.slider{
- position:absolute;
- inset:0;
- background:#aaa;
- border-radius:20px;
-}
-
-.slider:before{
- content:"";
- position:absolute;
- width:17px;
- height:17px;
- left:3px;
- top:3px;
- background:white;
- border-radius:50%;
- transition:.2s;
-}
-
-.switch input:checked+.slider{background:var(--blue)}
-
-.switch input:checked+.slider:before{
- transform:translateX(19px);
-}
-
-/* LIST */
-
-.list{
- list-style:none;
-}
-
-.list-item{
- display:flex;
- align-items:center;
- gap:8px;
- padding:10px 0;
- border-bottom:1px solid var(--border);
-}
-
-.list-text{
- flex:1;
- overflow:hidden;
- text-overflow:ellipsis;
- white-space:nowrap;
-}
-
-.small-btn{
- border:0;
- background:transparent;
- color:var(--muted);
- padding:6px;
-}
-
-.small-btn:hover{color:var(--danger)}
-
-.empty{
- text-align:center;
- color:var(--muted);
- padding:25px 5px;
-}
-
-.clear{
- width:100%;
- margin-top:14px;
- padding:10px;
- border:1px solid var(--border);
- border-radius:8px;
- background:transparent;
- color:var(--danger);
-}
-
-/* IMAGE */
-
-#imageInput{display:none}
-
-/* MOBILE */
-
-@media(max-width:600px){
-
- .logo{
-  font-size:42px;
- }
-
- .logo-area{
-  padding-top:22px;
-  padding-bottom:30px;
- }
-
- .search-wrap{width:94%}
-
- .search{
-  height:50px;
-  padding-left:11px;
- }
-
- #query{
-  height:47px;
-  font-size:14px;
- }
-
- .icon-btn{
-  width:32px;
-  height:32px;
-  font-size:17px;
- }
-
- .ai-btn{
-  font-size:11px;
-  padding:5px;
- }
-
- .tabs{
-  justify-content:flex-start;
-  overflow-x:auto;
-  gap:18px;
-  padding:0 8px;
- }
-
- .tab{white-space:nowrap}
-
- .shortcuts{
-  gap:24px;
-  margin-top:34px;
- }
-
- .short-icon{
-  width:53px;
-  height:53px;
-  font-size:23px;
- }
-
- .shortcut{width:66px}
-
- .short-name{font-size:12px}
-
-}
-</style>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Khojio.in - Search Everything</title>
+
+  <meta name="description"
+        content="Khojio.in - Fast, simple and smart search engine. Search the web quickly with voice search.">
+
+  <meta name="keywords"
+        content="Khojio, Khojio.in, search engine, web search, voice search">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://khojio.in/">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #202124;
+      min-height: 100vh;
+    }
+
+    /* ---------- TOP BAR ---------- */
+
+    header {
+      width: 100%;
+      padding: 18px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ---------- UNIQUE LOGO ---------- */
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      user-select: none;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #16a085, #00b894);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0, 184, 148, 0.20);
+    }
+
+    /* Search glass inside logo */
+    .logo-icon::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border: 3px solid white;
+      border-radius: 50%;
+      position: absolute;
+      top: 9px;
+      left: 9px;
+    }
+
+    .logo-icon::after {
+      content: "";
+      width: 10px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transform: rotate(45deg);
+      position: absolute;
+      top: 25px;
+      left: 23px;
+    }
+
+    .logo-text {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+      color: #202124;
+    }
+
+    .logo-text span {
+      color: #00a884;
+    }
+
+    /* ---------- MAIN ---------- */
+
+    main {
+      min-height: calc(100vh - 145px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      margin-top: -45px;
+    }
+
+    .brand-title {
+      font-size: clamp(42px, 8vw, 78px);
+      font-weight: 800;
+      letter-spacing: -4px;
+      margin-bottom: 10px;
+      color: #202124;
+    }
+
+    .brand-title span {
+      color: #00a884;
+    }
+
+    .tagline {
+      font-size: 15px;
+      color: #70757a;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    /* ---------- SEARCH ---------- */
+
+    .search-area {
+      width: 100%;
+      max-width: 650px;
+    }
+
+    .search-box {
+      width: 100%;
+      height: 54px;
+      border: 1px solid #dfe1e5;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px 0 18px;
+      box-shadow: 0 2px 8px rgba(60, 64, 67, 0.08);
+      transition: 0.2s ease;
+      background: white;
+    }
+
+    .search-box:hover,
+    .search-box:focus-within {
+      box-shadow: 0 3px 14px rgba(60, 64, 67, 0.15);
+      border-color: transparent;
+    }
+
+    .search-icon {
+      font-size: 20px;
+      color: #777;
+      margin-right: 10px;
+    }
+
+    #searchInput {
+      flex: 1;
+      height: 100%;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      color: #202124;
+      background: transparent;
+      min-width: 0;
+    }
+
+    #searchInput::placeholder {
+      color: #8a8a8a;
+    }
+
+    /* ---------- MIC ---------- */
+
+    .mic-btn {
+      border: none;
+      background: transparent;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 21px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+      margin-right: 3px;
+    }
+
+    .mic-btn:hover {
+      background: #f1f3f4;
+    }
+
+    .mic-btn.listening {
+      background: #e8f5f1;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 168, 132, 0.35);
+      }
+
+      70% {
+        box-shadow: 0 0 0 10px rgba(0, 168, 132, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 168, 132, 0);
+      }
+    }
+
+    /* ---------- SEARCH BUTTON ---------- */
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .search-btn,
+    .lucky-btn {
+      border: 1px solid #f1f1f1;
+      background: #f8f9fa;
+      color: #3c4043;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .search-btn:hover,
+    .lucky-btn:hover {
+      border-color: #dadce0;
+      box-shadow: 0 1px 2px rgba(60, 64, 67, 0.15);
+    }
+
+    .search-btn {
+      background: #00a884;
+      color: white;
+      border-color: #00a884;
+    }
+
+    .search-btn:hover {
+      background: #008f70;
+      border-color: #008f70;
+    }
+
+    /* ---------- INFO ---------- */
+
+    .quick-info {
+      margin-top: 30px;
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      justify-content: center;
+      color: #777;
+      font-size: 13px;
+    }
+
+    .quick-info span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+      width: 100%;
+      min-height: 55px;
+      background: #f8f9fa;
+      border-top: 1px solid #eeeeee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 25px;
+      color: #70757a;
+      font-size: 13px;
+    }
+
+    footer a {
+      color: #70757a;
+      text-decoration: none;
+      margin-left: 18px;
+    }
+
+    footer a:hover {
+      color: #00a884;
+    }
+
+    /* ---------- MOBILE ---------- */
+
+    @media (max-width: 600px) {
+
+      header {
+        padding: 14px 16px;
+      }
+
+      .logo-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 11px;
+      }
+
+      .logo-text {
+        font-size: 20px;
+      }
+
+      main {
+        min-height: calc(100vh - 125px);
+        margin-top: -30px;
+        padding: 15px;
+      }
+
+      .brand-title {
+        font-size: 52px;
+        letter-spacing: -3px;
+      }
+
+      .tagline {
+        font-size: 14px;
+        margin-bottom: 22px;
+      }
+
+      .search-box {
+        height: 52px;
+      }
+
+      .buttons {
+        margin-top: 18px;
+      }
+
+      .quick-info {
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+
+      footer a {
+        margin: 0 7px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="page">
+  <!-- HEADER -->
+  <header>
 
-<!-- TOP -->
-<div class="top">
- <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
-</div>
+    <a href="/" class="logo" aria-label="Khojio.in Home">
 
-<!-- LOGO -->
-<img src="logo.png" alt="khojio.in" class="logo-img">
- .logo-img{
-  width:180px;
-  height:auto;
-  display:block;
-  margin:auto;
-}
+      <div class="logo-icon"></div>
 
-<!-- SEARCH -->
-<main class="search-wrap">
+      <div class="logo-text">
+        khojio<span>.in</span>
+      </div>
 
-<form class="search" id="searchForm" autocomplete="off">
+    </a>
 
- <span class="search-icon">⌕</span>
+  </header>
 
- <input
-  id="query"
-  type="search"
-  maxlength="300"
-  placeholder="Search Khojoi or type a URL"
-  aria-label="Search"
- >
 
- <div class="tools">
+  <!-- MAIN SEARCH -->
+  <main>
 
-  <button class="icon-btn" id="voiceBtn" type="button" title="Voice Search">
-   🎙️
-  </button>
+    <h1 class="brand-title">
+      khojio<span>.in</span>
+    </h1>
 
-  <button class="icon-btn" id="imageBtn" type="button" title="Image Search">
-   📷
-  </button>
+    <p class="tagline">
+      Search the web. Find what matters.
+    </p>
 
-  <input id="imageInput" type="file" accept="image/*">
 
-  <button class="ai-btn" id="aiBtn" type="button">
-   <span class="spark">✦</span> AI
-  </button>
+    <div class="search-area">
 
- </div>
+      <div class="search-box">
 
-</form>
+        <span class="search-icon">⌕</span>
 
-<!-- TABS -->
-<div class="tabs">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search Khojio..."
+          autocomplete="off"
+          aria-label="Search Khojio"
+        >
 
- <button class="tab active" data-type="web" type="button">All</button>
- <button class="tab" data-type="images" type="button">Images</button>
- <button class="tab" data-type="videos" type="button">Videos</button>
- <button class="tab" data-type="news" type="button">News</button>
- <button class="tab" data-type="ai" type="button">AI</button>
+        <button
+          class="mic-btn"
+          id="micBtn"
+          title="Voice Search"
+          aria-label="Voice Search">
+          🎙️
+        </button>
 
-</div>
+      </div>
 
-<!-- SHORTCUTS -->
-<div class="shortcuts">
 
- <div class="shortcut" data-url="https://khojoi.in">
-  <div class="short-icon">🔎</div>
-  <div class="short-name">KHOJOI</div>
- </div>
+      <div class="buttons">
 
- <div class="shortcut" data-url="https://www.youtube.com">
-  <div class="short-icon">▶️</div>
-  <div class="short-name">YouTube</div>
- </div>
+        <button
+          class="search-btn"
+          onclick="performSearch()">
+          Search
+        </button>
 
- <div class="shortcut" data-url="https://github.com">
-  <div class="short-icon">◉</div>
-  <div class="short-name">GitHub</div>
- </div>
+        <button
+          class="lucky-btn"
+          onclick="performSearch()">
+          Khojio Search
+        </button>
 
- <div class="shortcut" data-url="https://news.google.com">
-  <div class="short-icon">📰</div>
-  <div class="short-name">News</div>
- </div>
+      </div>
 
- <div class="shortcut" id="addShortcut">
-  <div class="short-icon">+</div>
-  <div class="short-name">Add</div>
- </div>
-
-</div>
-
-</main>
-
-<footer>
- <button id="footerSettings">Settings</button>
- <button id="footerPrivacy">Privacy</button>
- <button id="footerAbout">About</button>
- © 2026 Khojoi.in
-</footer>
-
-</div>
-
-
-<!-- OVERLAY -->
-<div class="overlay" id="overlay"></div>
-
-
-<!-- SIDE MENU -->
-
-<aside class="side" id="side">
-
- <div class="side-head">
-  <h2>Khojoi</h2>
-  <button class="close" id="closeBtn">×</button>
- </div>
-
-
- <!-- SEARCH FEATURES -->
-
- <div class="section">
-
-  <div class="section-title">SEARCH</div>
-
-  <button class="menu-item" id="menuSearch">
-   <span class="menu-left">
-    <span class="menu-icon">🔍</span>
-    Search
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuAI">
-   <span class="menu-left">
-    <span class="menu-icon">🤖</span>
-    AI Search
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuVoice">
-   <span class="menu-left">
-    <span class="menu-icon">🎙️</span>
-    Voice Search
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuImage">
-   <span class="menu-left">
-    <span class="menu-icon">📷</span>
-    Image Search
-   </span>
-   ›
-  </button>
-
- </div>
-
-
- <!-- USER DATA -->
-
- <div class="section">
-
-  <div class="section-title">YOUR DATA</div>
-
-  <button class="menu-item" id="menuHistory">
-   <span class="menu-left">
-    <span class="menu-icon">🕘</span>
-    History
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuSaved">
-   <span class="menu-left">
-    <span class="menu-icon">🔖</span>
-    Saved / Bookmarks
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuDownloads">
-   <span class="menu-left">
-    <span class="menu-icon">⬇️</span>
-    Downloads
-   </span>
-   ›
-  </button>
-
- </div>
-
-
- <!-- PERSONAL -->
-
- <div class="section">
-
-  <div class="section-title">PERSONALIZATION</div>
-
-  <button class="menu-item" id="menuSettings">
-   <span class="menu-left">
-    <span class="menu-icon">⚙️</span>
-    Settings
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuAppearance">
-   <span class="menu-left">
-    <span class="menu-icon">🌙</span>
-    Appearance
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuLanguage">
-   <span class="menu-left">
-    <span class="menu-icon">🌐</span>
-    Language
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuPrivacy">
-   <span class="menu-left">
-    <span class="menu-icon">🛡️</span>
-    Privacy & SafeSearch
-   </span>
-   ›
-  </button>
-
- </div>
-
-
- <!-- TOOLS -->
-
- <div class="section">
-
-  <div class="section-title">TOOLS</div>
-
-  <button class="menu-item" id="menuShare">
-   <span class="menu-left">
-    <span class="menu-icon">🔗</span>
-    Share Search
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuCopy">
-   <span class="menu-left">
-    <span class="menu-icon">📋</span>
-    Copy Search Link
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuNewTab">
-   <span class="menu-left">
-    <span class="menu-icon">↗️</span>
-    Open in New Tab
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuKeys">
-   <span class="menu-left">
-    <span class="menu-icon">⌨️</span>
-    Keyboard Shortcuts
-   </span>
-   ›
-  </button>
-
- </div>
-
-
- <!-- MORE -->
-
- <div class="section">
-
-  <div class="section-title">MORE</div>
-
-  <button class="menu-item" id="menuHelp">
-   <span class="menu-left">
-    <span class="menu-icon">❓</span>
-    Help & Feedback
-   </span>
-   ›
-  </button>
-
-  <button class="menu-item" id="menuAbout">
-   <span class="menu-left">
-    <span class="menu-icon">ℹ️</span>
-    About Khojoi
-   </span>
-   ›
-  </button>
-
- </div>
-
-</aside>
-
-
-<!-- SETTINGS -->
-
-<div class="modal" id="settingsModal">
-
- <div class="modal-box">
-
-  <div class="modal-head">
-   <b>⚙️ Settings</b>
-   <button class="close" data-close="settingsModal">×</button>
-  </div>
-
-  <div class="modal-body">
-
-   <div class="setting">
-    <div>
-     Dark Mode
-     <small>Dark appearance</small>
     </div>
 
-    <label class="switch">
-     <input type="checkbox" id="darkToggle">
-     <span class="slider"></span>
-    </label>
-   </div>
 
+    <div class="quick-info">
 
-   <div class="setting">
-    <div>
-     Save History
-     <small>Save searches on this device</small>
+      <span>⚡ Fast Search</span>
+      <span>🎙️ Voice Search</span>
+      <span>📱 Mobile Friendly</span>
+
     </div>
 
-    <label class="switch">
-     <input type="checkbox" id="historyToggle" checked>
-     <span class="slider"></span>
-    </label>
-   </div>
+  </main>
 
 
-   <div class="setting">
+  <!-- FOOTER -->
+  <footer>
+
     <div>
-     SafeSearch
-     <small>Safer search results</small>
+      © 2026 khojio.in
     </div>
 
-    <label class="switch">
-     <input type="checkbox" id="safeToggle" checked>
-     <span class="slider"></span>
-    </label>
-   </div>
-
-
-   <div class="setting">
     <div>
-     Search Suggestions
-     <small>Show search suggestions</small>
+      <a href="#">About</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
     </div>
 
-    <label class="switch">
-     <input type="checkbox" id="suggestToggle" checked>
-     <span class="slider"></span>
-    </label>
-   </div>
+  </footer>
 
 
-   <div class="setting">
-    <div>
-     Results per page
-     <small>Preferred result count</small>
-    </div>
+  <script>
 
-    <select id="resultsSelect">
-     <option value="10">10</option>
-     <option value="20">20</option>
-     <option value="30">30</option>
-    </select>
-   </div>
+    const searchInput =
+      document.getElementById("searchInput");
 
+    const micBtn =
+      document.getElementById("micBtn");
 
-   <div class="setting">
-    <div>
-     Language
-     <small>Khojoi interface language</small>
-    </div>
 
-    <select id="languageSelect">
-     <option value="en">English</option>
-     <option value="hi">हिन्दी</option>
-     <option value="hinglish">Hinglish</option>
-    </select>
-   </div>
+    /* SEARCH */
 
+    function performSearch() {
 
-   <button class="clear" id="clearData">
-    🧹 Clear All Khojoi Data
-   </button>
+      const query =
+        searchInput.value.trim();
 
-  </div>
+      if (!query) {
 
- </div>
+        searchInput.focus();
 
-</div>
+        return;
 
+      }
 
-<!-- HISTORY -->
+      /*
+       * Yahan apna actual search URL
+       * baad mein connect kar sakte ho.
+       *
+       * Abhi Google search open hoga.
+       */
 
-<div class="modal" id="historyModal">
+      const url =
+        "https://www.google.com/search?q="
+        + encodeURIComponent(query);
 
- <div class="modal-box">
+      window.location.href = url;
 
-  <div class="modal-head">
-   <b>🕘 Search History</b>
-   <button class="close" data-close="historyModal">×</button>
-  </div>
+    }
 
-  <div class="modal-body">
 
-   <ul class="list" id="historyList"></ul>
+    /* ENTER KEY */
 
-   <button class="clear" id="clearHistory">
-    Clear History
-   </button>
+    searchInput.addEventListener(
+      "keydown",
+      function(event) {
 
-  </div>
+        if (event.key === "Enter") {
 
- </div>
+          performSearch();
 
-</div>
+        }
 
+      }
+    );
 
-<!-- SAVED -->
 
-<div class="modal" id="savedModal">
+    /* VOICE SEARCH */
 
- <div class="modal-box">
+    const SpeechRecognition =
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition;
 
-  <div class="modal-head">
-   <b>🔖 Saved / Bookmarks</b>
-   <button class="close" data-close="savedModal">×</button>
-  </div>
 
-  <div class="modal-body">
-   <ul class="list" id="savedList"></ul>
-  </div>
+    if (SpeechRecognition) {
 
- </div>
+      const recognition =
+        new SpeechRecognition();
 
-</div>
+      recognition.lang = "hi-IN";
 
+      recognition.continuous = false;
 
-<!-- DOWNLOADS -->
+      recognition.interimResults = false;
 
-<div class="modal" id="downloadsModal">
 
- <div class="modal-box">
+      micBtn.addEventListener(
+        "click",
+        function() {
 
-  <div class="modal-head">
-   <b>⬇️ Downloads</b>
-   <button class="close" data-close="downloadsModal">×</button>
-  </div>
+          recognition.start();
 
-  <div class="modal-body">
+          micBtn.classList.add("listening");
 
-   <div class="empty">
-    Khojoi downloads will appear here when download functionality is connected.
-   </div>
+          micBtn.innerHTML = "🔴";
 
-  </div>
+        }
+      );
 
- </div>
 
-</div>
+      recognition.onresult =
+        function(event) {
 
+          const text =
+            event.results[0][0].transcript;
 
-<script>
-"use strict";
+          searchInput.value = text;
 
-/* ---------- STORAGE ---------- */
+          micBtn.classList.remove(
+            "listening"
+          );
 
-const KEY={
- history:"khojoi_history_v2",
- saved:"khojoi_saved_v2",
- settings:"khojoi_settings_v2"
-};
+          micBtn.innerHTML = "🎙️";
 
-function get(key,fallback){
- try{
-  const value=localStorage.getItem(key);
-  return value===null?fallback:JSON.parse(value);
- }catch{
-  return fallback;
- }
-}
+          performSearch();
 
-function set(key,value){
- try{
-  localStorage.setItem(key,JSON.stringify(value));
- }catch{}
-}
+        };
 
-function remove(key){
- try{localStorage.removeItem(key)}catch{}
-}
 
+      recognition.onend =
+        function() {
 
-/* ---------- SETTINGS ---------- */
+          micBtn.classList.remove(
+            "listening"
+          );
 
-const defaults={
- dark:false,
- history:true,
- safe:true,
- suggestions:true,
- results:"10",
- language:"en"
-};
+          micBtn.innerHTML = "🎙️";
 
-let settings={
- ...defaults,
- ...get(KEY.settings,{})
-};
+        };
 
-function saveSettings(){
- set(KEY.settings,settings);
- applySettings();
-}
 
-function applySettings(){
+      recognition.onerror =
+        function() {
 
- document.body.classList.toggle(
-  "dark",
-  settings.dark
- );
+          micBtn.classList.remove(
+            "listening"
+          );
 
- document.getElementById("darkToggle").checked=settings.dark;
- document.getElementById("historyToggle").checked=settings.history;
- document.getElementById("safeToggle").checked=settings.safe;
- document.getElementById("suggestToggle").checked=settings.suggestions;
- document.getElementById("resultsSelect").value=settings.results;
- document.getElementById("languageSelect").value=settings.language;
-}
+          micBtn.innerHTML = "🎙️";
 
+        };
 
-/* ---------- MENU ---------- */
+    } else {
 
-const side=document.getElementById("side");
-const overlay=document.getElementById("overlay");
+      micBtn.addEventListener(
+        "click",
+        function() {
 
-function openMenu(){
- side.classList.add("show");
- overlay.classList.add("show");
-}
+          alert(
+            "Voice search is not supported in this browser."
+          );
 
-function closeMenu(){
- side.classList.remove("show");
- overlay.classList.remove("show");
-}
+        }
+      );
 
-document.getElementById("menuBtn").onclick=openMenu;
-document.getElementById("closeBtn").onclick=closeMenu;
-overlay.onclick=closeMenu;
+    }
 
-
-/* ---------- MODAL ---------- */
-
-function openModal(id){
- document.getElementById(id).classList.add("show");
-}
-
-function closeModal(id){
- document.getElementById(id).classList.remove("show");
-}
-
-document.querySelectorAll("[data-close]").forEach(btn=>{
- btn.onclick=()=>{
-  closeModal(btn.dataset.close);
- };
-});
-
-document.querySelectorAll(".modal").forEach(modal=>{
- modal.addEventListener("click",e=>{
-  if(e.target===modal){
-   modal.classList.remove("show");
-  }
- });
-});
-
-
-/* ---------- SEARCH ---------- */
-
-const query=document.getElementById("query");
-
-function search(type="web"){
-
- let q=query.value.trim();
-
- if(!q){
-  query.focus();
-  return;
- }
-
- q=q.slice(0,300);
-
- if(settings.history){
-  let history=get(KEY.history,[]);
-
-  history=history.filter(x=>x!==q);
-  history.unshift(q);
-  history=history.slice(0,50);
-
-  set(KEY.history,history);
- }
-
- let url;
-
- if(type==="images"){
-  url="https://www.google.com/search?tbm=isch&q="+encodeURIComponent(q);
- }
-
- else if(type==="videos"){
-  url="https://www.google.com/search?tbm=vid&q="+encodeURIComponent(q);
- }
-
- else if(type==="news"){
-  url="https://www.google.com/search?tbm=nws&q="+encodeURIComponent(q);
- }
-
- else{
-  url="https://www.google.com/search?q="+encodeURIComponent(q);
- }
-
- location.href=url;
-}
-
-
-document.getElementById("searchForm").onsubmit=e=>{
- e.preventDefault();
-
- const active=document.querySelector(".tab.active");
-
- search(active?active.dataset.type:"web");
-};
-
-
-/* ---------- TABS ---------- */
-
-document.querySelectorAll(".tab").forEach(tab=>{
-
- tab.onclick=()=>{
-
-  document.querySelectorAll(".tab")
-   .forEach(x=>x.classList.remove("active"));
-
-  tab.classList.add("active");
-
-  if(tab.dataset.type==="ai"){
-   aiMode();
-  }else{
-   query.focus();
-  }
- };
-
-});
-
-
-/* ---------- VOICE ---------- */
-
-document.getElementById("voiceBtn").onclick=()=>{
-
- const Speech=
-  window.SpeechRecognition ||
-  window.webkitSpeechRecognition;
-
- if(!Speech){
-  alert("Voice search is not supported in this browser.");
-  return;
- }
-
- const recognition=new Speech();
-
- recognition.lang=
-  settings.language==="hi"
-  ?"hi-IN"
-  :"en-IN";
-
- recognition.interimResults=false;
-
- const btn=document.getElementById("voiceBtn");
-
- btn.textContent="🔴";
-
- try{
-  recognition.start();
- }catch{
-  btn.textContent="🎙️";
-  return;
- }
-
- recognition.onresult=e=>{
-  query.value=
-   e.results[0][0].transcript.slice(0,300);
-
-  search();
- };
-
- recognition.onerror=()=>{
-  btn.textContent="🎙️";
- };
-
- recognition.onend=()=>{
-  btn.textContent="🎙️";
- };
-};
-
-
-/* ---------- IMAGE ---------- */
-
-document.getElementById("imageBtn").onclick=()=>{
- document.getElementById("imageInput").click();
-};
-
-document.getElementById("imageInput").onchange=e=>{
-
- const file=e.target.files[0];
-
- if(!file)return;
-
- if(!file.type.startsWith("image/")){
-  alert("Please select a valid image.");
-  e.target.value="";
-  return;
- }
-
- if(file.size>10*1024*1024){
-  alert("Image must be smaller than 10 MB.");
-  e.target.value="";
-  return;
- }
-
- alert(
-  "Image selected successfully.\n\n" +
-  "Real image-search backend can be connected next."
- );
-};
-
-
-/* ---------- AI ---------- */
-
-function aiMode(){
-
- const q=query.value.trim();
-
- if(!q){
-  alert("AI Search ke liye question type karein.");
-  query.focus();
-  return;
- }
-
- alert(
-  "Khojoi AI Search\n\n" +
-  "AI backend ko next stage mein securely connect kiya jayega."
- );
-}
-
-document.getElementById("aiBtn").onclick=aiMode;
-
-
-/* ---------- HISTORY ---------- */
-
-function renderHistory(){
-
- const list=document.getElementById("historyList");
- list.replaceChildren();
-
- const history=get(KEY.history,[]);
-
- if(!history.length){
-
-  const empty=document.createElement("li");
-  empty.className="empty";
-  empty.textContent="No search history.";
-  list.appendChild(empty);
-
-  return;
- }
-
- history.forEach((text,index)=>{
-
-  const li=document.createElement("li");
-  li.className="list-item";
-
-  const span=document.createElement("span");
-  span.className="list-text";
-  span.textContent=text;
-
-  span.onclick=()=>{
-   query.value=text;
-   closeModal("historyModal");
-   query.focus();
-  };
-
-  const saveBtn=document.createElement("button");
-  saveBtn.className="small-btn";
-  saveBtn.textContent="🔖";
-  saveBtn.title="Save";
-
-  saveBtn.onclick=()=>{
-   saveSearch(text);
-  };
-
-  const del=document.createElement("button");
-  del.className="small-btn";
-  del.textContent="×";
-
-  del.onclick=()=>{
-
-   history.splice(index,1);
-   set(KEY.history,history);
-   renderHistory();
-
-  };
-
-  li.appendChild(span);
-  li.appendChild(saveBtn);
-  li.appendChild(del);
-
-  list.appendChild(li);
-
- });
-}
-
-
-document.getElementById("clearHistory").onclick=()=>{
-
- if(!confirm("Clear all search history?"))return;
-
- remove(KEY.history);
- renderHistory();
-
-};
-
-
-/* ---------- SAVED ---------- */
-
-function saveSearch(text){
-
- let saved=get(KEY.saved,[]);
-
- if(saved.includes(text)){
-  alert("Already saved.");
-  return;
- }
-
- saved.unshift(text);
- saved=saved.slice(0,50);
-
- set(KEY.saved,saved);
-
- renderSaved();
-}
-
-
-function renderSaved(){
-
- const list=document.getElementById("savedList");
- list.replaceChildren();
-
- const saved=get(KEY.saved,[]);
-
- if(!saved.length){
-
-  const empty=document.createElement("li");
-  empty.className="empty";
-  empty.textContent="No saved searches.";
-  list.appendChild(empty);
-
-  return;
- }
-
- saved.forEach((text,index)=>{
-
-  const li=document.createElement("li");
-  li.className="list-item";
-
-  const span=document.createElement("span");
-  span.className="list-text";
-  span.textContent=text;
-
-  span.onclick=()=>{
-   query.value=text;
-   closeModal("savedModal");
-   query.focus();
-  };
-
-  const del=document.createElement("button");
-  del.className="small-btn";
-  del.textContent="×";
-
-  del.onclick=()=>{
-   saved.splice(index,1);
-   set(KEY.saved,saved);
-   renderSaved();
-  };
-
-  li.appendChild(span);
-  li.appendChild(del);
-
-  list.appendChild(li);
-
- });
-}
-
-
-/* ---------- SHORTCUTS ---------- */
-
-document.querySelectorAll(".shortcut[data-url]")
-.forEach(item=>{
-
- item.onclick=()=>{
-
-  const url=item.dataset.url;
-
-  if(!url.startsWith("https://"))return;
-
-  window.open(
-   url,
-   "_blank",
-   "noopener,noreferrer"
-  );
-
- };
-
-});
-
-
-/* ---------- ADD SHORTCUT ---------- */
-
-document.getElementById("addShortcut").onclick=()=>{
-
- const name=prompt("Shortcut name:");
-
- if(!name)return;
-
- const raw=prompt("Website URL:");
-
- if(!raw)return;
-
- try{
-
-  const url=new URL(
-   raw.startsWith("http")
-   ?raw
-   :"https://"+raw
-  );
-
-  if(url.protocol!=="https:"){
-   alert("Only HTTPS websites are allowed.");
-   return;
-  }
-
-  window.open(
-   url.href,
-   "_blank",
-   "noopener,noreferrer"
-  );
-
- }catch{
-  alert("Invalid website URL.");
- }
-
-};
-
-
-/* ---------- MENU ACTIONS ---------- */
-
-document.getElementById("menuSearch").onclick=()=>{
- closeMenu();
- query.focus();
-};
-
-document.getElementById("menuAI").onclick=()=>{
- closeMenu();
- aiMode();
-};
-
-document.getElementById("menuVoice").onclick=()=>{
- closeMenu();
- document.getElementById("voiceBtn").click();
-};
-
-document.getElementById("menuImage").onclick=()=>{
- closeMenu();
- document.getElementById("imageBtn").click();
-};
-
-document.getElementById("menuHistory").onclick=()=>{
- closeMenu();
- renderHistory();
- openModal("historyModal");
-};
-
-document.getElementById("menuSaved").onclick=()=>{
- closeMenu();
- renderSaved();
- openModal("savedModal");
-};
-
-document.getElementById("menuDownloads").onclick=()=>{
- closeMenu();
- openModal("downloadsModal");
-};
-
-document.getElementById("menuSettings").onclick=()=>{
- closeMenu();
- openModal("settingsModal");
-};
-
-document.getElementById("menuAppearance").onclick=()=>{
- settings.dark=!settings.dark;
- saveSettings();
-};
-
-document.getElementById("menuLanguage").onclick=()=>{
- closeMenu();
- openModal("settingsModal");
- document.getElementById("languageSelect").focus();
-};
-
-document.getElementById("menuPrivacy").onclick=()=>{
- closeMenu();
- openModal("settingsModal");
-};
-
-
-/* ---------- SHARE ---------- */
-
-function currentSearchLink(){
-
- const q=query.value.trim();
-
- if(!q){
-  return location.href;
- }
-
- return location.origin+
-  location.pathname+
-  "?q="+encodeURIComponent(q);
-}
-
-
-document.getElementById("menuShare").onclick=async()=>{
-
- closeMenu();
-
- const link=currentSearchLink();
-
- if(navigator.share){
-
-  try{
-   await navigator.share({
-    title:"Khojoi Search",
-    text:query.value.trim(),
-    url:link
-   });
-  }catch{}
-
- }else{
-
-  try{
-   await navigator.clipboard.writeText(link);
-   alert("Search link copied.");
-  }catch{
-   prompt("Copy this link:",link);
-  }
-
- }
-};
-
-
-/* ---------- COPY LINK ---------- */
-
-document.getElementById("menuCopy").onclick=async()=>{
-
- closeMenu();
-
- const link=currentSearchLink();
-
- try{
-
-  await navigator.clipboard.writeText(link);
-
-  alert("Search link copied.");
-
- }catch{
-
-  prompt("Copy this link:",link);
-
- }
-
-};
-
-
-/* ---------- NEW TAB ---------- */
-
-document.getElementById("menuNewTab").onclick=()=>{
-
- const q=query.value.trim();
-
- if(!q){
-  query.focus();
-  closeMenu();
-  return;
- }
-
- const url=
-  "https://www.google.com/search?q="+
-  encodeURIComponent(q);
-
- window.open(
-  url,
-  "_blank",
-  "noopener,noreferrer"
- );
-
- closeMenu();
-};
-
-
-/* ---------- KEYBOARD ---------- */
-
-document.getElementById("menuKeys").onclick=()=>{
-
- closeMenu();
-
- alert(
-  "Keyboard Shortcuts\n\n"+
-  "/  → Search box\n"+
-  "Enter → Search\n"+
-  "Esc → Close menu/window"
- );
-
-};
-
-
-/* ---------- HELP ---------- */
-
-document.getElementById("menuHelp").onclick=()=>{
-
- closeMenu();
-
- alert(
-  "Khojoi Help\n\n"+
-  "Search: type your query and press Enter.\n"+
-  "Voice: click 🎙️.\n"+
-  "Image: click 📷.\n"+
-  "Menu: click ☰.\n"+
-  "History and saved searches are stored locally."
- );
-
-};
-
-
-/* ---------- ABOUT ---------- */
-
-document.getElementById("menuAbout").onclick=()=>{
-
- closeMenu();
-
- alert(
-  "Khojoi.in\n\n"+
-  "Fast, simple and privacy-focused search."
- );
-
-};
-
-
-/* ---------- SETTINGS EVENTS ---------- */
-
-document.getElementById("darkToggle").onchange=e=>{
- settings.dark=e.target.checked;
- saveSettings();
-};
-
-document.getElementById("historyToggle").onchange=e=>{
- settings.history=e.target.checked;
- saveSettings();
-};
-
-document.getElementById("safeToggle").onchange=e=>{
- settings.safe=e.target.checked;
- saveSettings();
-};
-
-document.getElementById("suggestToggle").onchange=e=>{
- settings.suggestions=e.target.checked;
- saveSettings();
-};
-
-document.getElementById("resultsSelect").onchange=e=>{
- settings.results=e.target.value;
- saveSettings();
-};
-
-document.getElementById("languageSelect").onchange=e=>{
- settings.language=e.target.value;
- saveSettings();
-};
-
-
-/* ---------- CLEAR DATA ---------- */
-
-document.getElementById("clearData").onclick=()=>{
-
- if(!confirm(
-  "Clear all Khojoi data from this browser?"
- ))return;
-
- remove(KEY.history);
- remove(KEY.saved);
-
- settings={...defaults};
-
- set(KEY.settings,settings);
-
- applySettings();
-
- renderHistory();
- renderSaved();
-
- alert("Khojoi data cleared.");
-
-};
-
-
-/* ---------- FOOTER ---------- */
-
-document.getElementById("footerSettings").onclick=()=>{
- openModal("settingsModal");
-};
-
-document.getElementById("footerPrivacy").onclick=()=>{
- openModal("settingsModal");
-};
-
-document.getElementById("footerAbout").onclick=()=>{
- alert("Khojoi.in - Fast & Private Search");
-};
-
-
-/* ---------- KEYBOARD ---------- */
-
-document.addEventListener("keydown",e=>{
-
- if(
-  e.key==="/" &&
-  document.activeElement!==query
- ){
-
-  e.preventDefault();
-  query.focus();
-
- }
-
- if(e.key==="Escape"){
-
-  closeMenu();
-
-  document.querySelectorAll(".modal.show")
-   .forEach(x=>x.classList.remove("show"));
-
- }
-
-});
-
-
-/* ---------- LOAD URL SEARCH ---------- */
-
-try{
-
- const params=new URLSearchParams(location.search);
- const q=params.get("q");
-
- if(q){
-  query.value=q.slice(0,300);
- }
-
-}catch{}
-
-
-/* ---------- INIT ---------- */
-
-applySettings();
-renderHistory();
-renderSaved();
-
-</script>
+  </script>
 
 </body>
 </html>
