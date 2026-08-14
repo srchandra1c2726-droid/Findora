@@ -4,17 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>KHOJOI - Fast Search Engine</title>
-
-  <meta name="description"
-        content="Khojoi.in - Fast, simple and smart search engine with voice, image and AI search.">
-
+  <title>Khojoi.in - Fast Search Engine</title>
+  <meta name="description" content="Khojoi.in - Fast, simple and smart search engine with voice, image and AI search.">
   <meta name="robots" content="index, follow">
-
-  <link rel="icon" href="data:image/svg+xml,
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-  <text y='.9em' font-size='90'>🔎</text>
-  </svg>">
 
   <style>
     * {
@@ -26,8 +18,8 @@
     :root {
       --blue: #1769e8;
       --text: #202124;
-      --gray: #6b7078;
-      --border: #e1e3e6;
+      --gray: #70757a;
+      --border: #dfe1e5;
       --light: #f1f3f4;
     }
 
@@ -40,26 +32,27 @@
 
     .page {
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* LOGO */
 
     .logo-area {
       text-align: center;
-      padding-top: 48px;
-      padding-bottom: 70px;
+      padding-top: 28px;
+      padding-bottom: 38px;
     }
 
     .logo {
-      font-size: 78px;
+      font-size: 52px;
       line-height: 1;
       font-weight: 800;
-      letter-spacing: -5px;
-      user-select: none;
+      letter-spacing: -3px;
     }
 
     .logo .k {
-      color: #1769e8;
+      color: var(--blue);
     }
 
     .logo .rest {
@@ -69,41 +62,41 @@
     /* SEARCH */
 
     .search-container {
-      width: min(1050px, 94%);
+      width: min(820px, 92%);
       margin: auto;
     }
 
     .search-box {
-      height: 86px;
       width: 100%;
+      height: 56px;
       border: 1px solid var(--border);
-      border-radius: 45px;
+      border-radius: 30px;
       display: flex;
       align-items: center;
-      padding: 0 22px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.09);
+      padding: 0 12px 0 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      background: #fff;
       transition: .2s;
-      background: white;
     }
 
     .search-box:focus-within {
-      box-shadow: 0 4px 18px rgba(0,0,0,.15);
+      box-shadow: 0 3px 12px rgba(0,0,0,.14);
     }
 
     .search-icon {
-      font-size: 31px;
+      font-size: 23px;
       color: #777;
-      margin-right: 18px;
+      margin-right: 9px;
     }
 
     #searchInput {
       flex: 1;
-      height: 100%;
-      border: none;
-      outline: none;
-      font-size: 24px;
-      color: var(--text);
       min-width: 0;
+      height: 100%;
+      border: 0;
+      outline: 0;
+      font-size: 16px;
+      color: var(--text);
     }
 
     #searchInput::placeholder {
@@ -113,17 +106,17 @@
     .search-tools {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 3px;
     }
 
     .tool-btn {
-      border: none;
+      width: 38px;
+      height: 38px;
+      border: 0;
       background: transparent;
-      width: 48px;
-      height: 48px;
       border-radius: 50%;
       cursor: pointer;
-      font-size: 27px;
+      font-size: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -134,16 +127,16 @@
     }
 
     .ai-btn {
-      border: none;
+      border: 0;
       background: transparent;
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 18px;
+      gap: 5px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      padding: 10px 8px;
-      border-radius: 10px;
+      padding: 7px;
+      border-radius: 8px;
     }
 
     .ai-btn:hover {
@@ -151,8 +144,8 @@
     }
 
     .spark {
-      color: #7b45ff;
-      font-size: 28px;
+      color: #7546ed;
+      font-size: 19px;
     }
 
     /* TABS */
@@ -160,16 +153,16 @@
     .tabs {
       display: flex;
       justify-content: center;
-      gap: 40px;
-      margin-top: 40px;
+      gap: 28px;
+      margin-top: 25px;
     }
 
     .tab {
-      border: none;
+      border: 0;
       background: transparent;
-      color: #70757a;
-      font-size: 20px;
-      padding: 8px 4px 16px;
+      color: var(--gray);
+      font-size: 15px;
+      padding: 7px 3px 12px;
       cursor: pointer;
       position: relative;
     }
@@ -184,9 +177,9 @@
       left: 0;
       right: 0;
       bottom: 0;
-      height: 3px;
+      height: 2px;
       background: var(--blue);
-      border-radius: 3px;
+      border-radius: 2px;
     }
 
     /* SHORTCUTS */
@@ -195,62 +188,60 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 72px;
-      margin-top: 67px;
+      gap: 42px;
+      margin-top: 42px;
     }
 
     .shortcut {
-      width: 90px;
+      width: 78px;
       text-align: center;
       cursor: pointer;
     }
 
     .shortcut-icon {
-      width: 84px;
-      height: 84px;
+      width: 62px;
+      height: 62px;
       margin: auto;
       border-radius: 50%;
       background: #f1f3f4;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 39px;
+      font-size: 28px;
       transition: .2s;
     }
 
     .shortcut:hover .shortcut-icon {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 10px rgba(0,0,0,.12);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0,0,0,.12);
     }
 
     .shortcut-name {
-      margin-top: 15px;
-      font-size: 19px;
-      white-space: nowrap;
+      margin-top: 10px;
+      font-size: 14px;
       color: #303134;
+      white-space: nowrap;
     }
 
     /* FOOTER */
 
     footer {
       text-align: center;
-      margin-top: 100px;
-      padding: 25px;
+      padding: 22px;
+      margin-top: auto;
       color: #777;
-      font-size: 14px;
+      font-size: 12px;
     }
 
     footer a {
       color: #777;
       text-decoration: none;
-      margin: 0 10px;
+      margin: 0 8px;
     }
 
     footer a:hover {
       text-decoration: underline;
     }
-
-    /* HIDDEN FILE INPUT */
 
     #imageInput {
       display: none;
@@ -258,16 +249,16 @@
 
     /* MOBILE */
 
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
 
       .logo-area {
-        padding-top: 35px;
-        padding-bottom: 45px;
+        padding-top: 25px;
+        padding-bottom: 32px;
       }
 
       .logo {
-        font-size: 58px;
-        letter-spacing: -4px;
+        font-size: 43px;
+        letter-spacing: -2px;
       }
 
       .search-container {
@@ -275,73 +266,64 @@
       }
 
       .search-box {
-        height: 64px;
-        padding: 0 12px;
+        height: 50px;
+        padding: 0 8px 0 12px;
       }
 
       .search-icon {
-        font-size: 24px;
-        margin-right: 8px;
+        font-size: 21px;
+        margin-right: 5px;
       }
 
       #searchInput {
-        font-size: 17px;
-      }
-
-      .search-tools {
-        gap: 3px;
+        font-size: 15px;
       }
 
       .tool-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 22px;
+        width: 33px;
+        height: 33px;
+        font-size: 18px;
       }
 
       .ai-btn {
-        font-size: 14px;
-        gap: 4px;
-        padding: 7px 4px;
+        font-size: 12px;
+        padding: 5px;
       }
 
       .spark {
-        font-size: 20px;
+        font-size: 16px;
       }
 
       .tabs {
-        gap: 20px;
-        margin-top: 28px;
+        gap: 19px;
+        margin-top: 22px;
         overflow-x: auto;
         justify-content: flex-start;
-        padding: 0 15px;
+        padding: 0 12px;
       }
 
       .tab {
-        font-size: 16px;
+        font-size: 14px;
         white-space: nowrap;
       }
 
       .shortcuts {
-        gap: 28px;
-        margin-top: 45px;
+        gap: 25px;
+        margin-top: 35px;
       }
 
       .shortcut {
-        width: 75px;
+        width: 68px;
       }
 
       .shortcut-icon {
-        width: 68px;
-        height: 68px;
-        font-size: 31px;
+        width: 55px;
+        height: 55px;
+        font-size: 24px;
       }
 
       .shortcut-name {
-        font-size: 15px;
-      }
-
-      footer {
-        margin-top: 65px;
+        font-size: 13px;
       }
     }
   </style>
@@ -351,16 +333,11 @@
 
 <div class="page">
 
-  <!-- LOGO -->
-
   <div class="logo-area">
     <div class="logo">
       <span class="k">K</span><span class="rest">HOJOI</span>
     </div>
   </div>
-
-
-  <!-- SEARCH -->
 
   <div class="search-container">
 
@@ -371,14 +348,12 @@
       <input
         id="searchInput"
         type="search"
-        placeholder="Search KHOJOI or type a URL"
+        placeholder="Search Khojoi or type a URL"
         autocomplete="off"
         aria-label="Search Khojoi"
       >
 
       <div class="search-tools">
-
-        <!-- VOICE -->
 
         <button
           class="tool-btn"
@@ -388,8 +363,6 @@
           aria-label="Voice Search">
           🎙️
         </button>
-
-        <!-- IMAGE -->
 
         <button
           class="tool-btn"
@@ -406,8 +379,6 @@
           accept="image/*"
         >
 
-        <!-- AI -->
-
         <button
           class="ai-btn"
           type="button"
@@ -417,11 +388,7 @@
         </button>
 
       </div>
-
     </form>
-
-
-    <!-- TABS -->
 
     <div class="tabs">
 
@@ -447,89 +414,36 @@
 
     </div>
 
-
-    <!-- SHORTCUTS -->
-
     <div class="shortcuts">
 
-      <div
-        class="shortcut"
-        data-url="https://khojoi.in">
-
-        <div class="shortcut-icon">
-          🔎
-        </div>
-
-        <div class="shortcut-name">
-          KHOJOI
-        </div>
-
+      <div class="shortcut" data-url="https://khojoi.in">
+        <div class="shortcut-icon">🔎</div>
+        <div class="shortcut-name">KHOJOI</div>
       </div>
 
-
-      <div
-        class="shortcut"
-        data-url="https://www.youtube.com">
-
-        <div class="shortcut-icon">
-          ▶️
-        </div>
-
-        <div class="shortcut-name">
-          YouTube
-        </div>
-
+      <div class="shortcut" data-url="https://www.youtube.com">
+        <div class="shortcut-icon">▶️</div>
+        <div class="shortcut-name">YouTube</div>
       </div>
 
-
-      <div
-        class="shortcut"
-        data-url="https://github.com">
-
-        <div class="shortcut-icon">
-          ◉
-        </div>
-
-        <div class="shortcut-name">
-          GitHub
-        </div>
-
+      <div class="shortcut" data-url="https://github.com">
+        <div class="shortcut-icon">◉</div>
+        <div class="shortcut-name">GitHub</div>
       </div>
 
-
-      <div
-        class="shortcut"
-        data-url="https://news.google.com">
-
-        <div class="shortcut-icon">
-          📰
-        </div>
-
-        <div class="shortcut-name">
-          News
-        </div>
-
+      <div class="shortcut" data-url="https://news.google.com">
+        <div class="shortcut-icon">📰</div>
+        <div class="shortcut-name">News</div>
       </div>
 
-
-      <div
-        class="shortcut"
-        id="addShortcut">
-
-        <div class="shortcut-icon">
-          +
-        </div>
-
-        <div class="shortcut-name">
-          Add shortcut
-        </div>
-
+      <div class="shortcut" id="addShortcut">
+        <div class="shortcut-icon">+</div>
+        <div class="shortcut-name">Add shortcut</div>
       </div>
 
     </div>
 
   </div>
-
 
   <footer>
     <a href="https://khojoi.in">Khojoi.in</a>
@@ -538,7 +452,6 @@
   </footer>
 
 </div>
-
 
 <script>
 
@@ -552,9 +465,6 @@
   const shortcuts = document.querySelectorAll(".shortcut[data-url]");
   const addShortcut = document.getElementById("addShortcut");
 
-
-  /* SEARCH */
-
   function doSearch(type = "web") {
 
     const query = searchInput.value.trim();
@@ -567,51 +477,41 @@
     let url;
 
     if (type === "images") {
-
       url =
         "https://www.google.com/search?tbm=isch&q=" +
         encodeURIComponent(query);
 
     } else if (type === "videos") {
-
       url =
         "https://www.google.com/search?tbm=vid&q=" +
         encodeURIComponent(query);
 
     } else if (type === "news") {
-
       url =
         "https://www.google.com/search?tbm=nws&q=" +
         encodeURIComponent(query);
 
     } else {
-
       url =
         "https://www.google.com/search?q=" +
         encodeURIComponent(query);
-
     }
 
     window.location.href = url;
   }
 
-
   searchForm.addEventListener("submit", function(e) {
-
     e.preventDefault();
 
     const activeTab =
       document.querySelector(".tab.active");
 
-    const type =
-      activeTab ? activeTab.dataset.type : "web";
-
-    doSearch(type);
-
+    doSearch(
+      activeTab
+        ? activeTab.dataset.type
+        : "web"
+    );
   });
-
-
-  /* TABS */
 
   tabs.forEach(tab => {
 
@@ -623,24 +523,15 @@
 
       this.classList.add("active");
 
-      const type = this.dataset.type;
-
-      if (type === "ai") {
-
+      if (this.dataset.type === "ai") {
         aiMode();
-
       } else {
-
         searchInput.focus();
-
       }
 
     });
 
   });
-
-
-  /* VOICE SEARCH */
 
   voiceButton.addEventListener("click", function() {
 
@@ -649,11 +540,9 @@
       window.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
-
       alert(
         "Voice search is not supported in this browser."
       );
-
       return;
     }
 
@@ -662,7 +551,6 @@
 
     recognition.lang = "hi-IN";
     recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
 
     voiceButton.textContent = "🔴";
 
@@ -670,38 +558,26 @@
 
     recognition.onresult = function(event) {
 
-      const text =
+      searchInput.value =
         event.results[0][0].transcript;
-
-      searchInput.value = text;
 
       doSearch();
 
     };
 
     recognition.onerror = function() {
-
       voiceButton.textContent = "🎙️";
-
     };
 
     recognition.onend = function() {
-
       voiceButton.textContent = "🎙️";
-
     };
 
   });
 
-
-  /* IMAGE SEARCH */
-
   imageButton.addEventListener("click", function() {
-
     imageInput.click();
-
   });
-
 
   imageInput.addEventListener("change", function() {
 
@@ -710,15 +586,12 @@
       alert(
         "Image selected: " +
         this.files[0].name +
-        "\n\nImage search backend baad mein connect kiya ja sakta hai."
+        "\n\nImage search backend next step mein connect karenge."
       );
 
     }
 
   });
-
-
-  /* AI MODE */
 
   function aiMode() {
 
@@ -726,50 +599,36 @@
       searchInput.value.trim();
 
     if (!query) {
-
       alert(
-        "AI Mode use karne ke liye pehle apna question type karein."
+        "AI Mode ke liye pehle question type karein."
       );
-
       searchInput.focus();
-
       return;
-
     }
 
     alert(
       "Khojoi AI Mode\n\n" +
-      "AI search backend ko next step mein connect kiya ja sakta hai."
+      "AI backend next step mein connect karenge."
     );
-
   }
-
 
   aiButton.addEventListener(
     "click",
     aiMode
   );
 
-
-  /* SHORTCUTS */
-
   shortcuts.forEach(shortcut => {
 
     shortcut.addEventListener("click", function() {
 
-      const url = this.dataset.url;
-
       window.open(
-        url,
+        this.dataset.url,
         "_blank"
       );
 
     });
 
   });
-
-
-  /* ADD SHORTCUT */
 
   addShortcut.addEventListener("click", function() {
 
@@ -792,9 +651,6 @@
 
   });
 
-
-  /* KEYBOARD SHORTCUT */
-
   document.addEventListener("keydown", function(e) {
 
     if (
@@ -803,7 +659,6 @@
     ) {
 
       e.preventDefault();
-
       searchInput.focus();
 
     }
