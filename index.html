@@ -1,554 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>KHOJIO Voice Search</title>
-  <meta name="description" content="KHOJIO voice assistant and search engine. Search the web using your voice.">
+<title>KHOJIO Voice Search</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta name="description"
+content="KHOJIO voice assistant and search engine.">
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #080e1d;
-      color: #fff;
-      min-height: 100vh;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    .main {
-      width: 100%;
-      max-width: 1200px;
-      min-height: 100vh;
-      margin: auto;
-      padding: 25px;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 22px;
-      align-items: center;
-    }
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#080e1d;
+  color:white;
+}
 
-    /* ================= VOICE CARD ================= */
+/* SINGLE CONTAINER */
 
-    .voice-card {
-      min-height: 620px;
-      padding: 38px 30px 28px;
-      border-radius: 28px;
-      background:
-        radial-gradient(circle at 50% -10%, #263c68 0%, transparent 42%),
-        linear-gradient(145deg, #182137, #101725);
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 25px 70px rgba(0,0,0,.35);
+.container{
+  width:100%;
+  max-width:700px;
+  padding:32px 28px;
+  border-radius:25px;
 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
+  background:
+  radial-gradient(circle at 50% 0%,#263b68,transparent 45%),
+  linear-gradient(145deg,#182137,#0d1424);
 
-    .brand {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: #55d7ff;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-    }
+  border:1px solid rgba(255,255,255,.08);
 
-    .voice-card h1 {
-      font-size: clamp(30px, 4vw, 46px);
-      line-height: 1.1;
-      margin-bottom: 12px;
+  box-shadow:
+  0 25px 70px rgba(0,0,0,.45);
 
-      background: linear-gradient(90deg, #ffffff, #69dfff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+  text-align:center;
+}
 
-    .subtitle {
-      color: #aab7d0;
-      font-size: 15px;
-      margin-bottom: 50px;
-    }
+/* LOGO */
 
-    /* ================= MIC ================= */
+.logo{
+  width:170px;
+  max-width:70%;
+  height:auto;
+  margin-bottom:18px;
+}
 
-    .mic-area {
-      position: relative;
-      width: 250px;
-      height: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 32px;
-    }
+/* TITLE */
 
-    .ring {
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      border: 2px solid rgba(0, 217, 255, .22);
-    }
+h1{
+  font-size:36px;
+  margin-bottom:8px;
 
-    .ring::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border-radius: 50%;
-      border: 2px solid rgba(91, 88, 255, .30);
-    }
+  background:linear-gradient(90deg,#fff,#63dfff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
-    .mic-btn {
-      position: relative;
-      z-index: 2;
-      width: 145px;
-      height: 145px;
-      border: 0;
-      border-radius: 50%;
-      cursor: pointer;
+.subtitle{
+  color:#aebbd2;
+  font-size:14px;
+  margin-bottom:28px;
+}
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+/* MICROPHONE */
 
-      background: linear-gradient(145deg, #626eff, #00b9ee);
-      box-shadow:
-        0 0 35px rgba(0, 190, 255, .35),
-        inset 0 0 20px rgba(255,255,255,.12);
+.mic-area{
+  width:210px;
+  height:210px;
+  margin:auto;
 
-      transition: .25s ease;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    .mic-btn:hover {
-      transform: scale(1.06);
-      box-shadow:
-        0 0 50px rgba(0, 190, 255, .55),
-        inset 0 0 20px rgba(255,255,255,.15);
-    }
+  position:relative;
+}
 
-    .mic-btn:active {
-      transform: scale(.96);
-    }
+.ring{
+  position:absolute;
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  border:2px solid rgba(0,200,255,.25);
+}
 
-    .mic-icon {
-      width: 34px;
-      height: 52px;
-      border: 5px solid #fff;
-      border-radius: 20px;
-      position: relative;
-    }
+.ring:before{
+  content:"";
+  position:absolute;
+  inset:17px;
+  border-radius:50%;
+  border:2px solid rgba(95,90,255,.3);
+}
 
-    .mic-icon::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -20px;
-      width: 50px;
-      height: 32px;
-      border: 5px solid #fff;
-      border-top: 0;
-      border-radius: 0 0 30px 30px;
-      transform: translateX(-50%);
-    }
+.mic-btn{
+  width:125px;
+  height:125px;
 
-    .mic-icon::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -32px;
-      width: 5px;
-      height: 13px;
-      background: #fff;
-      transform: translateX(-50%);
-      border-radius: 5px;
-    }
+  border:0;
+  border-radius:50%;
 
-    .mic-text {
-      color: #72ddff;
-      font-size: 15px;
-      margin-bottom: 38px;
-    }
+  cursor:pointer;
 
-    /* ================= SPEECH BOX ================= */
+  background:linear-gradient(
+    145deg,
+    #626eff,
+    #00b9ee
+  );
 
-    .speech-box {
-      width: 100%;
-      text-align: left;
-      padding: 18px 20px;
-      border-radius: 16px;
-      background: rgba(5, 10, 22, .45);
-      border: 1px solid rgba(255,255,255,.07);
-    }
+  box-shadow:
+    0 0 35px rgba(0,190,255,.4);
 
-    .speech-title {
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: #8795b3;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    #result {
-      color: #dfe7f7;
-      font-size: 15px;
-      min-height: 25px;
-    }
+  transition:.25s;
+}
 
-    /* ================= SEARCH CARD ================= */
+.mic-btn:hover{
+  transform:scale(1.07);
+}
 
-    .search-card {
-      min-height: 620px;
-      padding: 35px;
-      border-radius: 28px;
-      background:
-        radial-gradient(circle at 50% 0%, #162342, transparent 48%),
-        #0c1427;
+/* MIC ICON */
 
-      border: 1px solid rgba(255,255,255,.07);
+.mic-icon{
+  width:30px;
+  height:48px;
 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+  border:5px solid white;
+  border-radius:18px;
 
-    .logo {
-      width: min(220px, 70%);
-      max-height: 150px;
-      object-fit: contain;
-      margin-bottom: 35px;
-    }
+  position:relative;
+}
 
-    .search-title {
-      font-size: 14px;
-      color: #7e8ca9;
-      margin-bottom: 15px;
-      text-align: center;
-    }
+.mic-icon:before{
+  content:"";
+  position:absolute;
 
-    .search-box {
-      width: 100%;
-      max-width: 480px;
-      height: 58px;
-      border-radius: 30px;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      box-shadow: 0 15px 40px rgba(0,0,0,.3);
-    }
+  width:44px;
+  height:28px;
 
-    .search-icon {
-      font-size: 25px;
-      color: #444;
-      margin-right: 14px;
-    }
+  left:50%;
+  bottom:-18px;
 
-    .search-box input {
-      flex: 1;
-      border: 0;
-      outline: 0;
-      font-size: 15px;
-      color: #222;
-      background: transparent;
-    }
+  transform:translateX(-50%);
 
-    .search-box button {
-      border: 0;
-      background: #087ef5;
-      color: #fff;
-      border-radius: 22px;
-      padding: 10px 18px;
-      cursor: pointer;
-      font-weight: 600;
-    }
+  border:5px solid white;
+  border-top:0;
 
-    .search-box button:hover {
-      background: #0567cf;
-    }
+  border-radius:0 0 25px 25px;
+}
 
-    .search-note {
-      margin-top: 18px;
-      color: #687795;
-      font-size: 12px;
-      text-align: center;
-    }
+.mic-icon:after{
+  content:"";
+  position:absolute;
 
-    /* ================= MOBILE ================= */
+  width:5px;
+  height:12px;
 
-    @media (max-width: 850px) {
+  left:50%;
+  bottom:-29px;
 
-      .main {
-        grid-template-columns: 1fr;
-        padding: 15px;
-      }
+  transform:translateX(-50%);
 
-      .voice-card,
-      .search-card {
-        min-height: auto;
-      }
+  background:white;
+  border-radius:5px;
+}
 
-      .voice-card {
-        padding: 30px 20px;
-      }
+/* MIC TEXT */
 
-      .search-card {
-        padding: 35px 20px;
-        min-height: 400px;
-      }
+.mic-text{
+  color:#67dcff;
+  font-size:14px;
+  margin:18px 0 25px;
+}
 
-      .subtitle {
-        margin-bottom: 30px;
-      }
+/* SPEECH */
 
-      .mic-area {
-        transform: scale(.88);
-        margin-top: -10px;
-        margin-bottom: 15px;
-      }
-    }
+.speech-box{
+  text-align:left;
 
-    @media (max-width: 480px) {
+  padding:16px 18px;
 
-      .main {
-        padding: 10px;
-      }
+  border-radius:14px;
 
-      .voice-card,
-      .search-card {
-        border-radius: 20px;
-      }
+  background:rgba(0,0,0,.22);
 
-      .voice-card h1 {
-        font-size: 31px;
-      }
+  border:1px solid rgba(255,255,255,.07);
 
-      .mic-area {
-        transform: scale(.75);
-        margin-top: -15px;
-        margin-bottom: -5px;
-      }
+  margin-bottom:22px;
+}
 
-      .search-box {
-        height: 52px;
-      }
+.speech-title{
+  font-size:10px;
+  letter-spacing:2px;
+  color:#8290ac;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
 
-      .search-box button {
-        padding: 8px 13px;
-      }
-    }
+#result{
+  color:#e1e8f5;
+  font-size:14px;
+}
 
-    /* ================= LISTENING ================= */
+/* SEARCH */
 
-    .listening .mic-btn {
-      animation: pulse 1.2s infinite;
-    }
+.search-box{
+  width:100%;
+  height:52px;
 
-    .listening .ring {
-      animation: ringPulse 1.2s infinite;
-    }
+  display:flex;
+  align-items:center;
 
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.08);
-      }
-    }
+  padding:0 8px 0 16px;
 
-    @keyframes ringPulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: .5;
-      }
-      50% {
-        transform: scale(1.12);
-        opacity: 1;
-      }
-    }
-  </style>
+  background:white;
+
+  border-radius:28px;
+
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.search-icon{
+  font-size:24px;
+  color:#444;
+  margin-right:10px;
+}
+
+.search-box input{
+  flex:1;
+
+  min-width:0;
+
+  border:0;
+  outline:0;
+
+  font-size:14px;
+  color:#222;
+
+  background:transparent;
+}
+
+.search-box button{
+  border:0;
+
+  padding:10px 18px;
+
+  border-radius:22px;
+
+  background:#087ef5;
+  color:white;
+
+  font-weight:bold;
+
+  cursor:pointer;
+}
+
+.search-box button:hover{
+  background:#0567cf;
+}
+
+/* LISTENING */
+
+.listening .mic-btn{
+  animation:pulse 1s infinite;
+}
+
+.listening .ring{
+  animation:ring 1s infinite;
+}
+
+@keyframes pulse{
+  50%{
+    transform:scale(1.08);
+  }
+}
+
+@keyframes ring{
+  50%{
+    transform:scale(1.1);
+    opacity:1;
+  }
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+  body{
+    padding:10px;
+  }
+
+  .container{
+    padding:25px 16px;
+    border-radius:20px;
+  }
+
+  .logo{
+    width:145px;
+  }
+
+  h1{
+    font-size:30px;
+  }
+
+  .mic-area{
+    transform:scale(.85);
+    margin-top:-8px;
+    margin-bottom:-8px;
+  }
+
+  .search-box button{
+    padding:9px 13px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <main class="main">
+<div class="container">
 
-    <!-- VOICE ASSISTANT -->
-    <section class="voice-card" id="voiceCard">
+  <!-- KHOJIO LOGO -->
+  <img
+    src="logo.png"
+    class="logo"
+    alt="KHOJIO Search Engine"
+  >
 
-      <div class="brand">KHOJIO</div>
+  <!-- VOICE -->
+  <h1>Voice Assistant</h1>
 
-      <h1>Voice Assistant</h1>
+  <p class="subtitle">
+    Press the microphone and start speaking
+  </p>
 
-      <p class="subtitle">
-        Press the microphone and start speaking
-      </p>
+  <div class="mic-area">
 
-      <div class="mic-area">
+    <div class="ring"></div>
 
-        <div class="ring"></div>
+    <button
+      class="mic-btn"
+      id="micBtn"
+      aria-label="Start voice search">
 
-        <button class="mic-btn" id="micBtn" aria-label="Start voice search">
-          <span class="mic-icon"></span>
-        </button>
+      <span class="mic-icon"></span>
 
-      </div>
+    </button>
 
-      <p class="mic-text" id="micText">
-        Click the microphone to start
-      </p>
+  </div>
 
-      <div class="speech-box">
+  <div
+    class="mic-text"
+    id="micText">
 
-        <div class="speech-title">
-          Your Voice
-        </div>
+    Click the microphone to start
 
-        <div id="result">
-          Your speech will appear here...
-        </div>
+  </div>
 
-      </div>
+  <!-- VOICE RESULT -->
 
-    </section>
+  <div class="speech-box">
 
+    <div class="speech-title">
+      Your Voice
+    </div>
 
-    <!-- SEARCH -->
-    <section class="search-card">
+    <div id="result">
+      Your speech will appear here...
+    </div>
 
-      <!-- Apna KHOJIO logo yahan lagayein -->
-      <img
-        class="logo"
-        src="logo.png"
-        alt="KHOJIO Search Engine Logo"
-      >
+  </div>
 
-      <p class="search-title">
-        Search, Find & Discover
-      </p>
+  <!-- SEARCH -->
 
-      <form
-        class="search-box"
-        action="https://www.google.com/search"
-        method="get"
-        target="_blank"
-      >
+  <form
+    class="search-box"
+    action="https://www.google.com/search"
+    method="get"
+    target="_blank">
 
-        <span class="search-icon">⌕</span>
+    <span class="search-icon">⌕</span>
 
-        <input
-          type="search"
-          name="q"
-          placeholder="Search the web..."
-          aria-label="Search the web"
-          autocomplete="off"
-        >
+    <input
+      type="search"
+      name="q"
+      placeholder="Search the web..."
+      autocomplete="off"
+      aria-label="Search the web">
 
-        <button type="submit">
-          Search
-        </button>
+    <button type="submit">
+      Search
+    </button>
 
-      </form>
+  </form>
 
-      <p class="search-note">
-        Search the web quickly with KHOJIO
-      </p>
-
-    </section>
-
-  </main>
+</div>
 
 
-  <script>
-    const micBtn = document.getElementById("micBtn");
-    const voiceCard = document.getElementById("voiceCard");
-    const result = document.getElementById("result");
-    const micText = document.getElementById("micText");
+<script>
 
-    const SpeechRecognition =
-      window.SpeechRecognition ||
-      window.webkitSpeechRecognition;
+const micBtn =
+document.getElementById("micBtn");
 
-    if (SpeechRecognition) {
+const container =
+document.querySelector(".container");
 
-      const recognition = new SpeechRecognition();
+const result =
+document.getElementById("result");
 
-      recognition.lang = "en-IN";
-      recognition.continuous = false;
-      recognition.interimResults = false;
+const micText =
+document.getElementById("micText");
 
-      micBtn.addEventListener("click", () => {
 
-        try {
-          recognition.start();
+const SpeechRecognition =
+window.SpeechRecognition ||
+window.webkitSpeechRecognition;
 
-          voiceCard.classList.add("listening");
 
-          micText.textContent = "Listening...";
-          result.textContent = "Speak now...";
+if(SpeechRecognition){
 
-        } catch (error) {
-          console.log(error);
-        }
+  const recognition =
+  new SpeechRecognition();
 
-      });
+  recognition.lang="en-IN";
 
-      recognition.onresult = function(event) {
+  recognition.continuous=false;
 
-        const text =
-          event.results[0][0].transcript;
+  recognition.interimResults=false;
 
-        result.textContent = text;
 
-        micText.textContent = "Voice captured";
+  micBtn.onclick=()=>{
 
-        voiceCard.classList.remove("listening");
+    try{
 
-        // Voice ko Google search mein bhejna
-        const url =
-          "https://www.google.com/search?q=" +
-          encodeURIComponent(text);
+      recognition.start();
 
-        window.open(url, "_blank");
-      };
+      container.classList.add("listening");
 
-      recognition.onend = function() {
+      micText.textContent="Listening...";
 
-        voiceCard.classList.remove("listening");
+      result.textContent="Speak now...";
 
-        if (micText.textContent === "Listening...") {
-          micText.textContent =
-            "Click the microphone to start";
-        }
+    }catch(e){
 
-      };
-
-      recognition.onerror = function(event) {
-
-        voiceCard.classList.remove("listening");
-
-        micText.textContent =
-          "Microphone error. Please try again.";
-
-        console.log(event.error);
-      };
-
-    } else {
-
-      micText.textContent =
-        "Voice search is not supported in this browser.";
-
-      micBtn.disabled = true;
+      console.log(e);
 
     }
-  </script>
+
+  };
+
+
+  recognition.onresult=(event)=>{
+
+    const text =
+    event.results[0][0].transcript;
+
+    result.textContent=text;
+
+    micText.textContent="Voice captured";
+
+    container.classList.remove("listening");
+
+
+    /* SEARCH VOICE */
+
+    const url =
+    "https://www.google.com/search?q="+
+    encodeURIComponent(text);
+
+    window.open(url,"_blank");
+
+  };
+
+
+  recognition.onend=()=>{
+
+    container.classList.remove("listening");
+
+    if(
+      micText.textContent==="Listening..."
+    ){
+
+      micText.textContent=
+      "Click the microphone to start";
+
+    }
+
+  };
+
+
+  recognition.onerror=(event)=>{
+
+    container.classList.remove("listening");
+
+    micText.textContent=
+    "Please allow microphone access";
+
+    console.log(event.error);
+
+  };
+
+}else{
+
+  micText.textContent=
+  "Voice search is not supported";
+
+  micBtn.disabled=true;
+
+}
+
+</script>
   <body>
 <img src="logo.png" alt="Khojio Logo" width="150">
     <script async src="https://cse.google.com/cse.js?cx=93d75dd86436c4d96">
