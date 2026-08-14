@@ -2,19 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>KHOJIO Voice Search</title>
-
-<meta name="description"
-content="KHOJIO voice assistant and search engine.">
+<title>KHOJIO - AI Voice Search</title>
+<meta name="description" content="KHOJIO AI voice search engine. Ask questions using voice or text.">
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
   min-height:100vh;
@@ -22,259 +16,221 @@ body{
   align-items:center;
   justify-content:center;
   padding:15px;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#080e1d;
-  color:white;
+  font-family:Arial,sans-serif;
+  color:#fff;
+  background:#070c18;
 }
 
-/* SINGLE CONTAINER */
-
-.container{
+.app{
   width:100%;
-  max-width:700px;
-  padding:32px 28px;
-  border-radius:25px;
-
+  max-width:720px;
+  padding:28px;
+  border-radius:26px;
   background:
-  radial-gradient(circle at 50% 0%,#263b68,transparent 45%),
-  linear-gradient(145deg,#182137,#0d1424);
-
+    radial-gradient(circle at 50% 0%,#263c69,transparent 45%),
+    linear-gradient(145deg,#182137,#0b1220);
   border:1px solid rgba(255,255,255,.08);
-
-  box-shadow:
-  0 25px 70px rgba(0,0,0,.45);
-
-  text-align:center;
+  box-shadow:0 25px 80px rgba(0,0,0,.5);
 }
 
 /* LOGO */
 
 .logo{
-  width:170px;
-  max-width:70%;
-  height:auto;
-  margin-bottom:18px;
+  display:block;
+  width:150px;
+  max-width:60%;
+  margin:0 auto 12px;
 }
 
 /* TITLE */
 
 h1{
-  font-size:36px;
-  margin-bottom:8px;
-
-  background:linear-gradient(90deg,#fff,#63dfff);
+  text-align:center;
+  font-size:34px;
+  margin-bottom:7px;
+  background:linear-gradient(90deg,#fff,#62dcff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-.subtitle{
-  color:#aebbd2;
+.sub{
+  text-align:center;
+  color:#9eacc5;
   font-size:14px;
-  margin-bottom:28px;
+  margin-bottom:24px;
 }
 
-/* MICROPHONE */
+/* MIC */
 
 .mic-area{
-  width:210px;
-  height:210px;
+  width:190px;
+  height:190px;
   margin:auto;
-
+  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  position:relative;
 }
 
 .ring{
   position:absolute;
-  width:190px;
-  height:190px;
+  width:175px;
+  height:175px;
   border-radius:50%;
-  border:2px solid rgba(0,200,255,.25);
+  border:2px solid rgba(0,210,255,.22);
 }
 
-.ring:before{
-  content:"";
-  position:absolute;
-  inset:17px;
-  border-radius:50%;
-  border:2px solid rgba(95,90,255,.3);
-}
-
-.mic-btn{
-  width:125px;
-  height:125px;
-
+.mic{
+  width:112px;
+  height:112px;
   border:0;
   border-radius:50%;
-
   cursor:pointer;
-
-  background:linear-gradient(
-    145deg,
-    #626eff,
-    #00b9ee
-  );
-
-  box-shadow:
-    0 0 35px rgba(0,190,255,.4);
-
+  background:linear-gradient(145deg,#6672ff,#00bcec);
+  box-shadow:0 0 38px rgba(0,200,255,.4);
   display:flex;
   align-items:center;
   justify-content:center;
-
-  transition:.25s;
+  transition:.2s;
 }
 
-.mic-btn:hover{
-  transform:scale(1.07);
-}
+.mic:hover{transform:scale(1.06)}
 
-/* MIC ICON */
-
-.mic-icon{
-  width:30px;
-  height:48px;
-
+.mic-symbol{
+  width:28px;
+  height:45px;
   border:5px solid white;
   border-radius:18px;
-
   position:relative;
 }
 
-.mic-icon:before{
+.mic-symbol:before{
   content:"";
   position:absolute;
-
-  width:44px;
-  height:28px;
-
+  width:43px;
+  height:27px;
   left:50%;
   bottom:-18px;
-
   transform:translateX(-50%);
-
   border:5px solid white;
   border-top:0;
-
   border-radius:0 0 25px 25px;
 }
 
-.mic-icon:after{
+.mic-symbol:after{
   content:"";
   position:absolute;
-
   width:5px;
   height:12px;
-
+  background:#fff;
   left:50%;
   bottom:-29px;
-
   transform:translateX(-50%);
-
-  background:white;
-  border-radius:5px;
 }
 
-/* MIC TEXT */
-
-.mic-text{
-  color:#67dcff;
-  font-size:14px;
-  margin:18px 0 25px;
+.status{
+  text-align:center;
+  color:#65dcff;
+  font-size:13px;
+  margin:10px 0 20px;
 }
 
-/* SPEECH */
+/* AI */
 
-.speech-box{
-  text-align:left;
-
-  padding:16px 18px;
-
-  border-radius:14px;
-
-  background:rgba(0,0,0,.22);
-
+.ai-box{
+  min-height:100px;
+  max-height:300px;
+  overflow:auto;
+  padding:17px;
+  border-radius:16px;
+  background:rgba(0,0,0,.25);
   border:1px solid rgba(255,255,255,.07);
-
-  margin-bottom:22px;
+  margin-bottom:18px;
 }
 
-.speech-title{
+.ai-label{
+  color:#65dcff;
   font-size:10px;
   letter-spacing:2px;
-  color:#8290ac;
-  text-transform:uppercase;
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
 
-#result{
-  color:#e1e8f5;
+#answer{
+  color:#e7edf8;
   font-size:14px;
+  line-height:1.6;
+  white-space:pre-wrap;
 }
 
 /* SEARCH */
 
-.search-box{
-  width:100%;
-  height:52px;
-
+.search{
   display:flex;
-  align-items:center;
-
-  padding:0 8px 0 16px;
-
-  background:white;
-
+  height:54px;
+  background:#fff;
   border-radius:28px;
-
-  box-shadow:0 10px 30px rgba(0,0,0,.3);
+  padding:5px;
 }
 
-.search-icon{
-  font-size:24px;
-  color:#444;
-  margin-right:10px;
-}
-
-.search-box input{
+.search input{
   flex:1;
-
   min-width:0;
-
   border:0;
   outline:0;
-
+  padding:0 14px;
   font-size:14px;
-  color:#222;
-
-  background:transparent;
 }
 
-.search-box button{
+.search button{
   border:0;
-
-  padding:10px 18px;
-
-  border-radius:22px;
-
+  border-radius:23px;
+  padding:0 20px;
   background:#087ef5;
-  color:white;
-
+  color:#fff;
   font-weight:bold;
-
   cursor:pointer;
 }
 
-.search-box button:hover{
-  background:#0567cf;
+.search button:hover{background:#066bd0}
+
+/* ACTIONS */
+
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+.action{
+  flex:1;
+  padding:9px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+  color:#aebbd0;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.action:hover{
+  background:rgba(255,255,255,.08);
+  color:#fff;
+}
+
+/* LOADING */
+
+.loading{
+  display:inline-block;
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  50%{opacity:.35}
 }
 
 /* LISTENING */
 
-.listening .mic-btn{
+.listening .mic{
   animation:pulse 1s infinite;
 }
 
@@ -283,47 +239,36 @@ h1{
 }
 
 @keyframes pulse{
-  50%{
-    transform:scale(1.08);
-  }
+  50%{transform:scale(1.08)}
 }
 
 @keyframes ring{
-  50%{
-    transform:scale(1.1);
-    opacity:1;
-  }
+  50%{transform:scale(1.1);opacity:1}
 }
 
 /* MOBILE */
 
 @media(max-width:500px){
 
-  body{
-    padding:10px;
+  .app{
+    padding:22px 15px;
+    border-radius:21px;
   }
 
-  .container{
-    padding:25px 16px;
-    border-radius:20px;
-  }
-
-  .logo{
-    width:145px;
-  }
-
-  h1{
-    font-size:30px;
-  }
+  h1{font-size:29px}
 
   .mic-area{
-    transform:scale(.85);
+    transform:scale(.86);
     margin-top:-8px;
     margin-bottom:-8px;
   }
 
-  .search-box button{
-    padding:9px 13px;
+  .search button{
+    padding:0 14px;
+  }
+
+  .actions{
+    flex-wrap:wrap;
   }
 }
 </style>
@@ -331,81 +276,94 @@ h1{
 
 <body>
 
-<div class="container">
+<div class="app">
 
-  <!-- KHOJIO LOGO -->
   <img
     src="logo.png"
     class="logo"
-    alt="KHOJIO Search Engine"
+    alt="KHOJIO"
   >
 
-  <!-- VOICE -->
-  <h1>Voice Assistant</h1>
+  <h1>AI Voice Assistant</h1>
 
-  <p class="subtitle">
-    Press the microphone and start speaking
+  <p class="sub">
+    Ask anything using your voice or type your question
   </p>
+
+  <!-- MICROPHONE -->
 
   <div class="mic-area">
 
     <div class="ring"></div>
 
     <button
-      class="mic-btn"
+      class="mic"
       id="micBtn"
       aria-label="Start voice search">
 
-      <span class="mic-icon"></span>
+      <span class="mic-symbol"></span>
 
     </button>
 
   </div>
 
-  <div
-    class="mic-text"
-    id="micText">
-
-    Click the microphone to start
-
+  <div class="status" id="status">
+    Click microphone to speak
   </div>
 
-  <!-- VOICE RESULT -->
 
-  <div class="speech-box">
+  <!-- AI ANSWER -->
 
-    <div class="speech-title">
-      Your Voice
+  <div class="ai-box">
+
+    <div class="ai-label">
+      KHOJIO AI
     </div>
 
-    <div id="result">
-      Your speech will appear here...
+    <div id="answer">
+      Your AI answer will appear here...
     </div>
 
   </div>
+
 
   <!-- SEARCH -->
 
   <form
-    class="search-box"
-    action="https://www.google.com/search"
-    method="get"
-    target="_blank">
-
-    <span class="search-icon">⌕</span>
+    class="search"
+    id="searchForm">
 
     <input
+      id="question"
       type="search"
-      name="q"
-      placeholder="Search the web..."
+      placeholder="Ask KHOJIO anything..."
       autocomplete="off"
-      aria-label="Search the web">
+      required>
 
     <button type="submit">
-      Search
+      Ask AI
     </button>
 
   </form>
+
+
+  <!-- ACTIONS -->
+
+  <div class="actions">
+
+    <button
+      class="action"
+      onclick="webSearch()">
+      🌐 Web Search
+    </button>
+
+    <button
+      class="action"
+      onclick="clearAnswer()">
+      Clear
+    </button>
+
+  </div>
 
 </div>
 
@@ -415,30 +373,91 @@ h1{
 const micBtn =
 document.getElementById("micBtn");
 
-const container =
-document.querySelector(".container");
+const status =
+document.getElementById("status");
 
-const result =
-document.getElementById("result");
+const answer =
+document.getElementById("answer");
 
-const micText =
-document.getElementById("micText");
+const question =
+document.getElementById("question");
 
+const app =
+document.querySelector(".app");
+
+
+/* ================= AI ================= */
+
+async function askAI(text){
+
+  if(!text.trim()) return;
+
+  answer.innerHTML =
+    '<span class="loading">KHOJIO AI is thinking...</span>';
+
+  try{
+
+    const response =
+      await fetch("/api/ask",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          message:text
+        })
+      });
+
+    const data =
+      await response.json();
+
+    if(!response.ok){
+      throw new Error(
+        data.error || "AI request failed"
+      );
+    }
+
+    answer.textContent =
+      data.answer;
+
+  }catch(error){
+
+    answer.textContent =
+      "AI connection error. Please try again.";
+
+    console.error(error);
+
+  }
+}
+
+
+/* ================= TEXT ================= */
+
+document
+.getElementById("searchForm")
+.addEventListener("submit",(e)=>{
+
+  e.preventDefault();
+
+  askAI(question.value);
+
+});
+
+
+/* ================= VOICE ================= */
 
 const SpeechRecognition =
-window.SpeechRecognition ||
-window.webkitSpeechRecognition;
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
 
 
 if(SpeechRecognition){
 
   const recognition =
-  new SpeechRecognition();
+    new SpeechRecognition();
 
   recognition.lang="en-IN";
-
   recognition.continuous=false;
-
   recognition.interimResults=false;
 
 
@@ -448,11 +467,10 @@ if(SpeechRecognition){
 
       recognition.start();
 
-      container.classList.add("listening");
+      app.classList.add("listening");
 
-      micText.textContent="Listening...";
-
-      result.textContent="Speak now...";
+      status.textContent =
+        "Listening... Speak now";
 
     }catch(e){
 
@@ -466,59 +484,85 @@ if(SpeechRecognition){
   recognition.onresult=(event)=>{
 
     const text =
-    event.results[0][0].transcript;
+      event.results[0][0].transcript;
 
-    result.textContent=text;
+    question.value=text;
 
-    micText.textContent="Voice captured";
+    status.textContent =
+      "Voice received";
 
-    container.classList.remove("listening");
+    app.classList.remove("listening");
 
-
-    /* SEARCH VOICE */
-
-    const url =
-    "https://www.google.com/search?q="+
-    encodeURIComponent(text);
-
-    window.open(url,"_blank");
+    askAI(text);
 
   };
 
 
   recognition.onend=()=>{
 
-    container.classList.remove("listening");
+    app.classList.remove("listening");
 
     if(
-      micText.textContent==="Listening..."
+      status.textContent ===
+      "Listening... Speak now"
     ){
 
-      micText.textContent=
-      "Click the microphone to start";
+      status.textContent =
+        "Click microphone to speak";
 
     }
 
   };
 
 
-  recognition.onerror=(event)=>{
+  recognition.onerror=()=>{
 
-    container.classList.remove("listening");
+    app.classList.remove("listening");
 
-    micText.textContent=
-    "Please allow microphone access";
-
-    console.log(event.error);
+    status.textContent =
+      "Microphone error. Try again.";
 
   };
 
 }else{
 
-  micText.textContent=
-  "Voice search is not supported";
+  status.textContent =
+    "Voice search is not supported";
 
   micBtn.disabled=true;
+
+}
+
+
+/* ================= WEB SEARCH ================= */
+
+function webSearch(){
+
+  const text =
+    question.value.trim();
+
+  if(!text) return;
+
+  window.open(
+    "https://www.google.com/search?q="+
+    encodeURIComponent(text),
+    "_blank"
+  );
+
+}
+
+
+/* ================= CLEAR ================= */
+
+function clearAnswer(){
+
+  question.value="";
+
+  answer.textContent =
+    "Your AI answer will appear here...";
+
+  status.textContent =
+    "Click microphone to speak";
 
 }
 
