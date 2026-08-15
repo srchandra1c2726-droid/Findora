@@ -886,31 +886,84 @@ alert(
 
 
 
-</script>let resultBox = document.createElement("div");
+</script>// MIC VOICE SEARCH FIX
 
-resultBox.style.marginTop="30px";
-resultBox.style.padding="25px";
-resultBox.style.borderRadius="20px";
-resultBox.style.background="#ffffff10";
-resultBox.style.border="1px solid #ffffff20";
+const micBtn = document.getElementById("micBtn");
+const input = document.getElementById("searchInput");
 
-resultBox.innerHTML = `
-<h2>🔎 Khojio Result</h2>
-<p style="margin-top:15px;color:#cbd5e1">
-आपने खोजा:
-<b>${text}</b>
-</p>
 
-<br>
+const SpeechRecognition =
+window.SpeechRecognition ||
+window.webkitSpeechRecognition;
 
-<a 
-href="https://www.google.com/search?q=${encodeURIComponent(text)}"
-target="_blank"
-style="color:#60a5fa">
-Open full results →
-</a>
-`;
 
-document.querySelector("main").appendChild(resultBox);
+if(SpeechRecognition){
+
+const recognition = new SpeechRecognition();
+
+
+recognition.lang = "hi-IN";
+
+recognition.interimResults = false;
+
+recognition.continuous = false;
+
+
+
+micBtn.onclick = ()=>{
+
+micBtn.innerHTML="🔴";
+
+recognition.start();
+
+};
+
+
+
+recognition.onresult = (event)=>{
+
+let voiceText =
+event.results[0][0].transcript;
+
+
+input.value = voiceText;
+
+
+micBtn.innerHTML="🎤";
+
+
+};
+
+
+
+recognition.onerror = ()=>{
+
+micBtn.innerHTML="🎤";
+
+alert("Mic permission allow karo");
+
+};
+
+
+
+recognition.onend = ()=>{
+
+micBtn.innerHTML="🎤";
+
+};
+
+
+}
+else{
+
+micBtn.onclick=()=>{
+
+alert(
+"Is browser me voice support nahi hai"
+);
+
+};
+
+}
 </body>
 </html>
