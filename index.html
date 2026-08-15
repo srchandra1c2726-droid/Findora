@@ -4,2060 +4,939 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Khojio.in - Search Engine</title>
-
-<meta name="description" content="Khojio.in - Fast, simple and private search.">
-<meta name="robots" content="index,follow">
-<meta name="theme-color" content="#ffffff">
+<title>Khojio.in - AI Search Engine</title>
 
 <style>
+
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-:root{
-  --bg:#fff;
-  --card:#fff;
-  --text:#202124;
-  --muted:#70757a;
-  --border:#dadce0;
-  --hover:#f1f3f4;
-  --blue:#2563eb;
-  --danger:#dc2626;
-  --shadow:0 8px 30px rgba(0,0,0,.10);
-}
-
-body.dark{
-  --bg:#0f172a;
-  --card:#172033;
-  --text:#f8fafc;
-  --muted:#aab3c2;
-  --border:#334155;
-  --hover:#253247;
-  --shadow:0 8px 30px rgba(0,0,0,.35);
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-  min-height:100vh;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-  transition:.2s;
+min-height:100vh;
+background:
+radial-gradient(circle at top,#2563eb33,transparent 35%),
+linear-gradient(135deg,#020617,#0f172a);
+color:white;
 }
+
 
 /* HEADER */
 
 header{
-  height:70px;
-  padding:0 24px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid var(--border);
+height:70px;
+padding:0 30px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid #ffffff20;
+backdrop-filter:blur(15px);
 }
+
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:var(--text);
-  text-decoration:none;
-  font-size:20px;
-  font-weight:700;
+display:flex;
+align-items:center;
+gap:12px;
+font-size:22px;
+font-weight:700;
 }
+
 
 .logo{
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-weight:800;
-  background:linear-gradient(135deg,#2563eb,#7c3aed);
+width:42px;
+height:42px;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
+font-weight:bold;
+background:linear-gradient(135deg,#2563eb,#9333ea);
+box-shadow:
+0 0 20px #2563eb;
+animation:logoGlow 3s infinite;
 }
 
-.header-buttons{
-  display:flex;
-  gap:8px;
+
+@keyframes logoGlow{
+
+50%{
+box-shadow:
+0 0 35px #9333ea;
 }
 
-.icon-btn{
-  width:40px;
-  height:40px;
-  border:1px solid var(--border);
-  background:var(--bg);
-  color:var(--text);
-  border-radius:50%;
-  cursor:pointer;
-  font-size:17px;
 }
 
-.icon-btn:hover{
-  background:var(--hover);
-}
 
 /* MAIN */
 
 main{
-  max-width:900px;
-  margin:auto;
-  padding:65px 20px;
+
+max-width:900px;
+margin:auto;
+padding:80px 20px;
+text-align:center;
+
 }
 
-.hero{
-  text-align:center;
-  margin-bottom:30px;
-}
 
 .hero-logo{
-  width:76px;
-  height:76px;
-  margin:auto;
-  margin-bottom:15px;
-  border-radius:22px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-size:32px;
-  font-weight:800;
-  background:linear-gradient(135deg,#2563eb,#7c3aed);
-  box-shadow:0 12px 35px rgba(37,99,235,.22);
+
+width:90px;
+height:90px;
+margin:auto;
+border-radius:30px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:40px;
+font-weight:bold;
+
+background:
+linear-gradient(135deg,#2563eb,#9333ea);
+
+box-shadow:
+0 0 40px #2563eb;
+
+animation:float 3s infinite;
+
 }
 
-.hero h1{
-  font-size:35px;
+
+@keyframes float{
+
+50%{
+transform:translateY(-8px);
 }
+
+}
+
+
+h1{
+
+font-size:45px;
+margin-top:20px;
+
+background:
+linear-gradient(90deg,#60a5fa,#c084fc);
+
+-webkit-background-clip:text;
+color:transparent;
+
+}
+
 
 .hero p{
-  margin-top:8px;
-  color:var(--muted);
+
+margin-top:10px;
+color:#cbd5e1;
+font-size:18px;
+
 }
+
+
 
 /* SEARCH */
 
-.search-wrapper{
-  position:relative;
-  max-width:700px;
-  margin:auto;
-}
 
 .search-box{
-  height:58px;
-  border:1px solid var(--border);
-  border-radius:30px;
-  display:flex;
-  align-items:center;
-  padding:5px 8px 5px 18px;
-  background:var(--bg);
-  box-shadow:0 2px 10px rgba(0,0,0,.05);
+
+margin:40px auto;
+max-width:750px;
+
+height:65px;
+
+display:flex;
+align-items:center;
+
+padding:8px 12px;
+
+border-radius:35px;
+
+background:#ffffff10;
+
+border:1px solid #ffffff30;
+
+backdrop-filter:blur(20px);
+
+box-shadow:
+0 10px 40px #0008;
+
 }
 
-.search-box:focus-within{
-  border-color:var(--blue);
+
+.search-box input{
+
+flex:1;
+background:none;
+border:none;
+outline:none;
+
+color:white;
+
+font-size:17px;
+
+padding:0 15px;
+
 }
 
-.search-icon{
-  font-size:19px;
-  margin-right:10px;
+
+
+.btn{
+
+width:45px;
+height:45px;
+
+border-radius:50%;
+
+border:none;
+
+cursor:pointer;
+
+margin-left:5px;
+
+background:#ffffff15;
+
+color:white;
+
+font-size:18px;
+
+transition:.3s;
+
 }
 
-#searchInput{
-  flex:1;
-  min-width:0;
-  border:none;
-  outline:none;
-  background:transparent;
-  color:var(--text);
-  font-size:16px;
+
+.btn:hover{
+
+background:#2563eb;
+transform:scale(1.1);
+
 }
 
-.search-btn{
-  width:44px;
-  height:44px;
-  border:none;
-  border-radius:50%;
-  background:var(--blue);
-  color:#fff;
-  cursor:pointer;
-  font-size:17px;
+
+
+.search-main{
+
+background:
+linear-gradient(135deg,#2563eb,#9333ea);
+
 }
 
-.small-btn{
-  width:38px;
-  height:38px;
-  border:none;
-  background:transparent;
-  color:var(--muted);
-  border-radius:50%;
-  cursor:pointer;
-}
-
-.small-btn:hover{
-  background:var(--hover);
-}
-
-#clearSearch{
-  display:none;
-}
-
-/* SUGGESTIONS */
-
-.suggestions{
-  display:none;
-  position:absolute;
-  top:66px;
-  left:0;
-  right:0;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:15px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  z-index:30;
-}
-
-.suggestion{
-  padding:13px 18px;
-  cursor:pointer;
-  display:flex;
-  gap:10px;
-}
-
-.suggestion:hover{
-  background:var(--hover);
-}
-
-/* QUICK */
-
-.quick{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:20px;
-}
-
-.quick button{
-  padding:9px 15px;
-  border:1px solid var(--border);
-  border-radius:20px;
-  background:var(--bg);
-  color:var(--text);
-  cursor:pointer;
-}
 
 /* CARDS */
 
+
 .cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-top:65px;
+
+margin-top:70px;
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:20px;
+
 }
+
+
 
 .card{
-  border:1px solid var(--border);
-  border-radius:17px;
-  background:var(--card);
-  padding:22px;
-  text-align:center;
+
+padding:25px;
+
+border-radius:22px;
+
+background:#ffffff10;
+
+border:1px solid #ffffff20;
+
+backdrop-filter:blur(15px);
+
+transition:.3s;
+
 }
+
+
+
+.card:hover{
+
+transform:translateY(-8px);
+
+border-color:#60a5fa;
+
+box-shadow:
+0 15px 40px #0008;
+
+}
+
 
 .card-icon{
-  font-size:28px;
-  margin-bottom:10px;
+
+font-size:35px;
+
+margin-bottom:15px;
+
 }
 
-.card h3{
-  font-size:16px;
-  margin-bottom:7px;
-}
 
 .card p{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
+
+color:#cbd5e1;
+
+font-size:14px;
+
 }
 
-/* PANELS */
 
-.panel{
-  display:none;
-  position:fixed;
-  top:70px;
-  right:20px;
-  width:390px;
-  max-width:calc(100% - 30px);
-  max-height:calc(100vh - 90px);
-  overflow:auto;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  z-index:100;
+
+/* IMAGE BUTTON */
+
+.image-upload{
+
+display:none;
+
 }
 
-.panel.show{
-  display:block;
-}
 
-.panel-header{
-  padding:18px;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.panel-header h2{
-  font-size:18px;
-}
-
-.close{
-  border:none;
-  background:transparent;
-  color:var(--text);
-  cursor:pointer;
-  font-size:19px;
-}
-
-/* TABS */
-
-.tabs{
-  display:flex;
-  border-bottom:1px solid var(--border);
-}
-
-.tab{
-  flex:1;
-  padding:12px 5px;
-  border:none;
-  background:transparent;
-  color:var(--muted);
-  cursor:pointer;
-}
-
-.tab.active{
-  color:var(--blue);
-  border-bottom:2px solid var(--blue);
-}
-
-/* HISTORY */
-
-.history-list{
-  padding:8px;
-}
-
-.history-item{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:11px;
-  border-radius:10px;
-}
-
-.history-item:hover{
-  background:var(--hover);
-}
-
-.history-text{
-  flex:1;
-  min-width:0;
-}
-
-.history-text strong{
-  display:block;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  font-size:14px;
-}
-
-.history-text small{
-  color:var(--muted);
-  font-size:11px;
-}
-
-.delete-one{
-  border:none;
-  background:transparent;
-  color:var(--muted);
-  cursor:pointer;
-  font-size:16px;
-}
-
-.delete-one:hover{
-  color:var(--danger);
-}
-
-.empty{
-  padding:30px 15px;
-  text-align:center;
-  color:var(--muted);
-}
-
-/* PANEL ACTIONS */
-
-.actions{
-  padding:12px;
-  display:flex;
-  gap:8px;
-  border-top:1px solid var(--border);
-}
-
-.action-btn{
-  flex:1;
-  padding:10px;
-  border:1px solid var(--border);
-  border-radius:9px;
-  background:var(--bg);
-  color:var(--text);
-  cursor:pointer;
-}
-
-.action-btn.danger{
-  color:var(--danger);
-  border-color:#ef4444;
-}
-
-.action-btn:hover{
-  background:var(--hover);
-}
-
-/* SECURITY */
-
-.security{
-  padding:17px;
-}
-
-.security-row{
-  padding:14px 0;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.security-row:last-child{
-  border-bottom:none;
-}
-
-.security-title{
-  font-weight:bold;
-  font-size:14px;
-}
-
-.security-desc{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-  line-height:1.4;
-}
-
-.status{
-  font-size:12px;
-  color:#16a34a;
-  white-space:nowrap;
-}
-
-/* TOGGLE */
-
-.toggle{
-  width:43px;
-  height:24px;
-  background:#94a3b8;
-  border-radius:20px;
-  cursor:pointer;
-  position:relative;
-}
-
-.toggle:after{
-  content:"";
-  position:absolute;
-  width:18px;
-  height:18px;
-  top:3px;
-  left:3px;
-  background:white;
-  border-radius:50%;
-  transition:.2s;
-}
-
-.toggle.active{
-  background:var(--blue);
-}
-
-.toggle.active:after{
-  left:22px;
-}
-
-/* VOICE */
-
-.voice-status{
-  position:fixed;
-  left:50%;
-  bottom:30px;
-  transform:translate(-50%,20px);
-  opacity:0;
-  background:var(--card);
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
-  padding:12px 18px;
-  border-radius:25px;
-  z-index:200;
-  transition:.2s;
-}
-
-.voice-status.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-/* FOOTER */
 
 footer{
-  border-top:1px solid var(--border);
-  padding:20px;
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
+
+margin-top:50px;
+
+text-align:center;
+
+padding:20px;
+
+color:#94a3b8;
+
+font-size:13px;
+
 }
 
-/* MOBILE */
+
+
 
 @media(max-width:700px){
 
-  header{
-    padding:0 14px;
-  }
+.cards{
 
-  .brand span{
-    display:none;
-  }
-
-  main{
-    padding:45px 14px;
-  }
-
-  .hero h1{
-    font-size:29px;
-  }
-
-  .hero-logo{
-    width:65px;
-    height:65px;
-    font-size:28px;
-  }
-
-  .cards{
-    grid-template-columns:1fr;
-    margin-top:45px;
-  }
-
-  .panel{
-    left:10px;
-    right:10px;
-    width:auto;
-    max-width:none;
-  }
-
-  #searchInput{
-    font-size:14px;
-  }
+grid-template-columns:1fr;
 
 }
+
+h1{
+
+font-size:32px;
+
+}
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- HEADER -->
 
 <header>
 
-  <a href="#" class="brand">
-    <div class="logo">K</div>
-    <span>Khojio.in</span>
-  </a>
+<div class="brand">
 
-  <div class="header-buttons">
+<div class="logo">
+K
+</div>
 
-    <button
-      class="icon-btn"
-      id="historyBtn"
-      title="History">
-      🕘
-    </button>
+Khojio.in
 
-    <button
-      class="icon-btn"
-      id="securityBtn"
-      title="Security">
-      🛡️
-    </button>
+</div>
 
-    <button
-      class="icon-btn"
-      id="settingsBtn"
-      title="Settings">
-      ⚙️
-    </button>
-
-  </div>
 
 </header>
 
 
-<!-- SETTINGS -->
-
-<div class="panel" id="settingsPanel">
-
-  <div class="panel-header">
-    <h2>Settings</h2>
-
-    <button class="close"
-      onclick="closePanels()">✕</button>
-  </div>
-
-  <div class="security">
-
-    <div class="security-row">
-
-      <div>
-        <div class="security-title">
-          Dark Mode
-        </div>
-
-        <div class="security-desc">
-          Website ka dark appearance.
-        </div>
-      </div>
-
-      <div
-        class="toggle"
-        id="darkToggle">
-      </div>
-
-    </div>
-
-    <div class="security-row">
-
-      <div>
-        <div class="security-title">
-          Save Search History
-        </div>
-
-        <div class="security-desc">
-          Searches ko browser mein save kare.
-        </div>
-      </div>
-
-      <div
-        class="toggle active"
-        id="historyToggle">
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- SECURITY -->
-
-<div class="panel" id="securityPanel">
-
-  <div class="panel-header">
-
-    <h2>🛡️ Security & Privacy</h2>
-
-    <button
-      class="close"
-      onclick="closePanels()">
-      ✕
-    </button>
-
-  </div>
-
-  <div class="security">
-
-    <div class="security-row">
-
-      <div>
-        <div class="security-title">
-          Local History
-        </div>
-
-        <div class="security-desc">
-          History isi browser ke local storage mein
-          save hoti hai.
-        </div>
-      </div>
-
-      <div class="status">
-        Protected
-      </div>
-
-    </div>
-
-    <div class="security-row">
-
-      <div>
-        <div class="security-title">
-          Search Data
-        </div>
-
-        <div class="security-desc">
-          Search history ko kabhi bhi delete kar sakte hain.
-        </div>
-      </div>
-
-      <div class="status">
-        Private
-      </div>
-
-    </div>
-
-    <div class="security-row">
-
-      <div>
-        <div class="security-title">
-          Downloads
-        </div>
-
-        <div class="security-desc">
-          Khojio ke dwara record ki gayi download list.
-        </div>
-      </div>
-
-      <div class="status">
-        Local
-      </div>
-
-    </div>
-
-    <div class="security-row">
-
-      <div>
-        <div class="security-title">
-          Clear Everything
-        </div>
-
-        <div class="security-desc">
-          Search aur download records delete kare.
-        </div>
-      </div>
-
-      <button
-        class="action-btn danger"
-        onclick="clearEverything()">
-        Clear
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- HISTORY -->
-
-<div class="panel" id="historyPanel">
-
-  <div class="panel-header">
-
-    <h2>🕘 History</h2>
-
-    <button
-      class="close"
-      onclick="closePanels()">
-      ✕
-    </button>
-
-  </div>
-
-
-  <div class="tabs">
-
-    <button
-      class="tab active"
-      id="searchHistoryTab"
-      onclick="showHistoryType('search')">
-      🔎 Search
-    </button>
-
-    <button
-      class="tab"
-      id="downloadHistoryTab"
-      onclick="showHistoryType('download')">
-      📥 Downloads
-    </button>
-
-  </div>
-
-
-  <div
-    class="history-list"
-    id="historyList">
-  </div>
-
-
-  <div class="actions">
-
-    <button
-      class="action-btn"
-      onclick="clearCurrentHistory()">
-      🧹 Clear
-    </button>
-
-    <button
-      class="action-btn danger"
-      onclick="clearEverything()">
-      🗑️ Clear Everything
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- MAIN -->
 
 <main>
 
-  <section class="hero">
 
-    <div class="hero-logo">
-      K
-    </div>
-
-    <h1>Khojio.in</h1>
-
-    <p>
-      Khojo. Jaano. Aage Badho.
-    </p>
-
-  </section>
+<div class="hero-logo">
+K
+</div>
 
 
-  <!-- SEARCH -->
-
-  <div class="search-wrapper">
-
-    <form
-      class="search-box"
-      id="searchForm">
-
-      <span class="search-icon">
-        🔍
-      </span>
-
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Kuch bhi khojiye..."
-        autocomplete="off"
-        spellcheck="false">
-
-      <button
-        type="button"
-        class="small-btn"
-        id="clearSearch">
-        ✕
-      </button>
-
-      <button
-        type="button"
-        class="small-btn"
-        id="micBtn"
-        title="Voice Search">
-        🎤
-      </button>
-
-      <button
-        type="submit"
-        class="search-btn">
-        ➜
-      </button>
-
-    </form>
+<h1>
+Khojio.in
+</h1>
 
 
-    <div
-      class="suggestions"
-      id="suggestions">
-    </div>
-
-  </div>
+<p>
+Khojo. Jaano. Aage Badho.
+</p>
 
 
-  <!-- QUICK -->
 
-  <div class="quick">
-
-    <button data-search="latest news">
-      📰 News
-    </button>
-
-    <button data-search="weather today">
-      ☀️ Weather
-    </button>
-
-    <button data-search="India">
-      🇮🇳 India
-    </button>
-
-    <button data-search="technology">
-      💻 Technology
-    </button>
-
-  </div>
+<div class="search-box">
 
 
-  <!-- FEATURES -->
-
-  <section class="cards">
-
-    <div class="card">
-
-      <div class="card-icon">
-        ⚡
-      </div>
-
-      <h3>Fast Search</h3>
-
-      <p>
-        Simple aur fast search experience.
-      </p>
-
-    </div>
+<span>
+🔍
+</span>
 
 
-    <div class="card">
-
-      <div class="card-icon">
-        🎤
-      </div>
-
-      <h3>Voice Search</h3>
-
-      <p>
-        Bolkar search karne ki facility.
-      </p>
-
-    </div>
+<input
+placeholder="Kuch bhi khojiye..."
+>
 
 
-    <div class="card">
 
-      <div class="card-icon">
-        🛡️
-      </div>
+<button class="btn">
+🎙️
+</button>
 
-      <h3>Privacy</h3>
 
-      <p>
-        History aur privacy controls aapke paas.
-      </p>
+<label class="btn">
 
-    </div>
+🖼️
 
-  </section>
+<input class="image-upload" type="file">
+
+</label>
+
+
+
+<button class="btn search-main">
+
+➜
+
+</button>
+
+
+</div>
+
+
+
+
+<section class="cards">
+
+
+<div class="card">
+
+<div class="card-icon">
+⚡
+</div>
+
+<h3>
+Fast AI Search
+</h3>
+
+<p>
+Tez aur smart search experience.
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="card-icon">
+🎤
+</div>
+
+<h3>
+Voice Search
+</h3>
+
+<p>
+Bolkar search kare.
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<div class="card-icon">
+🛡️
+</div>
+
+<h3>
+Privacy
+</h3>
+
+<p>
+Aapka data aapke control me.
+</p>
+
+</div>
+
+
+
+</section>
+
 
 </main>
 
 
-<!-- VOICE STATUS -->
-
-<div
-  class="voice-status"
-  id="voiceStatus">
-  🎤 Sun raha hoon...
-</div>
-
-
-<!-- FOOTER -->
-
 <footer>
 
-  © 2026 Khojio.in
-
-  <br><br>
-
-  Search • History • Downloads • Security • Privacy
+© 2026 Khojio.in  
+<br>
+AI Search • Voice • Image • Privacy
 
 </footer>
-
-
 <script>
 
-/* ================================
-   STORAGE
-================================ */
-
-const SEARCH_KEY =
-  "khojio_search_history";
-
-const DOWNLOAD_KEY =
-  "khojio_download_history";
-
-const DARK_KEY =
-  "khojio_dark_mode";
-
-const SAVE_HISTORY_KEY =
-  "khojio_save_history";
+const SEARCH_KEY = "khojio_search_history";
+const DOWNLOAD_KEY = "khojio_download_history";
+const DARK_KEY = "khojio_dark_mode";
 
 
 function getData(key){
 
-  try{
-
-    return JSON.parse(
-      localStorage.getItem(key)
-    ) || [];
-
-  }catch(e){
-
-    return [];
-
-  }
+try{
+return JSON.parse(localStorage.getItem(key)) || [];
+}
+catch{
+return [];
+}
 
 }
 
 
 function saveData(key,data){
 
-  localStorage.setItem(
-    key,
-    JSON.stringify(data)
-  );
+localStorage.setItem(
+key,
+JSON.stringify(data)
+);
 
 }
 
 
-/* ================================
-   ELEMENTS
-================================ */
 
-const searchForm =
-  document.getElementById("searchForm");
+/* SEARCH HISTORY */
 
-const searchInput =
-  document.getElementById("searchInput");
+function addSearchHistory(text){
 
-const clearSearch =
-  document.getElementById("clearSearch");
+let data = getData(SEARCH_KEY);
 
-const micBtn =
-  document.getElementById("micBtn");
 
-const suggestions =
-  document.getElementById("suggestions");
+data.unshift({
 
-const historyPanel =
-  document.getElementById("historyPanel");
+text:text,
 
-const securityPanel =
-  document.getElementById("securityPanel");
+time:new Date().toLocaleString("hi-IN")
 
-const settingsPanel =
-  document.getElementById("settingsPanel");
+});
 
-const historyList =
-  document.getElementById("historyList");
 
-const voiceStatus =
-  document.getElementById("voiceStatus");
+data=data.slice(0,100);
 
-const darkToggle =
-  document.getElementById("darkToggle");
 
-const historyToggle =
-  document.getElementById("historyToggle");
-
-
-let currentHistoryType = "search";
-
-
-/* ================================
-   PANELS
-================================ */
-
-function closePanels(){
-
-  historyPanel.classList.remove("show");
-
-  securityPanel.classList.remove("show");
-
-  settingsPanel.classList.remove("show");
-
-}
-
-
-function openPanel(panel){
-
-  closePanels();
-
-  panel.classList.add("show");
-
-}
-
-
-/* HISTORY BUTTON */
-
-document
-  .getElementById("historyBtn")
-  .addEventListener("click",function(){
-
-    openPanel(historyPanel);
-
-    renderHistory();
-
-  });
-
-
-/* SECURITY BUTTON */
-
-document
-  .getElementById("securityBtn")
-  .addEventListener("click",function(){
-
-    openPanel(securityPanel);
-
-  });
-
-
-/* SETTINGS BUTTON */
-
-document
-  .getElementById("settingsBtn")
-  .addEventListener("click",function(){
-
-    openPanel(settingsPanel);
-
-  });
-
-
-/* ================================
-   SEARCH
-================================ */
-
-function performSearch(query){
-
-  query = query.trim();
-
-  if(!query){
-
-    searchInput.focus();
-
-    return;
-
-  }
-
-
-  const saveHistory =
-    localStorage.getItem(
-      SAVE_HISTORY_KEY
-    ) !== "false";
-
-
-  if(saveHistory){
-
-    let history =
-      getData(SEARCH_KEY);
-
-
-    history.unshift({
-
-      text:query,
-
-      time:new Date().toLocaleString(
-        "hi-IN"
-      )
-
-    });
-
-
-    /* duplicate remove */
-
-    const seen = new Set();
-
-    history =
-      history.filter(item => {
-
-        if(seen.has(item.text)){
-          return false;
-        }
-
-        seen.add(item.text);
-
-        return true;
-
-      });
-
-
-    /* last 100 */
-
-    history =
-      history.slice(0,100);
-
-
-    saveData(
-      SEARCH_KEY,
-      history
-    );
-
-  }
-
-
-  /*
-    Abhi Google search.
-    Baad mein Khojio API yahan connect
-    ki ja sakti hai.
-  */
-
-  window.location.href =
-    "https://www.google.com/search?q=" +
-    encodeURIComponent(query);
-
-}
-
-
-searchForm.addEventListener(
-  "submit",
-  function(e){
-
-    e.preventDefault();
-
-    performSearch(
-      searchInput.value
-    );
-
-  }
+saveData(
+SEARCH_KEY,
+data
 );
 
 
-/* ================================
-   CLEAR SEARCH INPUT
-================================ */
+}
 
-searchInput.addEventListener(
-  "input",
-  function(){
 
-    if(searchInput.value.trim()){
 
-      clearSearch.style.display =
-        "block";
+function clearSearchHistory(){
 
-      showSuggestions(
-        searchInput.value
-      );
+localStorage.removeItem(
+SEARCH_KEY
+);
 
-    }else{
+alert("Search history clear ho gayi");
 
-      clearSearch.style.display =
-        "none";
+}
 
-      hideSuggestions();
 
-    }
 
-  }
+
+/* DOWNLOAD HISTORY */
+
+
+function addDownloadHistory(file){
+
+let data=getData(DOWNLOAD_KEY);
+
+
+data.unshift({
+
+text:file,
+
+time:new Date().toLocaleString("hi-IN")
+
+});
+
+
+saveData(
+DOWNLOAD_KEY,
+data
 );
 
 
-clearSearch.addEventListener(
-  "click",
-  function(){
+}
 
-    searchInput.value = "";
 
-    clearSearch.style.display =
-      "none";
 
-    hideSuggestions();
+function clearDownloadHistory(){
 
-    searchInput.focus();
-
-  }
+localStorage.removeItem(
+DOWNLOAD_KEY
 );
 
-
-/* ================================
-   SUGGESTIONS
-================================ */
-
-const suggestionsData = [
-
-  "Khojio",
-  "Khojio India",
-  "latest news",
-  "weather today",
-  "India news",
-  "technology news",
-  "online search",
-  "Hindi news"
-
-];
-
-
-function showSuggestions(value){
-
-  const text =
-    value.toLowerCase().trim();
-
-  if(!text){
-
-    hideSuggestions();
-
-    return;
-
-  }
-
-
-  const results =
-    suggestionsData
-    .filter(item =>
-      item.toLowerCase()
-      .includes(text)
-    )
-    .slice(0,6);
-
-
-  if(!results.length){
-
-    hideSuggestions();
-
-    return;
-
-  }
-
-
-  suggestions.innerHTML = "";
-
-
-  results.forEach(item => {
-
-    const div =
-      document.createElement("div");
-
-    div.className =
-      "suggestion";
-
-    div.innerHTML =
-      "🔍 " + item;
-
-
-    div.onclick =
-      function(){
-
-        searchInput.value =
-          item;
-
-        performSearch(item);
-
-      };
-
-
-    suggestions.appendChild(div);
-
-  });
-
-
-  suggestions.style.display =
-    "block";
+alert("Download history clear ho gayi");
 
 }
 
 
-function hideSuggestions(){
 
-  suggestions.style.display =
-    "none";
 
-}
+/* CLEAR EVERYTHING */
 
-
-/* ================================
-   QUICK SEARCH
-================================ */
-
-document
-  .querySelectorAll(".quick button")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      function(){
-
-        performSearch(
-          button.dataset.search
-        );
-
-      }
-    );
-
-  });
-
-
-/* ================================
-   HISTORY DISPLAY
-================================ */
-
-function showHistoryType(type){
-
-  currentHistoryType =
-    type;
-
-
-  document
-    .getElementById(
-      "searchHistoryTab"
-    )
-    .classList.toggle(
-      "active",
-      type === "search"
-    );
-
-
-  document
-    .getElementById(
-      "downloadHistoryTab"
-    )
-    .classList.toggle(
-      "active",
-      type === "download"
-    );
-
-
-  renderHistory();
-
-}
-
-
-function renderHistory(){
-
-  let data;
-
-
-  if(currentHistoryType === "search"){
-
-    data =
-      getData(SEARCH_KEY);
-
-  }else{
-
-    data =
-      getData(DOWNLOAD_KEY);
-
-  }
-
-
-  historyList.innerHTML = "";
-
-
-  if(!data.length){
-
-    historyList.innerHTML =
-      '<div class="empty">' +
-      (
-        currentHistoryType === "search"
-        ?
-        "🔎 Search history empty hai."
-        :
-        "📥 Download history empty hai."
-      ) +
-      "</div>";
-
-    return;
-
-  }
-
-
-  data.forEach(
-    (item,index) => {
-
-      const div =
-        document.createElement("div");
-
-      div.className =
-        "history-item";
-
-
-      const icon =
-        currentHistoryType === "search"
-        ? "🔎"
-        : "📥";
-
-
-      div.innerHTML =
-
-        "<span>" +
-        icon +
-        "</span>" +
-
-        '<div class="history-text">' +
-
-        "<strong>" +
-        escapeHTML(
-          item.text ||
-          item.name ||
-          "Unknown"
-        ) +
-        "</strong>" +
-
-        "<small>" +
-        escapeHTML(
-          item.time || ""
-        ) +
-        "</small>" +
-
-        "</div>" +
-
-        '<button class="delete-one" ' +
-        'title="Delete">✕</button>';
-
-
-      div
-        .querySelector(".delete-one")
-        .onclick =
-        function(){
-
-          deleteHistoryItem(
-            currentHistoryType,
-            index
-          );
-
-        };
-
-
-      historyList.appendChild(div);
-
-    }
-  );
-
-}
-
-
-function escapeHTML(text){
-
-  const div =
-    document.createElement("div");
-
-  div.textContent =
-    text;
-
-  return div.innerHTML;
-
-}
-
-
-/* ================================
-   DELETE ONE
-================================ */
-
-function deleteHistoryItem(
-  type,
-  index
-){
-
-  const key =
-    type === "search"
-    ? SEARCH_KEY
-    : DOWNLOAD_KEY;
-
-
-  const data =
-    getData(key);
-
-
-  data.splice(
-    index,
-    1
-  );
-
-
-  saveData(
-    key,
-    data
-  );
-
-
-  renderHistory();
-
-}
-
-
-/* ================================
-   CLEAR CURRENT
-================================ */
-
-function clearCurrentHistory(){
-
-  const name =
-    currentHistoryType === "search"
-    ? "Search History"
-    : "Download History";
-
-
-  if(
-    !confirm(
-      name +
-      " clear karni hai?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  const key =
-    currentHistoryType === "search"
-    ? SEARCH_KEY
-    : DOWNLOAD_KEY;
-
-
-  localStorage.removeItem(key);
-
-  renderHistory();
-
-}
-
-
-/* ================================
-   CLEAR EVERYTHING
-================================ */
 
 function clearEverything(){
 
-  const answer =
-    confirm(
-      "Search History, Download History aur Khojio ki saved settings ko clear karna hai?"
-    );
+localStorage.clear();
 
-
-  if(!answer){
-
-    return;
-
-  }
-
-
-  localStorage.removeItem(
-    SEARCH_KEY
-  );
-
-  localStorage.removeItem(
-    DOWNLOAD_KEY
-  );
-
-
-  alert(
-    "Khojio history data clear ho gaya."
-  );
-
-
-  renderHistory();
+alert(
+"KHOJIO ka sara saved data clear ho gaya"
+);
 
 }
 
 
-/* ================================
-   DOWNLOAD HISTORY API
-================================ */
-
-/*
-  Jab Khojio mein actual download feature
-  banega, kisi download ke baad ye function call karein:
-
-  addDownloadHistory("file.pdf");
-
-*/
-
-function addDownloadHistory(fileName){
-
-  let data =
-    getData(DOWNLOAD_KEY);
 
 
-  data.unshift({
-
-    text:fileName,
-
-    time:new Date().toLocaleString(
-      "hi-IN"
-    )
-
-  });
+/* DARK MODE */
 
 
-  data =
-    data.slice(0,100);
+function setDarkMode(){
 
-
-  saveData(
-    DOWNLOAD_KEY,
-    data
-  );
-
-}
-
-
-/* ================================
-   DARK MODE
-================================ */
-
-function setDarkMode(enabled){
-
-  document.body
-    .classList
-    .toggle(
-      "dark",
-      enabled
-    );
-
-
-  darkToggle
-    .classList
-    .toggle(
-      "active",
-      enabled
-    );
-
-
-  if(enabled){
-
-    localStorage.setItem(
-      DARK_KEY,
-      "true"
-    );
-
-  }else{
-
-    localStorage.removeItem(
-      DARK_KEY
-    );
-
-  }
-
-}
-
-
-darkToggle.addEventListener(
-  "click",
-  function(){
-
-    setDarkMode(
-      !document.body
-        .classList
-        .contains("dark")
-    );
-
-  }
+document.body.classList.toggle(
+"dark"
 );
 
 
 if(
-  localStorage.getItem(
-    DARK_KEY
-  ) === "true"
+document.body.classList.contains("dark")
 ){
 
-  setDarkMode(true);
+localStorage.setItem(
+DARK_KEY,
+"true"
+);
+
+}
+else{
+
+localStorage.removeItem(
+DARK_KEY
+);
 
 }
 
+}
 
-/* ================================
-   SAVE HISTORY TOGGLE
-================================ */
-
-historyToggle.addEventListener(
-  "click",
-  function(){
-
-    const currentlyOn =
-      localStorage.getItem(
-        SAVE_HISTORY_KEY
-      ) !== "false";
-
-
-    if(currentlyOn){
-
-      localStorage.setItem(
-        SAVE_HISTORY_KEY,
-        "false"
-      );
-
-      historyToggle
-        .classList
-        .remove("active");
-
-    }else{
-
-      localStorage.setItem(
-        SAVE_HISTORY_KEY,
-        "true"
-      );
-
-      historyToggle
-        .classList
-        .add("active");
-
-    }
-
-  }
-);
 
 
 if(
-  localStorage.getItem(
-    SAVE_HISTORY_KEY
-  ) === "false"
+localStorage.getItem(DARK_KEY)
 ){
 
-  historyToggle
-    .classList
-    .remove("active");
+document.body.classList.add("dark");
 
 }
 
 
-/* ================================
+
+/* SEARCH BUTTON */
+
+
+const input =
+document.querySelector(".search-box input");
+
+
+const searchButton =
+document.querySelector(".search-main");
+
+
+
+searchButton.onclick=function(){
+
+let text=input.value.trim();
+
+
+if(!text){
+return;
+}
+
+
+addSearchHistory(text);
+
+
+
+window.location.href =
+"https://www.google.com/search?q="
++
+encodeURIComponent(text);
+
+
+};
+
+
+
+/* ENTER SEARCH */
+
+
+input.addEventListener(
+"keydown",
+function(e){
+
+if(e.key==="Enter"){
+
+searchButton.click();
+
+}
+
+});
+
+
+
+</script>
+
+
+</body>
+  <script>
+
+/* =========================
    VOICE SEARCH
-================================ */
+========================= */
+
+
+const micButton =
+document.querySelector(".btn:nth-of-type(1)");
+
 
 const SpeechRecognition =
-  window.SpeechRecognition ||
-  window.webkitSpeechRecognition;
+window.SpeechRecognition ||
+window.webkitSpeechRecognition;
 
 
 if(SpeechRecognition){
 
-  const recognition =
-    new SpeechRecognition();
+
+const recognition =
+new SpeechRecognition();
 
 
-  recognition.lang =
-    "hi-IN";
+recognition.lang="hi-IN";
 
 
-  recognition.continuous =
-    false;
+recognition.continuous=false;
 
 
-  recognition.interimResults =
-    false;
+micButton.onclick=function(){
+
+recognition.start();
+
+micButton.innerHTML="🔴";
+
+};
 
 
-  micBtn.addEventListener(
-    "click",
-    function(){
 
-      voiceStatus
-        .classList
-        .add("show");
+recognition.onresult=function(event){
+
+let text =
+event.results[0][0].transcript;
 
 
-      voiceStatus.textContent =
-        "🎤 Sun raha hoon...";
+input.value=text;
 
 
-      try{
-
-        recognition.start();
-
-      }catch(e){
-
-        console.log(e);
-
-      }
-
-    }
-  );
+addSearchHistory(text);
 
 
-  recognition.onresult =
-    function(event){
-
-      const text =
-        event.results[0][0]
-        .transcript;
+micButton.innerHTML="🎙️";
 
 
-      searchInput.value =
-        text;
+};
 
 
-      clearSearch.style.display =
-        "block";
+
+recognition.onend=function(){
+
+micButton.innerHTML="🎙️";
+
+};
 
 
-      voiceStatus.textContent =
-        "✅ " + text;
-
-
-      setTimeout(
-        function(){
-
-          voiceStatus
-            .classList
-            .remove("show");
-
-          performSearch(text);
-
-        },
-        500
-      );
-
-    };
-
-
-  recognition.onerror =
-    function(){
-
-      voiceStatus.textContent =
-        "❌ Voice Search error";
-
-
-      setTimeout(
-        function(){
-
-          voiceStatus
-            .classList
-            .remove("show");
-
-        },
-        1500
-      );
-
-    };
-
-
-  recognition.onend =
-    function(){
-
-      setTimeout(
-        function(){
-
-          voiceStatus
-            .classList
-            .remove("show");
-
-        },
-        1000
-      );
-
-    };
-
-}else{
-
-  micBtn.addEventListener(
-    "click",
-    function(){
-
-      alert(
-        "Voice Search ke liye Chrome browser use karein."
-      );
-
-    }
-  );
 
 }
 
 
-/* ================================
-   OUTSIDE CLICK
-================================ */
-
-document.addEventListener(
-  "click",
-  function(e){
-
-    if(
-      !e.target.closest(
-        ".search-wrapper"
-      )
-    ){
-
-      hideSuggestions();
-
-    }
 
 
-    if(
-      !e.target.closest(
-        ".panel"
-      ) &&
-      !e.target.closest(
-        ".header-buttons"
-      )
-    ){
+/* =========================
+   IMAGE SEARCH
+========================= */
 
-      closePanels();
 
-    }
+const imageInput =
+document.querySelector(".image-upload");
 
-  }
+
+
+imageInput.addEventListener(
+"change",
+function(){
+
+let file=this.files[0];
+
+
+if(!file){
+return;
+}
+
+
+
+alert(
+"Image select ho gayi: "
++
+file.name
 );
 
 
-/* ================================
-   KEYBOARD
-================================ */
-
-document.addEventListener(
-  "keydown",
-  function(e){
-
-    if(
-      e.key === "/" &&
-      document.activeElement !==
-      searchInput
-    ){
-
-      e.preventDefault();
-
-      searchInput.focus();
-
-    }
+/*
+Future:
+Yaha AI image search API
+connect ki ja sakti hai.
+*/
 
 
-    if(e.key === "Escape"){
+});
 
-      hideSuggestions();
 
-      closePanels();
 
-    }
 
-  }
+
+/* =========================
+   AI SEARCH BUTTON
+========================= */
+
+
+const buttons =
+document.querySelectorAll(".btn");
+
+
+const aiButton =
+document.createElement("button");
+
+
+aiButton.className="btn";
+
+aiButton.innerHTML="✨";
+
+
+document.querySelector(".search-box")
+.insertBefore(
+aiButton,
+document.querySelector(".search-main")
 );
 
 
-/* ================================
-   INITIAL
-================================ */
 
-window.addEventListener(
-  "load",
-  function(){
+aiButton.onclick=function(){
 
-    searchInput.focus();
 
-  }
+let q=input.value.trim();
+
+
+if(!q){
+
+alert(
+"AI ke liye kuch search kare"
 );
+
+return;
+
+}
+
+
+
+addSearchHistory(q);
+
+
+
+alert(
+"Khojio AI processing: "
++
+q
+);
+
+
+
+/*
+Yaha server API connect hogi:
+
+fetch('/api/ai')
+
+*/
+
+};
+
+
+
+
+
+/* =========================
+   IMAGE PREVIEW
+========================= */
+
+
+imageInput.addEventListener(
+"change",
+function(e){
+
+
+let img=e.target.files[0];
+
+
+if(img){
+
+
+let url=
+URL.createObjectURL(img);
+
+
+
+console.log(
+"Selected Image:",
+url
+);
+
+
+}
+
+
+});
+
+
 
 </script>
-
-</body>
 </html>
