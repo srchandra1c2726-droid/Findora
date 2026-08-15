@@ -1083,7 +1083,123 @@ url
 
 
 
-</script>
+</script>/* IMAGE PREVIEW */
+
+
+const imageInput =
+document.querySelector(".image-upload");
+
+
+const preview =
+document.getElementById("imagePreview");
+
+
+const previewImg =
+document.getElementById("previewImg");
+
+
+
+imageInput.addEventListener(
+"change",
+function(){
+
+let file=this.files[0];
+
+
+if(file){
+
+let url=
+URL.createObjectURL(file);
+
+
+previewImg.src=url;
+
+
+preview.style.display="block";
+
+}
+
+
+});
+
+
+
+function closePreview(){
+
+preview.style.display="none";
+
+}
+
+
+
+
+/* AI LOADING */
+
+
+function showAILoading(){
+
+document
+.getElementById("aiLoading")
+.classList.add("show");
+
+
+}
+
+
+
+function hideAILoading(){
+
+document
+.getElementById("aiLoading")
+.classList.remove("show");
+
+
+}
+
+
+
+
+/* AI SEARCH EFFECT */
+
+
+aiButton.onclick=function(){
+
+
+let text=input.value.trim();
+
+
+if(!text){
+
+return;
+
+}
+
+
+
+showAILoading();
+
+
+
+setTimeout(
+function(){
+
+hideAILoading();
+
+
+alert(
+"KHOJIO AI Result Ready: "
++text
+);
+
+
+},
+2000
+);
+
+
+
+};
+
   <div class="ai-loading" id="aiLoading">
 
 ✨ Khojio AI soch raha hai
