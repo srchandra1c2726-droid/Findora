@@ -7,6 +7,151 @@
 <title>Khojio.in - AI Search Engine</title>
 
 <style>
+  /* AI FINAL EFFECT */
+
+.logo,
+.hero-logo{
+animation:pulseLogo 3s infinite;
+}
+
+
+@keyframes pulseLogo{
+
+0%{
+box-shadow:0 0 15px #2563eb;
+}
+
+50%{
+box-shadow:0 0 45px #9333ea;
+}
+
+100%{
+box-shadow:0 0 15px #2563eb;
+}
+
+}
+
+
+
+.search-box:focus-within{
+
+transform:scale(1.02);
+
+box-shadow:
+0 0 40px #2563eb55;
+
+transition:.3s;
+
+}
+
+
+
+.card{
+
+cursor:pointer;
+
+}
+
+
+.card:hover .card-icon{
+
+transform:scale(1.2) rotate(5deg);
+
+transition:.3s;
+
+}
+
+
+
+/* AI LOADING */
+
+.ai-loading{
+
+display:none;
+
+position:fixed;
+
+bottom:30px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+background:#111827;
+
+padding:15px 25px;
+
+border-radius:30px;
+
+border:1px solid #ffffff30;
+
+box-shadow:0 0 30px #2563eb;
+
+}
+
+
+.ai-loading.show{
+
+display:block;
+
+}
+
+
+
+.dot{
+
+animation:blink 1s infinite;
+
+}
+
+
+@keyframes blink{
+
+50%{
+
+opacity:.2;
+
+}
+
+}
+
+
+
+
+/* IMAGE PREVIEW */
+
+
+.image-preview{
+
+display:none;
+
+position:fixed;
+
+top:50%;
+
+left:50%;
+
+transform:translate(-50%,-50%);
+
+background:#111827;
+
+padding:20px;
+
+border-radius:20px;
+
+z-index:100;
+
+}
+
+
+.image-preview img{
+
+max-width:300px;
+
+border-radius:15px;
+
+}
+
 
 *{
 margin:0;
@@ -939,4 +1084,24 @@ url
 
 
 </script>
+  <div class="ai-loading" id="aiLoading">
+
+✨ Khojio AI soch raha hai
+<span class="dot">...</span>
+
+</div>
+
+
+
+<div class="image-preview" id="imagePreview">
+
+<img id="previewImg">
+
+<br><br>
+
+<button onclick="closePreview()">
+Close
+</button>
+
+</div>
 </html>
