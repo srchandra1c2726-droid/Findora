@@ -8,7 +8,6 @@
 <title>Khojio.in - AI Search Engine</title>
 
 <style>
-  <input hidden type="file" id="imageInput">
 
 *{
 margin:0;
@@ -20,7 +19,7 @@ font-family:Arial,sans-serif;
 body{
 min-height:100vh;
 background:
-radial-gradient(circle at top,#2563eb55,transparent 35%),
+radial-gradient(circle at top,#2563eb55,transparent 40%),
 linear-gradient(135deg,#020617,#111827);
 color:white;
 }
@@ -33,10 +32,12 @@ header{
 height:75px;
 display:flex;
 align-items:center;
-padding:0 30px;
+padding:0 25px;
+
+background:#ffffff08;
+backdrop-filter:blur(15px);
 
 border-bottom:1px solid #ffffff20;
-backdrop-filter:blur(15px);
 
 }
 
@@ -51,6 +52,7 @@ font-size:24px;
 font-weight:bold;
 
 }
+
 
 
 .logo{
@@ -68,7 +70,6 @@ background:
 linear-gradient(135deg,#2563eb,#9333ea);
 
 font-size:28px;
-font-weight:bold;
 
 box-shadow:
 0 0 30px #2563eb;
@@ -78,11 +79,14 @@ animation:glow 3s infinite;
 }
 
 
+
 @keyframes glow{
 
 50%{
+
 box-shadow:
-0 0 50px #9333ea;
+0 0 55px #9333ea;
+
 }
 
 }
@@ -91,9 +95,10 @@ box-shadow:
 
 /* MAIN */
 
+
 main{
 
-max-width:900px;
+max-width:950px;
 margin:auto;
 
 padding:70px 20px;
@@ -101,6 +106,7 @@ padding:70px 20px;
 text-align:center;
 
 }
+
 
 
 .hero-logo{
@@ -123,7 +129,7 @@ background:
 linear-gradient(135deg,#2563eb,#9333ea);
 
 box-shadow:
-0 0 45px #2563eb;
+0 0 50px #2563eb;
 
 }
 
@@ -131,9 +137,9 @@ box-shadow:
 
 h1{
 
-margin-top:25px;
-
 font-size:45px;
+
+margin-top:25px;
 
 background:
 linear-gradient(90deg,#60a5fa,#c084fc);
@@ -145,25 +151,26 @@ color:transparent;
 }
 
 
-
-p{
-
-color:#cbd5e1;
+.subtitle{
 
 margin-top:10px;
+
+color:#cbd5e1;
 
 }
 
 
+
 /* SEARCH */
+
 
 .search-box{
 
 margin:40px auto;
 
-height:70px;
+max-width:800px;
 
-max-width:750px;
+height:70px;
 
 display:flex;
 
@@ -186,6 +193,8 @@ backdrop-filter:blur(20px);
 .search-box input{
 
 flex:1;
+
+height:100%;
 
 background:none;
 
@@ -231,14 +240,15 @@ transition:.3s;
 
 .btn:hover{
 
-background:#2563eb;
-
 transform:scale(1.1);
+
+background:#2563eb;
 
 }
 
 
-.main-btn{
+
+.ai-btn{
 
 background:
 linear-gradient(135deg,#2563eb,#9333ea);
@@ -246,7 +256,9 @@ linear-gradient(135deg,#2563eb,#9333ea);
 }
 
 
+
 /* CARDS */
+
 
 .cards{
 
@@ -261,7 +273,6 @@ gap:20px;
 }
 
 
-
 .card{
 
 padding:25px;
@@ -274,18 +285,17 @@ border:1px solid #ffffff20;
 
 backdrop-filter:blur(15px);
 
-transition:.3s;
-
 }
 
 
 
 .card:hover{
 
-transform:translateY(-10px);
+transform:translateY(-8px);
 
-box-shadow:
-0 20px 40px #0008;
+transition:.3s;
+
+box-shadow:0 20px 40px #0008;
 
 }
 
@@ -296,76 +306,6 @@ box-shadow:
 font-size:35px;
 
 margin-bottom:15px;
-
-}
-
-
-
-/* IMAGE PREVIEW */
-
-.image-preview{
-
-display:none;
-
-position:fixed;
-
-top:50%;
-left:50%;
-
-transform:translate(-50%,-50%);
-
-background:#111827;
-
-padding:20px;
-
-border-radius:20px;
-
-z-index:99;
-
-}
-
-
-
-.image-preview img{
-
-max-width:300px;
-
-border-radius:15px;
-
-}
-
-
-
-/* AI LOADING */
-
-.ai-loading{
-
-display:none;
-
-position:fixed;
-
-bottom:30px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-background:#111827;
-
-padding:15px 25px;
-
-border-radius:30px;
-
-box-shadow:
-0 0 30px #2563eb;
-
-}
-
-
-
-.ai-loading.show{
-
-display:block;
 
 }
 
@@ -412,7 +352,6 @@ Khojio.in
 </header>
 
 
-
 <main>
 
 
@@ -426,7 +365,7 @@ Khojio.in
 </h1>
 
 
-<p>
+<p class="subtitle">
 Khojo. Jaano. Aage Badho.
 </p>
 
@@ -440,9 +379,11 @@ Khojo. Jaano. Aage Badho.
 </span>
 
 
-<input id="searchInput"
+<input 
+id="searchInput"
 placeholder="Kuch bhi khojiye..."
 >
+
 
 
 <button class="btn" id="micBtn">
@@ -450,21 +391,29 @@ placeholder="Kuch bhi khojiye..."
 </button>
 
 
-
 <label class="btn">
 
 🖼️
 
-<input hidden type="file" id="imageInput">
+<input 
+id="imageInput"
+type="file"
+hidden
+>
 
 </label>
 
 
 
-<button class="btn main-btn" id="searchBtn">
-➜
+<button class="btn ai-btn" id="aiBtn">
+✨
 </button>
 
+
+
+<button class="btn" id="searchBtn">
+➜
+</button>
 
 
 </div>
@@ -481,7 +430,7 @@ placeholder="Kuch bhi khojiye..."
 </div>
 
 <h3>
-Fast AI Search
+Fast Search
 </h3>
 
 <p>
@@ -489,6 +438,7 @@ Smart aur fast search.
 </p>
 
 </div>
+
 
 
 <div class="card">
@@ -502,10 +452,11 @@ Voice Search
 </h3>
 
 <p>
-Bolkar khojiye.
+Bolkar search kare.
 </p>
 
 </div>
+
 
 
 <div class="card">
@@ -515,51 +466,18 @@ Bolkar khojiye.
 </div>
 
 <h3>
-Privacy
+Security
 </h3>
 
 <p>
-Safe search experience.
+Safe browsing system.
 </p>
 
 </div>
 
 
 </section>
-
-
-</main>
-
-
-
-<div class="ai-loading" id="loading">
-
-✨ Khojio AI soch raha hai...
-
-</div>
-
-
-
-<div class="image-preview" id="preview">
-
-<img id="previewImage">
-
-<br><br>
-
-<button class="btn" onclick="closePreview()">
-✖
-</button>
-
-</div>
-
-
-
-<footer style="text-align:center;padding:20px;color:#94a3b8">
-
-© 2026 Khojio.in
-
-</footer>
-<script>
+  <script>
 
 
 // ELEMENTS
@@ -570,54 +488,54 @@ const searchBtn = document.getElementById("searchBtn");
 
 const micBtn = document.getElementById("micBtn");
 
+const aiBtn = document.getElementById("aiBtn");
+
 const imageInput = document.getElementById("imageInput");
 
-const preview = document.getElementById("preview");
-
-const previewImage = document.getElementById("previewImage");
-
-const loading = document.getElementById("loading");
 
 
 
-// HISTORY
+// SEARCH HISTORY
 
 function saveHistory(text){
 
-let history =
-JSON.parse(localStorage.getItem("khojio_history"))
-|| [];
+let data =
+JSON.parse(
+localStorage.getItem("khojio_history")
+) || [];
 
 
-history.unshift({
+data.unshift({
 
-search:text,
+text:text,
 
 time:new Date().toLocaleString()
 
 });
 
 
-history = history.slice(0,50);
+data=data.slice(0,50);
 
 
 localStorage.setItem(
 "khojio_history",
-JSON.stringify(history)
+JSON.stringify(data)
 );
+
 
 }
 
 
 
-// SEARCH
 
-function search(){
+// SEARCH FUNCTION
+
+searchBtn.onclick=function(){
 
 let text=input.value.trim();
 
 
-if(!text){
+if(text===""){
 
 alert("Kuch search kare");
 
@@ -629,48 +547,31 @@ return;
 saveHistory(text);
 
 
-loading.classList.add("show");
-
-
-
-setTimeout(()=>{
-
-
-loading.classList.remove("show");
-
-
-// abhi demo search
-
 window.open(
 "https://www.google.com/search?q="
-+encodeURIComponent(text),
++
+encodeURIComponent(text),
 "_blank"
 );
 
 
-},1500);
-
-
-
-}
-
-
-
-searchBtn.onclick=search;
+};
 
 
 
 input.addEventListener(
 "keydown",
-(e)=>{
+function(e){
 
 if(e.key==="Enter"){
 
-search();
+searchBtn.click();
 
 }
 
 });
+
+
 
 
 
@@ -683,7 +584,6 @@ window.SpeechRecognition ||
 window.webkitSpeechRecognition;
 
 
-
 if(SpeechRecognition){
 
 
@@ -694,27 +594,28 @@ new SpeechRecognition();
 recognition.lang="hi-IN";
 
 
-micBtn.onclick=()=>{
+recognition.continuous=false;
 
+
+
+micBtn.onclick=function(){
 
 micBtn.innerHTML="🔴";
 
-
 recognition.start();
-
 
 };
 
 
 
-recognition.onresult=(event)=>{
+recognition.onresult=function(event){
 
 
-let text =
+let voiceText =
 event.results[0][0].transcript;
 
 
-input.value=text;
+input.value=voiceText;
 
 
 micBtn.innerHTML="🎤";
@@ -723,20 +624,20 @@ micBtn.innerHTML="🎤";
 };
 
 
-recognition.onend=()=>{
 
+recognition.onend=function(){
 
 micBtn.innerHTML="🎤";
 
-
 };
+
 
 
 }
 else{
 
 
-micBtn.onclick=()=>{
+micBtn.onclick=function(){
 
 alert(
 "Browser voice support nahi karta"
@@ -749,6 +650,10 @@ alert(
 
 
 
+
+
+
+
 // IMAGE PREVIEW
 
 
@@ -758,19 +663,52 @@ imageInput.onchange=function(){
 let file=this.files[0];
 
 
-if(!file)
+if(!file){
+
 return;
 
+}
 
 
-let url =
+
+let imgURL =
 URL.createObjectURL(file);
 
 
-previewImage.src=url;
+
+let box =
+document.createElement("div");
 
 
-preview.style.display="block";
+box.style.position="fixed";
+box.style.top="50%";
+box.style.left="50%";
+box.style.transform="translate(-50%,-50%)";
+box.style.background="#111827";
+box.style.padding="20px";
+box.style.borderRadius="20px";
+box.style.zIndex="999";
+
+
+box.innerHTML=`
+
+<img src="${imgURL}" 
+style="max-width:300px;border-radius:15px">
+
+<br><br>
+
+<button onclick="this.parentElement.remove()"
+style="padding:10px;border-radius:10px">
+
+Close
+
+</button>
+
+`;
+
+
+document.body.appendChild(box);
+
 
 
 };
@@ -778,192 +716,257 @@ preview.style.display="block";
 
 
 
-// CLOSE IMAGE
+
+// AI BUTTON DEMO
 
 
-function closePreview(){
+aiBtn.onclick=function(){
 
 
-preview.style.display="none";
+let text=input.value.trim();
 
+
+
+if(!text){
+
+alert(
+"AI ke liye kuch likho"
+);
+
+return;
 
 }
 
 
 
+alert(
 
-// AI BUTTON ADD
+"KHOJIO AI Processing:\n\n"
++
+text
 
-
-let aiBtn =
-document.createElement("button");
-
-
-aiBtn.className="btn";
-
-
-aiBtn.innerHTML="✨";
-
-
-document.querySelector(".search-box")
-.insertBefore(
-aiBtn,
-searchBtn
 );
 
 
 
-aiBtn.onclick=()=>{
+};
 
 
-aiBtn.onclick = async ()=>{
 
-let text = input.value.trim();
+</script>
+  <script>
 
-if(!text){
-alert("AI ke liye kuch likho");
+
+// DARK MODE
+
+function toggleDark(){
+
+document.body.classList.toggle("light");
+
+
+localStorage.setItem(
+"khojio_theme",
+document.body.className
+);
+
+
+}
+
+
+
+
+// LOAD THEME
+
+if(
+localStorage.getItem("khojio_theme")
+){
+
+document.body.className =
+localStorage.getItem("khojio_theme");
+
+}
+
+
+
+
+
+// SHOW HISTORY
+
+function showHistory(){
+
+
+let data =
+JSON.parse(
+localStorage.getItem("khojio_history")
+) || [];
+
+
+
+if(data.length===0){
+
+alert("History empty hai");
+
 return;
+
 }
 
 
-loading.classList.add("show");
+
+let text="Khojio History:\n\n";
 
 
-try{
+data.forEach((item,index)=>{
 
-let response = await fetch(
-"https://api.openai.com/v1/chat/completions",
-{
-method:"POST",
-
-headers:{
-"Content-Type":"application/json",
-
-"Authorization":"Bearer YOUR_API_KEY"
-},
-
-body:JSON.stringify({
-
-model:"gpt-4.1-mini",
-
-messages:[
-{
-role:"user",
-content:text
-}
-]
-
-})
+text +=
+(index+1)+
+". "+
+item.text+
+"\n"+
+item.time+
+"\n\n";
 
 });
 
 
-let data = await response.json();
+alert(text);
 
 
-loading.classList.remove("show");
+}
+
+
+
+
+
+// CLEAR HISTORY
+
+
+function clearHistory(){
+
+localStorage.removeItem(
+"khojio_history"
+);
 
 
 alert(
-data.choices[0].message.content
+"History clear ho gayi"
 );
 
 
 }
 
-catch(error){
 
-loading.classList.remove("show");
+
+
+
+// DOWNLOAD HISTORY
+
+
+function saveDownload(name){
+
+
+let data =
+JSON.parse(
+localStorage.getItem("khojio_download")
+) || [];
+
+
+
+data.unshift({
+
+file:name,
+
+time:new Date().toLocaleString()
+
+});
+
+
+
+localStorage.setItem(
+"khojio_download",
+JSON.stringify(data)
+);
+
+
+}
+
+
+
+
+
+// SECURITY URL SCAN
+
+
+function scanURL(url){
+
+
+if(!url){
 
 alert(
-"AI connection error"
+"URL dalo"
+);
+
+return;
+
+}
+
+
+
+if(
+url.startsWith("https://")
+){
+
+alert(
+"✅ URL Safe lag raha hai"
 );
 
 }
 
-
-};
-
-
-
-</script>// MIC VOICE SEARCH FIX
-
-const micBtn = document.getElementById("micBtn");
-const input = document.getElementById("searchInput");
-
-
-const SpeechRecognition =
-window.SpeechRecognition ||
-window.webkitSpeechRecognition;
-
-
-if(SpeechRecognition){
-
-const recognition = new SpeechRecognition();
-
-
-recognition.lang = "hi-IN";
-
-recognition.interimResults = false;
-
-recognition.continuous = false;
-
-
-
-micBtn.onclick = ()=>{
-
-micBtn.innerHTML="🔴";
-
-recognition.start();
-
-};
-
-
-
-recognition.onresult = (event)=>{
-
-let voiceText =
-event.results[0][0].transcript;
-
-
-input.value = voiceText;
-
-
-micBtn.innerHTML="🎤";
-
-
-};
-
-
-
-recognition.onerror = ()=>{
-
-micBtn.innerHTML="🎤";
-
-alert("Mic permission allow karo");
-
-};
-
-
-
-recognition.onend = ()=>{
-
-micBtn.innerHTML="🎤";
-
-};
-
-
-}
 else{
 
-micBtn.onclick=()=>{
-
 alert(
-"Is browser me voice support nahi hai"
+"⚠️ HTTP URL hai, savdhan rahe"
 );
 
-};
+}
+
+
 
 }
+
+
+
+
+
+// AI API PLACE
+
+
+async function khojioAI(question){
+
+
+/*
+
+Yaha future me AI API connect hogi.
+
+Example:
+
+fetch("YOUR_SERVER_URL")
+
+*/
+
+
+return "AI response yaha aayega";
+
+
+}
+
+
+
+
+</script>
+
+
 </body>
 </html>
+
+
+</main>
