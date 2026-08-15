@@ -816,40 +816,70 @@ searchBtn
 aiBtn.onclick=()=>{
 
 
-let text=input.value.trim();
+aiBtn.onclick = async ()=>{
 
+let text = input.value.trim();
 
 if(!text){
-
-alert(
-"AI ke liye search likhe"
-);
-
+alert("AI ke liye kuch likho");
 return;
-
 }
-
 
 
 loading.classList.add("show");
 
 
+try{
 
-setTimeout(()=>{
+let response = await fetch(
+"https://api.openai.com/v1/chat/completions",
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json",
+
+"Authorization":"Bearer YOUR_API_KEY"
+},
+
+body:JSON.stringify({
+
+model:"gpt-4.1-mini",
+
+messages:[
+{
+role:"user",
+content:text
+}
+]
+
+})
+
+});
+
+
+let data = await response.json();
 
 
 loading.classList.remove("show");
 
 
 alert(
-"KHOJIO AI Result Ready:\n\n"
-+text
+data.choices[0].message.content
 );
 
 
+}
 
-},2000);
+catch(error){
 
+loading.classList.remove("show");
+
+alert(
+"AI connection error"
+);
+
+}
 
 
 };
